@@ -14,6 +14,8 @@ const BlogPost = lazy(() => import('./pages/BlogPost'))
 const Contact = lazy(() => import('./pages/Contact'))
 const AIDemos = lazy(() => import('./pages/AIDemos'))
 const ArchitectureHub = lazy(() => import('./pages/ArchitectureHub'))
+const Services = lazy(() => import('./pages/Services'))
+const BusinessIntelligence = lazy(() => import('./pages/BusinessIntelligence'))
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="/blog/tag/:tag" element={<Blog />} />
             <Route path="/ai-demos" element={<AIDemos />} />
             <Route path="/architecture" element={<ArchitectureHub />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/business-intelligence" element={<BusinessIntelligence />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </Suspense>
