@@ -12,12 +12,8 @@ const TechnicalLeadership = lazy(() => import('./pages/TechnicalLeadership'))
 const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
 const Contact = lazy(() => import('./pages/Contact'))
-const Services = lazy(() => import('./pages/Services'))
-const ClientOnboardingPage = lazy(() => import('./pages/ClientOnboardingPage'))
-const Testimonials = lazy(() => import('./pages/Testimonials'))
 const AIDemos = lazy(() => import('./pages/AIDemos'))
 const ArchitectureHub = lazy(() => import('./pages/ArchitectureHub'))
-const BusinessIntelligence = lazy(() => import('./pages/BusinessIntelligence'))
 
 function App() {
   return (
@@ -27,9 +23,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/services/onboarding" element={<ClientOnboardingPage />} />
-            <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/leadership" element={<TechnicalLeadership />} />
@@ -39,7 +32,6 @@ function App() {
             <Route path="/blog/tag/:tag" element={<Blog />} />
             <Route path="/ai-demos" element={<AIDemos />} />
             <Route path="/architecture" element={<ArchitectureHub />} />
-            <Route path="/business-intelligence" element={<BusinessIntelligence />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </Suspense>
