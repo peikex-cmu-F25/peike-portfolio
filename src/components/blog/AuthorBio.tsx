@@ -53,7 +53,7 @@ const AuthorBio: React.FC<AuthorBioProps> = ({ author }) => {
           {/* Social Links / Contact - Could be extended in the future */}
           <div className="flex items-center gap-4 text-sm">
             <a
-              href="/contact"
+              href="/peike-portfolio/contact"
               className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@ const AuthorBio: React.FC<AuthorBioProps> = ({ author }) => {
               Get in touch
             </a>
             <a
-              href="/projects"
+              href="/peike-portfolio/projects"
               className="flex items-center gap-2 text-secondary-600 hover:text-primary-600 font-medium transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

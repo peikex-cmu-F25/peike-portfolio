@@ -112,7 +112,7 @@ const Home: React.FC = () => {
             className="text-center mt-12"
           >
             <motion.a 
-              href="/about" 
+              href="/peike-portfolio/about" 
               className="btn-secondary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -395,7 +395,7 @@ const Home: React.FC = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <motion.a 
-                href="/contact" 
+                href="/peike-portfolio/contact" 
                 className="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
                 whileTap={{ scale: 0.95 }}

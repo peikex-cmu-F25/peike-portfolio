@@ -52,17 +52,17 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="/about" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <a href="/peike-portfolio/about" className="text-secondary-300 hover:text-white transition-colors duration-200">
                   About
                 </a>
               </li>
               <li>
-                <a href="/projects" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <a href="/peike-portfolio/projects" className="text-secondary-300 hover:text-white transition-colors duration-200">
                   Projects
                 </a>
               </li>
               <li>
-                <a href="/contact" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <a href="/peike-portfolio/contact" className="text-secondary-300 hover:text-white transition-colors duration-200">
                   Contact
                 </a>
               </li>

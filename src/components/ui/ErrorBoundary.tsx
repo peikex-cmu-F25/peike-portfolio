@@ -51,7 +51,7 @@ class ErrorBoundary extends Component<Props, State> {
               >
                 Refresh Page
               </button>
-              <a href="/" className="btn-secondary">
+              <a href="/peike-portfolio/" className="btn-secondary">
                 Go Home
               </a>
             </div>

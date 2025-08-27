@@ -197,6 +197,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                   {stat.label}
                 </div>
               </motion.div>
+              
             ))}
           </motion.div>
         </motion.div>
