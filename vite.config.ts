@@ -18,7 +18,7 @@ export default defineConfig({
       rehypePlugins: [rehypeSlug, rehypeKatex, rehypeHighlight],
     }),
   ],
-  base: '/peike-portfolio/',
+  base: '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
