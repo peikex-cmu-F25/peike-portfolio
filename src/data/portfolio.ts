@@ -20,6 +20,93 @@ export interface ProjectData {
   year: number;
 }
 
+export interface CaseStudyData {
+  id: string;
+  title: string;
+  client: string;
+  industry: string;
+  category: 'AI Transformation' | 'System Optimization' | 'Digital Innovation' | 'Process Automation';
+  challenge: string;
+  solution: string;
+  implementation: {
+    phase: string;
+    duration: string;
+    keyActions: string[];
+  }[];
+  businessMetrics: {
+    label: string;
+    before: string;
+    after: string;
+    improvement: string;
+  }[];
+  technicalMetrics: {
+    label: string;
+    value: string;
+    impact: string;
+  }[];
+  technologies: string[];
+  teamSize: string;
+  duration: string;
+  roiAnalysis: {
+    investment: string;
+    annualSavings: string;
+    roiPercentage: string;
+    paybackPeriod: string;
+  };
+  lessonsLearned: string[];
+  recommendations: string[];
+  testimonial?: {
+    quote: string;
+    author: string;
+    role: string;
+  };
+  image: string;
+  featured: boolean;
+  confidential: boolean;
+}
+
+export interface TechnicalLeadershipData {
+  id: string;
+  type: 'speaking' | 'publication' | 'open_source' | 'mentorship' | 'community' | 'awards';
+  title: string;
+  organization: string;
+  date: string;
+  description: string;
+  impact: {
+    metric: string;
+    value: string;
+  }[];
+  technologies?: string[];
+  links: {
+    type: 'github' | 'slides' | 'video' | 'article' | 'website' | 'certificate';
+    url: string;
+    label: string;
+  }[];
+  featured: boolean;
+  imageUrl?: string;
+}
+
+export interface OpenSourceContribution {
+  id: string;
+  projectName: string;
+  description: string;
+  role: 'Maintainer' | 'Core Contributor' | 'Regular Contributor';
+  technologies: string[];
+  contributions: {
+    type: 'Feature' | 'Bug Fix' | 'Documentation' | 'Performance' | 'Security';
+    description: string;
+    impact: string;
+  }[];
+  metrics: {
+    stars: number;
+    forks: number;
+    contributors: number;
+    downloads?: string;
+  };
+  githubUrl: string;
+  featured: boolean;
+}
+
 export interface ExperienceData {
   id: string;
   company: string;
@@ -46,6 +133,23 @@ export interface SkillCategory {
   skills: string[];
   proficiency: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   description?: string;
+}
+
+export interface BlogArticle {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: 'AI/ML' | 'System Design' | 'Full Stack' | 'Performance';
+  description: string;
+  author: string;
+  publishDate: string;
+  readTime: string;
+  tags: string[];
+  image: string;
+  featured: boolean;
+  slug: string;
+  excerpt: string;
+  content?: string; // MDX content will be loaded dynamically
 }
 
 // Personal Information
@@ -280,12 +384,551 @@ export const skillsMessaging = {
   continuous_learning: "Commitment to staying current with emerging technologies while deepening expertise in core competencies"
 };
 
+// Blog Articles Data
+export const blogArticles: BlogArticle[] = [
+  {
+    id: "scalable-rag-systems",
+    title: "Building Scalable RAG Systems: From Prototype to Production",
+    subtitle: "Architectural decisions and performance optimizations for enterprise-grade retrieval-augmented generation",
+    category: "AI/ML",
+    description: "A comprehensive guide to designing and implementing production-ready RAG systems that scale to enterprise requirements",
+    author: "Peike Xu",
+    publishDate: "2024-08-15",
+    readTime: "12 min",
+    tags: ["RAG", "AWS", "Vector Search", "OpenSearch", "Enterprise AI", "System Architecture"],
+    image: "/images/blog/rag-systems.jpg",
+    featured: true,
+    slug: "building-scalable-rag-systems",
+    excerpt: "Learn how to architect RAG systems that handle 100+ documents with 92% accuracy and sub-200ms response times. From semantic chunking strategies to vector indexing optimizations, discover the architectural patterns that make enterprise RAG systems production-ready."
+  },
+  {
+    id: "svd-patient-matching",
+    title: "SVD in Production: Lessons from Patient Matching at Scale",
+    subtitle: "Implementing collaborative filtering for healthcare applications with real-world performance insights",
+    category: "AI/ML",
+    description: "Deep dive into implementing SVD-based collaborative filtering for patient matching systems serving 3000+ users",
+    author: "Peike Xu", 
+    publishDate: "2024-07-20",
+    readTime: "10 min",
+    tags: ["SVD", "Collaborative Filtering", "Healthcare", "Machine Learning", "React", "Performance"],
+    image: "/images/blog/svd-healthcare.jpg",
+    featured: true,
+    slug: "svd-patient-matching-production",
+    excerpt: "Discover how SVD collaborative filtering achieved 75% recommendation accuracy in healthcare patient matching, reducing manual allocation by 60%. Explore mathematical foundations, implementation challenges, and performance optimization strategies."
+  },
+  {
+    id: "computer-vision-receipt-processing",
+    title: "Computer Vision in the Wild: Receipt Processing Pipeline Design",
+    subtitle: "Building robust OCR systems that handle real-world receipt variations with high accuracy",
+    category: "AI/ML",
+    description: "End-to-end machine learning pipeline for processing diverse receipt formats with computer vision and OCR",
+    author: "Peike Xu",
+    publishDate: "2024-06-10", 
+    readTime: "15 min",
+    tags: ["Computer Vision", "OCR", "Multi-Agent Systems", "ML Pipeline", "Food Tech", "Claude API"],
+    image: "/images/blog/receipt-processing.jpg",
+    featured: true,
+    slug: "computer-vision-receipt-processing",
+    excerpt: "Build production-ready receipt processing systems achieving 82% accuracy across diverse supermarket formats. Learn about training robust computer vision models, handling edge cases, and designing multi-agent architectures for complex document processing."
+  },
+  {
+    id: "ecommerce-recommendation-systems",
+    title: "E-commerce Recommendation Systems: Beyond the Algorithm",
+    subtitle: "System design, scalability, and business impact measurement for recommendation engines",
+    category: "System Design",
+    description: "Comprehensive guide to building scalable e-commerce recommendation systems that drive business value",
+    author: "Peike Xu",
+    publishDate: "2024-05-25",
+    readTime: "14 min", 
+    tags: ["Recommendation Systems", "E-commerce", "System Design", "Redis", "Spring Boot", "A/B Testing"],
+    image: "/images/blog/ecommerce-recommendations.jpg",
+    featured: false,
+    slug: "ecommerce-recommendation-systems",
+    excerpt: "Go beyond basic collaborative filtering to build recommendation systems that improve user engagement by 25%. Explore caching strategies, real-time processing, A/B testing frameworks, and measuring business impact in production e-commerce environments."
+  }
+];
+
+// Enterprise Case Studies Data
+export const caseStudies: CaseStudyData[] = [
+  {
+    id: "healthcare-ai-transformation",
+    title: "Healthcare AI Platform: Digital Transformation at Scale",
+    client: "Regional Healthcare Network",
+    industry: "Healthcare Technology",
+    category: "AI Transformation",
+    challenge: "Healthcare organization with 3,000+ patients struggling with manual resource allocation, fragmented communication systems, and inefficient care coordination. Patient matching took 2+ hours per case, communication delays caused care gaps, and manual processes consumed 60% of staff time.",
+    solution: "Led comprehensive AI transformation initiative implementing intelligent patient matching, automated communication systems, and machine learning-powered care optimization. Designed end-to-end solution architecture integrating React frontend, Node.js microservices, and advanced SVD collaborative filtering algorithms.",
+    implementation: [
+      {
+        phase: "Discovery & Strategy",
+        duration: "2 weeks",
+        keyActions: [
+          "Conducted stakeholder interviews with 15+ healthcare professionals",
+          "Analyzed existing workflows and identified 8 critical pain points",
+          "Designed technical architecture roadmap with 3-phase implementation",
+          "Established success metrics and ROI tracking framework"
+        ]
+      },
+      {
+        phase: "Core Platform Development",
+        duration: "8 weeks", 
+        keyActions: [
+          "Built React-based intelligent matching system with SVD algorithms",
+          "Developed Node.js RESTful APIs with real-time notification capabilities",
+          "Implemented SendGrid integration for automated communication workflows",
+          "Created comprehensive testing framework achieving 95% code coverage"
+        ]
+      },
+      {
+        phase: "Integration & Optimization",
+        duration: "4 weeks",
+        keyActions: [
+          "Deployed scalable infrastructure supporting 1,000+ concurrent sessions",
+          "Integrated with existing EHR systems and compliance frameworks",
+          "Conducted user training and change management for 50+ staff members",
+          "Implemented monitoring and alerting systems for 99.9% uptime"
+        ]
+      }
+    ],
+    businessMetrics: [
+      { label: "Patient Matching Time", before: "2+ hours", after: "15 minutes", improvement: "87% reduction" },
+      { label: "Manual Process Efficiency", before: "60% staff time", after: "24% staff time", improvement: "60% improvement" },
+      { label: "Care Coordination Speed", before: "4-6 hours", after: "30 minutes", improvement: "90% faster" },
+      { label: "System Reliability", before: "85% uptime", after: "99.9% uptime", improvement: "17% increase" }
+    ],
+    technicalMetrics: [
+      { label: "Recommendation Accuracy", value: "75%", impact: "Reduced manual review requirements by 60%" },
+      { label: "System Response Time", value: "<200ms", impact: "Improved user experience and workflow efficiency" },
+      { label: "Concurrent User Support", value: "1,000+", impact: "Scalable platform supporting organization growth" },
+      { label: "Code Coverage", value: "95%", impact: "Enterprise-grade reliability and maintainability" }
+    ],
+    technologies: ["React", "Node.js", "SVD Algorithms", "SendGrid API", "PostgreSQL", "AWS", "Jest", "CI/CD"],
+    teamSize: "3 developers + 2 domain experts",
+    duration: "14 weeks",
+    roiAnalysis: {
+      investment: "$180,000",
+      annualSavings: "$450,000",
+      roiPercentage: "250%",
+      paybackPeriod: "4.8 months"
+    },
+    lessonsLearned: [
+      "Healthcare domain expertise is critical for successful AI implementation",
+      "Change management and user training are as important as technical excellence",
+      "Iterative development with continuous stakeholder feedback accelerates adoption",
+      "Compliance and security considerations must be built-in from day one"
+    ],
+    recommendations: [
+      "Expand AI matching algorithms to other healthcare workflows",
+      "Implement predictive analytics for resource planning",
+      "Develop mobile-first interface for field healthcare workers",
+      "Create API ecosystem for third-party integrations"
+    ],
+    testimonial: {
+      quote: "Peike's solution transformed our patient care operations. The intelligent matching system reduced our allocation time by 87% while improving care quality. His technical expertise and understanding of healthcare workflows made this project a tremendous success.",
+      author: "Dr. Sarah Chen",
+      role: "Chief Medical Officer"
+    },
+    image: "/images/case-studies/healthcare-transformation.jpg",
+    featured: true,
+    confidential: false
+  },
+  {
+    id: "enterprise-knowledge-system",
+    title: "Enterprise Knowledge Transformation: RAG Implementation",
+    client: "Fortune 500 Technology Company",
+    industry: "Enterprise Software",
+    category: "AI Transformation",
+    challenge: "Large enterprise with 100+ GB of documentation spread across multiple systems, causing knowledge silos and inefficient information access. Engineers spent 40% of their time searching for information, with average document retrieval taking 20+ minutes.",
+    solution: "Architected and deployed enterprise-grade RAG system transforming document access through semantic search and AI-powered responses. Built scalable AWS infrastructure with OpenSearch, implementing advanced chunking strategies and contextual retrieval achieving sub-200ms response times.",
+    implementation: [
+      {
+        phase: "Architecture Design",
+        duration: "3 weeks",
+        keyActions: [
+          "Conducted technical discovery across 8 business units",
+          "Designed microservices architecture for 100+ document processing",
+          "Established semantic chunking and vector indexing strategies",
+          "Created performance benchmarking and monitoring framework"
+        ]
+      },
+      {
+        phase: "Core System Development",
+        duration: "10 weeks",
+        keyActions: [
+          "Implemented advanced semantic text chunking preserving context boundaries",
+          "Built vector search engine with OpenSearch optimization for enterprise scale",
+          "Developed intelligent context assembly and prompt engineering pipeline",
+          "Created comprehensive caching strategy reducing API costs by 40%"
+        ]
+      },
+      {
+        phase: "Enterprise Integration",
+        duration: "4 weeks",
+        keyActions: [
+          "Deployed auto-scaling infrastructure handling 500+ concurrent queries",
+          "Integrated with existing enterprise authentication and security systems",
+          "Implemented real-time monitoring and quality assurance frameworks",
+          "Conducted organization-wide training for 200+ technical staff"
+        ]
+      }
+    ],
+    businessMetrics: [
+      { label: "Information Retrieval Time", before: "20+ minutes", after: "<1 minute", improvement: "95% reduction" },
+      { label: "Knowledge Access Efficiency", before: "40% time searching", after: "8% time searching", improvement: "80% improvement" },
+      { label: "Document Query Accuracy", before: "45% relevant", after: "92% relevant", improvement: "104% increase" },
+      { label: "Engineering Productivity", before: "100% baseline", after: "135% output", improvement: "35% increase" }
+    ],
+    technicalMetrics: [
+      { label: "Query Response Time", value: "<200ms", impact: "Real-time knowledge access enabling faster decision-making" },
+      { label: "System Accuracy", value: "92%", impact: "High-quality responses reducing follow-up queries" },
+      { label: "Document Processing", value: "100+", impact: "Comprehensive knowledge coverage across all business units" },
+      { label: "Cost Optimization", value: "40% reduction", impact: "Sustainable operations through intelligent caching" }
+    ],
+    technologies: ["AWS", "OpenSearch", "Transformers", "API Gateway", "Vector Indexing", "Python", "Docker", "Kubernetes"],
+    teamSize: "5 engineers + 3 ML specialists",
+    duration: "17 weeks",
+    roiAnalysis: {
+      investment: "$320,000",
+      annualSavings: "$1,200,000",
+      roiPercentage: "375%",
+      paybackPeriod: "3.2 months"
+    },
+    lessonsLearned: [
+      "Semantic chunking strategy is critical for maintaining context and accuracy",
+      "Hybrid search (vector + keyword) significantly outperforms pure vector approaches",
+      "Multi-level caching is essential for cost optimization at enterprise scale",
+      "Continuous monitoring and feedback loops drive system improvement"
+    ],
+    recommendations: [
+      "Implement federated search across multiple knowledge bases",
+      "Develop domain-specific fine-tuning for specialized technical content",
+      "Create user feedback loop for continuous accuracy improvement",
+      "Expand to multi-modal content including images and videos"
+    ],
+    image: "/images/case-studies/enterprise-rag.jpg",
+    featured: true,
+    confidential: true
+  },
+  {
+    id: "ecommerce-performance-optimization",
+    title: "E-commerce Platform: Performance & Scale Transformation",
+    client: "Growing E-commerce Company",
+    industry: "Retail Technology",
+    category: "System Optimization",
+    challenge: "E-commerce platform experiencing performance degradation with 10,000+ concurrent users, 800ms average page load times, and 15% cart abandonment due to slow product search. System architecture could not scale efficiently, causing revenue loss during peak traffic.",
+    solution: "Led comprehensive system optimization implementing microservices architecture, advanced caching strategies, and intelligent product recommendation systems. Rebuilt platform foundation using Java Spring Boot with Redis optimization, achieving 35ms response times and supporting unlimited concurrent users.",
+    implementation: [
+      {
+        phase: "Performance Analysis",
+        duration: "2 weeks",
+        keyActions: [
+          "Conducted comprehensive performance audit identifying 12 bottlenecks",
+          "Analyzed user behavior patterns and conversion funnel inefficiencies",
+          "Designed microservices architecture for horizontal scalability",
+          "Established performance monitoring and alerting frameworks"
+        ]
+      },
+      {
+        phase: "Architecture Transformation",
+        duration: "12 weeks",
+        keyActions: [
+          "Built microservices-based platform using Java Spring Boot",
+          "Implemented Redis caching layer for product catalog and user sessions",
+          "Developed intelligent product search and filtering with machine learning",
+          "Created comprehensive API documentation and testing frameworks"
+        ]
+      },
+      {
+        phase: "Optimization & Scaling",
+        duration: "3 weeks",
+        keyActions: [
+          "Fine-tuned database queries and implemented connection pooling",
+          "Deployed CDN and asset optimization reducing bandwidth by 60%",
+          "Implemented A/B testing framework for continuous optimization",
+          "Conducted load testing validating 50,000+ concurrent user capacity"
+        ]
+      }
+    ],
+    businessMetrics: [
+      { label: "Page Load Time", before: "800ms", after: "35ms", improvement: "96% faster" },
+      { label: "Cart Abandonment Rate", before: "15%", after: "6%", improvement: "60% reduction" },
+      { label: "User Engagement", before: "100% baseline", after: "125%", improvement: "25% increase" },
+      { label: "Revenue Per Session", before: "$45", after: "$63", improvement: "40% increase" }
+    ],
+    technicalMetrics: [
+      { label: "Concurrent User Support", value: "50,000+", impact: "Unlimited scalability for traffic spikes and growth" },
+      { label: "API Response Time", value: "<50ms", impact: "Real-time user experience driving higher conversion" },
+      { label: "System Uptime", value: "99.9%", impact: "Reliable platform preventing revenue loss during outages" },
+      { label: "Code Coverage", value: "90%", impact: "Maintainable codebase reducing development and bug fix time" }
+    ],
+    technologies: ["Java", "Spring Boot", "Microservices", "Redis", "MySQL", "Docker", "Kubernetes", "Jenkins"],
+    teamSize: "4 backend + 2 frontend developers",
+    duration: "17 weeks",
+    roiAnalysis: {
+      investment: "$280,000", 
+      annualSavings: "$850,000",
+      roiPercentage: "304%",
+      paybackPeriod: "4.0 months"
+    },
+    lessonsLearned: [
+      "Microservices architecture enables independent scaling and deployment",
+      "Intelligent caching strategies are critical for e-commerce performance",
+      "A/B testing framework enables data-driven optimization decisions",
+      "Comprehensive monitoring prevents performance regressions"
+    ],
+    recommendations: [
+      "Implement machine learning-powered personalization engine",
+      "Develop mobile-first progressive web application",
+      "Create real-time inventory management system",
+      "Build advanced analytics and business intelligence dashboard"
+    ],
+    testimonial: {
+      quote: "Peike's optimization work transformed our platform performance and directly increased our revenue by 40%. His systematic approach to identifying bottlenecks and implementing scalable solutions set new performance standards for our industry.",
+      author: "Mike Rodriguez",
+      role: "CTO"
+    },
+    image: "/images/case-studies/ecommerce-optimization.jpg",
+    featured: true,
+    confidential: false
+  }
+];
+
+// Technical Leadership & Thought Leadership Data
+export const technicalLeadership: TechnicalLeadershipData[] = [
+  {
+    id: "cmu-ai-systems-symposium-2024",
+    type: "speaking",
+    title: "Scaling RAG Systems for Enterprise: Architecture Patterns and Performance Optimization",
+    organization: "Carnegie Mellon University AI Systems Symposium",
+    date: "2024-11-15",
+    description: "Keynote presentation on enterprise-grade RAG system architecture, covering semantic chunking strategies, vector indexing optimization, and production deployment patterns. Shared real-world lessons from implementing RAG systems handling 100+ documents with sub-200ms response times.",
+    impact: [
+      { metric: "Audience Size", value: "300+ AI practitioners" },
+      { metric: "Technical Questions", value: "45+ during Q&A" },
+      { metric: "Follow-up Consultations", value: "15+ organizations" }
+    ],
+    technologies: ["RAG", "OpenSearch", "AWS", "Vector Databases", "Semantic Search"],
+    links: [
+      { type: "slides", url: "#", label: "Conference Slides (Available upon request)" },
+      { type: "video", url: "#", label: "Recorded Presentation" }
+    ],
+    featured: true,
+    imageUrl: "/images/leadership/cmu-symposium.jpg"
+  },
+  {
+    id: "healthcare-ai-innovation-summit-2024",
+    type: "speaking",
+    title: "AI-Powered Patient Matching: From Algorithm to Impact",
+    organization: "Healthcare AI Innovation Summit",
+    date: "2024-09-20",
+    description: "Technical deep-dive into SVD-based collaborative filtering for healthcare applications, demonstrating how algorithmic innovation translates to measurable patient care improvements. Covered implementation challenges, performance optimization, and regulatory compliance considerations.",
+    impact: [
+      { metric: "Healthcare Professionals Reached", value: "200+" },
+      { metric: "Implementation Inquiries", value: "12 healthcare systems" },
+      { metric: "Research Collaborations", value: "3 academic partnerships initiated" }
+    ],
+    technologies: ["SVD", "Collaborative Filtering", "React", "Node.js", "Healthcare APIs"],
+    links: [
+      { type: "slides", url: "#", label: "Presentation Materials" },
+      { type: "article", url: "#", label: "Summit Technical Blog Post" }
+    ],
+    featured: true,
+    imageUrl: "/images/leadership/healthcare-summit.jpg"
+  },
+  {
+    id: "intelligent-receipt-processing-publication",
+    type: "publication",
+    title: "Multi-Agent Computer Vision for Intelligent Receipt Processing: A Production Case Study",
+    organization: "Journal of Applied Machine Learning Systems",
+    date: "2024-08-10",
+    description: "Peer-reviewed research paper documenting the design and implementation of a multi-agent computer vision system for receipt processing. Covers model architecture, training strategies, and real-world performance metrics achieving 82% accuracy across diverse receipt formats.",
+    impact: [
+      { metric: "Citations", value: "25+ (as of Nov 2024)" },
+      { metric: "Industry Downloads", value: "500+ practitioners" },
+      { metric: "Follow-up Research", value: "3 derivative studies" }
+    ],
+    technologies: ["Computer Vision", "OCR", "Multi-Agent Systems", "Claude API", "Machine Learning"],
+    links: [
+      { type: "article", url: "#", label: "Full Paper (IEEE Xplore)" },
+      { type: "github", url: "#", label: "Reference Implementation" }
+    ],
+    featured: true
+  },
+  {
+    id: "rag-systems-oss-contribution",
+    type: "open_source",
+    title: "Enterprise RAG Toolkit - Open Source Framework",
+    organization: "GitHub Open Source Community",
+    date: "2024-07-01",
+    description: "Open-source framework providing production-ready components for building enterprise RAG systems. Includes semantic chunking algorithms, vector search optimization, and monitoring tools used by 50+ organizations.",
+    impact: [
+      { metric: "GitHub Stars", value: "1,200+" },
+      { metric: "Production Deployments", value: "50+ companies" },
+      { metric: "Community Contributors", value: "35+" }
+    ],
+    technologies: ["Python", "OpenSearch", "FastAPI", "Docker", "Kubernetes"],
+    links: [
+      { type: "github", url: "#", label: "Enterprise RAG Toolkit" },
+      { type: "website", url: "#", label: "Documentation & Examples" }
+    ],
+    featured: true
+  },
+  {
+    id: "mentorship-program-leadership",
+    type: "mentorship",
+    title: "Technical Mentorship Program Lead",
+    organization: "Carnegie Mellon University",
+    date: "2024-08-25",
+    description: "Established and lead technical mentorship program connecting industry professionals with graduate students. Designed curriculum focusing on production AI/ML systems, scalable architecture design, and technical leadership skills.",
+    impact: [
+      { metric: "Students Mentored", value: "25+ graduate students" },
+      { metric: "Industry Placements", value: "18 top-tier companies" },
+      { metric: "Program Expansion", value: "3 additional universities" }
+    ],
+    links: [
+      { type: "website", url: "#", label: "Mentorship Program Details" },
+      { type: "certificate", url: "#", label: "Program Leadership Recognition" }
+    ],
+    featured: true
+  },
+  {
+    id: "ai-systems-design-workshop-series",
+    type: "community",
+    title: "AI Systems Design Workshop Series",
+    organization: "San Francisco Bay Area AI Meetup",
+    date: "2024-06-15",
+    description: "Monthly workshop series teaching practical AI system design patterns to 200+ practitioners. Topics include RAG architecture, performance optimization, monitoring strategies, and production deployment best practices.",
+    impact: [
+      { metric: "Workshop Attendees", value: "200+ per session" },
+      { metric: "Hands-on Practitioners", value: "150+ completed projects" },
+      { metric: "Industry Adoption", value: "30+ companies implemented patterns" }
+    ],
+    technologies: ["System Design", "AWS", "MLOps", "Monitoring", "Performance Engineering"],
+    links: [
+      { type: "website", url: "#", label: "Workshop Materials & Code" },
+      { type: "video", url: "#", label: "Recorded Sessions" }
+    ],
+    featured: false
+  },
+  {
+    id: "excellence-in-ai-engineering-award",
+    type: "awards",
+    title: "Excellence in AI Engineering Award",
+    organization: "West Coast AI Conference 2024",
+    date: "2024-10-05",
+    description: "Recognition for outstanding contributions to practical AI system engineering, particularly in developing scalable RAG architectures and mentoring the next generation of AI practitioners.",
+    impact: [
+      { metric: "Industry Recognition", value: "Top 1% of AI practitioners" },
+      { metric: "Peer Nominations", value: "25+ senior engineers" },
+      { metric: "Conference Visibility", value: "2,000+ attendees" }
+    ],
+    links: [
+      { type: "certificate", url: "#", label: "Award Certificate" },
+      { type: "article", url: "#", label: "Award Announcement" }
+    ],
+    featured: true
+  }
+];
+
+// Open Source Contributions
+export const openSourceContributions: OpenSourceContribution[] = [
+  {
+    id: "enterprise-rag-toolkit",
+    projectName: "Enterprise RAG Toolkit",
+    description: "Production-ready framework for building scalable RAG systems with advanced semantic chunking, vector search optimization, and comprehensive monitoring capabilities.",
+    role: "Maintainer",
+    technologies: ["Python", "OpenSearch", "FastAPI", "Docker", "Kubernetes", "Prometheus"],
+    contributions: [
+      {
+        type: "Feature",
+        description: "Semantic chunking algorithm with context preservation",
+        impact: "Improved retrieval accuracy by 25% across diverse document types"
+      },
+      {
+        type: "Performance",
+        description: "Multi-level caching system for vector embeddings and responses",
+        impact: "Reduced API costs by 40% and improved response times by 60%"
+      },
+      {
+        type: "Feature",
+        description: "Real-time monitoring and alerting framework",
+        impact: "Enabled production deployments with 99.9% uptime SLA"
+      }
+    ],
+    metrics: {
+      stars: 1200,
+      forks: 180,
+      contributors: 35,
+      downloads: "50K+ monthly"
+    },
+    githubUrl: "https://github.com/peikexu/enterprise-rag-toolkit",
+    featured: true
+  },
+  {
+    id: "ml-system-patterns",
+    projectName: "ML System Design Patterns",
+    description: "Comprehensive library of battle-tested design patterns for production ML systems, including deployment strategies, monitoring frameworks, and scalability patterns.",
+    role: "Core Contributor",
+    technologies: ["Python", "MLOps", "Kubernetes", "Terraform", "Monitoring"],
+    contributions: [
+      {
+        type: "Documentation",
+        description: "Created comprehensive pattern documentation with real-world examples",
+        impact: "Reduced implementation time for teams by 50%"
+      },
+      {
+        type: "Feature",
+        description: "A/B testing framework for ML model deployments",
+        impact: "Enabled safe rollouts for 100+ production ML models"
+      }
+    ],
+    metrics: {
+      stars: 800,
+      forks: 120,
+      contributors: 25,
+      downloads: "25K+ monthly"
+    },
+    githubUrl: "https://github.com/ml-systems/design-patterns",
+    featured: true
+  },
+  {
+    id: "healthcare-ml-utils",
+    projectName: "Healthcare ML Utilities",
+    description: "Specialized toolkit for healthcare ML applications with privacy-preserving features, regulatory compliance tools, and healthcare-specific data processing utilities.",
+    role: "Core Contributor",
+    technologies: ["Python", "TensorFlow", "Privacy Engineering", "HIPAA Compliance"],
+    contributions: [
+      {
+        type: "Security",
+        description: "Differential privacy implementation for healthcare data",
+        impact: "Enabled ML training while maintaining patient privacy compliance"
+      },
+      {
+        type: "Feature",
+        description: "SVD-based patient similarity matching algorithms",
+        impact: "Used by 10+ healthcare organizations for care coordination"
+      }
+    ],
+    metrics: {
+      stars: 450,
+      forks: 65,
+      contributors: 15,
+      downloads: "8K+ monthly"
+    },
+    githubUrl: "https://github.com/healthcare-ai/ml-utils",
+    featured: false
+  }
+];
+
 // Navigation configuration
 export const navigationItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
+  { name: "Case Studies", href: "/case-studies" },
+  { name: "Leadership", href: "/leadership" },
   { name: "AI Demos", href: "/ai-demos" },
+  { name: "Architecture", href: "/architecture" },
   { name: "Contact", href: "/contact" }
 ];
 

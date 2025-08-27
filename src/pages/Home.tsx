@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { personalInfo, skillsData } from '../data/portfolio'
+import { Link } from 'react-router-dom'
+import { personalInfo, skillsData, caseStudies, technicalLeadership } from '../data/portfolio'
 import { HeroSection } from '../components/sections'
 
 const Home: React.FC = () => {
@@ -118,6 +119,253 @@ const Home: React.FC = () => {
             >
               View Full Skills & Experience
             </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enterprise Case Studies Preview */}
+      <section className="section-padding py-20 bg-white">
+        <div className="container-width">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
+              Enterprise <span className="text-gradient">Impact</span>
+            </h2>
+            <p className="text-lg text-secondary-600 max-w-3xl mx-auto">
+              Real-world consultative projects demonstrating strategic business transformation, 
+              technical leadership, and measurable ROI across diverse industries
+            </p>
+          </motion.div>
+
+          {/* Impact Metrics */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12"
+          >
+            <div className="text-center">
+              <span className="text-3xl font-bold text-blue-600 block">3+</span>
+              <span className="text-gray-600 text-sm">Enterprise Transformations</span>
+            </div>
+            <div className="text-center">
+              <span className="text-3xl font-bold text-green-600 block">$2.5M+</span>
+              <span className="text-gray-600 text-sm">Annual Savings Generated</span>
+            </div>
+            <div className="text-center">
+              <span className="text-3xl font-bold text-purple-600 block">300%+</span>
+              <span className="text-gray-600 text-sm">Average ROI</span>
+            </div>
+            <div className="text-center">
+              <span className="text-3xl font-bold text-orange-600 block">4.0</span>
+              <span className="text-gray-600 text-sm">Months Avg Payback</span>
+            </div>
+          </motion.div>
+
+          {/* Featured Case Studies */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {caseStudies.filter(cs => cs.featured).slice(0, 2).map((caseStudy, index) => (
+              <motion.div
+                key={caseStudy.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-300 group"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
+                    {caseStudy.category}
+                  </span>
+                  <span className="text-xs text-gray-500">{caseStudy.industry}</span>
+                </div>
+                
+                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  {caseStudy.title}
+                </h3>
+                
+                <p className="text-gray-600 mb-6 line-clamp-3">
+                  {caseStudy.challenge}
+                </p>
+                
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="bg-green-50 rounded-lg p-3 text-center">
+                    <span className="text-lg font-bold text-green-600 block">
+                      {caseStudy.roiAnalysis.roiPercentage}
+                    </span>
+                    <span className="text-xs text-green-700">ROI</span>
+                  </div>
+                  <div className="bg-blue-50 rounded-lg p-3 text-center">
+                    <span className="text-lg font-bold text-blue-600 block">
+                      {caseStudy.roiAnalysis.paybackPeriod}
+                    </span>
+                    <span className="text-xs text-blue-700">Payback</span>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {caseStudy.technologies.slice(0, 3).map((tech, techIndex) => (
+                    <span key={techIndex} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                      {tech}
+                    </span>
+                  ))}
+                  <span className="text-xs text-gray-500">+{caseStudy.technologies.length - 3} more</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-center"
+          >
+            <Link
+              to="/case-studies"
+              className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl group"
+            >
+              View All Enterprise Case Studies
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Technical Leadership Preview */}
+      <section className="section-padding py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div className="container-width">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
+              Technical <span className="text-gradient">Leadership</span>
+            </h2>
+            <p className="text-lg text-secondary-600 max-w-3xl mx-auto">
+              Thought leadership through speaking engagements, open source contributions, 
+              and mentorship that advances the AI/ML community
+            </p>
+          </motion.div>
+
+          {/* Leadership Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12"
+          >
+            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+              <span className="text-2xl font-bold text-purple-600 block">7+</span>
+              <span className="text-gray-600 text-sm">Speaking Engagements</span>
+            </div>
+            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+              <span className="text-2xl font-bold text-blue-600 block">2.4K+</span>
+              <span className="text-gray-600 text-sm">GitHub Stars</span>
+            </div>
+            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+              <span className="text-2xl font-bold text-green-600 block">25+</span>
+              <span className="text-gray-600 text-sm">Students Mentored</span>
+            </div>
+            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+              <span className="text-2xl font-bold text-orange-600 block">500+</span>
+              <span className="text-gray-600 text-sm">Practitioners Reached</span>
+            </div>
+          </motion.div>
+
+          {/* Featured Leadership Activities */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {technicalLeadership.filter(item => item.featured).slice(0, 2).map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-100"
+              >
+                <div className="flex items-center mb-4">
+                  <div className={`p-3 rounded-lg mr-4 ${
+                    item.type === 'speaking' ? 'bg-purple-100 text-purple-600' :
+                    item.type === 'publication' ? 'bg-blue-100 text-blue-600' :
+                    item.type === 'open_source' ? 'bg-green-100 text-green-600' :
+                    'bg-orange-100 text-orange-600'
+                  }`}>
+                    {item.type === 'speaking' && (
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                      </svg>
+                    )}
+                    {item.type === 'publication' && (
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                      </svg>
+                    )}
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-500 capitalize block">
+                      {item.type.replace('_', ' ')}
+                    </span>
+                    <span className="text-sm text-gray-400">
+                      {new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                    </span>
+                  </div>
+                </div>
+                
+                <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">
+                  {item.title}
+                </h3>
+                
+                <p className="text-sm font-medium text-blue-600 mb-3">
+                  {item.organization}
+                </p>
+                
+                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                  {item.description}
+                </p>
+                
+                <div className="grid grid-cols-1 gap-2">
+                  {item.impact.slice(0, 2).map((metric, metricIndex) => (
+                    <div key={metricIndex} className="flex justify-between items-center bg-gray-50 rounded-lg px-3 py-2">
+                      <span className="text-xs text-gray-600">{metric.metric}</span>
+                      <span className="text-xs font-semibold text-gray-900">{metric.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-center"
+          >
+            <Link
+              to="/leadership"
+              className="inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl group"
+            >
+              View Technical Leadership Portfolio
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
           </motion.div>
         </div>
       </section>
