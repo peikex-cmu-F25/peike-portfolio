@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter, MemoryRouter } from 'react-router-dom'
+import { vi } from 'vitest'
 import App from '../../App'
 
 // Integration tests for the complete portfolio application
@@ -19,7 +20,7 @@ describe('Portfolio Integration Tests', () => {
       expect(screen.getByText('Peike Xu')).toBeInTheDocument()
 
       // Navigate to About page
-      const aboutLink = screen.getByRole('link', { name: /about/i })
+      const aboutLink = screen.getAllByRole('link', { name: /about/i }).find(l => l.closest('nav'))!
       await user.click(aboutLink)
       
       await waitFor(() => {
@@ -27,7 +28,7 @@ describe('Portfolio Integration Tests', () => {
       })
 
       // Navigate to Projects page
-      const projectsLink = screen.getByRole('link', { name: /projects/i })
+      const projectsLink = screen.getAllByRole('link', { name: /projects/i }).find(l => l.closest('nav'))!
       await user.click(projectsLink)
       
       await waitFor(() => {
@@ -35,7 +36,7 @@ describe('Portfolio Integration Tests', () => {
       })
 
       // Navigate to Contact page
-      const contactLink = screen.getByRole('link', { name: /contact/i })
+      const contactLink = screen.getAllByRole('link', { name: /contact/i }).find(l => l.closest('nav'))!
       await user.click(contactLink)
       
       // Note: Contact page might not exist yet, so this test might fail
@@ -57,7 +58,7 @@ describe('Portfolio Integration Tests', () => {
       ]
 
       for (const page of pages) {
-        const navLink = screen.getByRole('link', { name: page.link })
+        const navLink = screen.getAllByRole('link', { name: page.link }).find(l => l.closest('nav'))!
         await user.click(navLink)
         
         // Navigation should be present on all pages
@@ -83,9 +84,9 @@ describe('Portfolio Integration Tests', () => {
       expect(screen.getByText(/All rights reserved/)).toBeInTheDocument()
 
       for (const path of pages) {
-        const navLink = screen.getByRole('link', { 
+        const navLink = screen.getAllByRole('link', { 
           name: path === '/about' ? /about/i : /projects/i 
-        })
+        }).find(l => l.closest('nav'))!
         await user.click(navLink)
         
         await waitFor(() => {
@@ -106,7 +107,7 @@ describe('Portfolio Integration Tests', () => {
       )
 
       // From home page, click "View My Work"
-      const viewWorkBtn = screen.getByRole('link', { name: /view my work/i })
+      const viewWorkBtn = screen.getByRole('link', { name: /view my portfolio projects/i })
       expect(viewWorkBtn).toHaveAttribute('href', '/projects')
       
       await user.click(viewWorkBtn)
@@ -116,7 +117,7 @@ describe('Portfolio Integration Tests', () => {
       })
 
       // Navigate back to home
-      const homeLink = screen.getByRole('link', { name: /home/i })
+      const homeLink = screen.getAllByRole('link', { name: /home/i }).find(l => l.closest('nav'))!
       await user.click(homeLink)
       
       await waitFor(() => {
@@ -164,7 +165,7 @@ describe('Portfolio Integration Tests', () => {
       )
 
       // Navigate to another page first
-      const aboutLink = screen.getByRole('link', { name: /about/i })
+      const aboutLink = screen.getAllByRole('link', { name: /about/i }).find(l => l.closest('nav'))!
       await user.click(aboutLink)
       
       await waitFor(() => {
@@ -217,7 +218,7 @@ describe('Portfolio Integration Tests', () => {
         })
 
         // Menu should close after navigation
-        expect(screen.queryByRole('link', { name: /about/i, selector: '.md\\:hidden a' }))
+        expect(screen.queryByRole('link', { name: /about/i }))
           .not.toBeInTheDocument()
       }
     })
@@ -258,7 +259,7 @@ describe('Portfolio Integration Tests', () => {
       )
 
       // Home page should show consistent branding
-      expect(screen.getByText('Peike Xu')).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Peike Xu' })).toBeInTheDocument()
       expect(screen.getByText(/AI\/ML Engineer/)).toBeInTheDocument()
 
       // Navigation to about page
@@ -269,7 +270,7 @@ describe('Portfolio Integration Tests', () => {
       )
 
       // About page should show consistent information
-      expect(screen.getByText(/AI\/ML Engineer and Full Stack Developer/)).toBeInTheDocument()
+      expect(screen.getByText(/AI\/ML Engineer & Full Stack Developer|AI\/ML Engineer and Full Stack Developer/)).toBeInTheDocument()
 
       unmount()
     })
@@ -282,11 +283,11 @@ describe('Portfolio Integration Tests', () => {
       )
 
       // Check footer social links
-      const githubLink = screen.getByRole('link', { name: /github/i })
+      const githubLink = screen.getAllByRole('link', { name: /github/i }).find(l => l.closest('footer'))!
       expect(githubLink).toHaveAttribute('target', '_blank')
       expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
 
-      const linkedinLink = screen.getByRole('link', { name: /linkedin/i })
+      const linkedinLink = screen.getAllByRole('link', { name: /linkedin/i }).find(l => l.closest('footer'))!
       expect(linkedinLink).toHaveAttribute('target', '_blank')
       expect(linkedinLink).toHaveAttribute('rel', 'noopener noreferrer')
     })
@@ -304,7 +305,7 @@ describe('Portfolio Integration Tests', () => {
       // Measure time for navigation (basic performance test)
       const startTime = Date.now()
       
-      const aboutLink = screen.getByRole('link', { name: /about/i })
+      const aboutLink = screen.getAllByRole('link', { name: /about/i }).find(l => l.closest('nav'))!
       await user.click(aboutLink)
       
       await waitFor(() => {
@@ -327,9 +328,9 @@ describe('Portfolio Integration Tests', () => {
       )
 
       // Rapidly navigate between pages
-      const homeLink = screen.getByRole('link', { name: /home/i })
-      const aboutLink = screen.getByRole('link', { name: /about/i })
-      const projectsLink = screen.getByRole('link', { name: /projects/i })
+      const homeLink = screen.getAllByRole('link', { name: /home/i }).find(l => l.closest('nav'))!
+      const aboutLink = screen.getAllByRole('link', { name: /about/i }).find(l => l.closest('nav'))!
+      const projectsLink = screen.getAllByRole('link', { name: /projects/i }).find(l => l.closest('nav'))!
 
       // Rapid clicks
       await user.click(aboutLink)
@@ -363,7 +364,7 @@ describe('Portfolio Integration Tests', () => {
       await user.tab() // About link
       
       // Verify focus is working
-      const aboutLink = screen.getByRole('link', { name: /about/i })
+      const aboutLink = screen.getAllByRole('link', { name: /about/i }).find(l => l.closest('nav'))!
       expect(aboutLink).toHaveFocus()
 
       // Navigate with Enter key
@@ -418,7 +419,7 @@ describe('Portfolio Integration Tests', () => {
 
   describe('Error Handling Integration', () => {
     test('application handles missing pages gracefully', () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
       render(
         <MemoryRouter initialEntries={['/nonexistent']}>

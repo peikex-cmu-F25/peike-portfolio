@@ -2,33 +2,34 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter, MemoryRouter } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
 import App from '../App'
+import { vi } from 'vitest'
 
 // Mock the page components to simplify testing
-jest.mock('../pages/Home', () => {
+vi.mock('../pages/Home', () => {
   return function MockHome() {
     return <div data-testid="home-page">Home Page Content</div>
   }
 })
 
-jest.mock('../pages/About', () => {
+vi.mock('../pages/About', () => {
   return function MockAbout() {
     return <div data-testid="about-page">About Page Content</div>
   }
 })
 
-jest.mock('../pages/Projects', () => {
+vi.mock('../pages/Projects', () => {
   return function MockProjects() {
     return <div data-testid="projects-page">Projects Page Content</div>
   }
 })
 
-jest.mock('../pages/Contact', () => {
+vi.mock('../pages/Contact', () => {
   return function MockContact() {
     return <div data-testid="contact-page">Contact Page Content</div>
   }
 })
 
-jest.mock('../components/Layout', () => {
+vi.mock('../components/Layout', () => {
   return function MockLayout({ children }: { children: React.ReactNode }) {
     return (
       <div data-testid="layout">
@@ -260,7 +261,7 @@ describe('App Component', () => {
   describe('Error Handling', () => {
     test('handles component errors gracefully', () => {
       // Mock console.error to avoid noise in tests
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
       render(
         <MemoryRouter initialEntries={['/']}>
@@ -297,10 +298,10 @@ describe('App Component', () => {
 
   describe('Performance', () => {
     test('does not cause unnecessary re-renders', () => {
-      const renderSpy = jest.fn()
+      const renderSpy = vi.fn()
       
       // Mock a component to track renders
-      jest.doMock('../pages/Home', () => {
+      vi.doMock('../pages/Home', () => {
         return function MockHome() {
           renderSpy()
           return <div data-testid="home-page">Home Page Content</div>
