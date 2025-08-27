@@ -1,9 +1,10 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { vi } from 'vitest'
 import Projects from '../Projects'
 
 // Mock the portfolio data
-jest.mock('../../data/portfolio', () => ({
+vi.mock('../../data/portfolio', () => ({
   projects: [
     {
       id: 'test-project-1',

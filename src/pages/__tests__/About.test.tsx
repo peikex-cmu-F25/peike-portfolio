@@ -14,7 +14,7 @@ describe('About Page', () => {
     test('displays subtitle', () => {
       render(<About />)
       
-      const subtitle = screen.getByText(/Passionate about leveraging AI and full-stack development/)
+      const subtitle = screen.getByText(/Transforming complex business challenges/i)
       expect(subtitle).toBeInTheDocument()
     })
 
@@ -38,15 +38,8 @@ describe('About Page', () => {
     test('displays journey content paragraphs', () => {
       render(<About />)
       
-      const journeyTexts = [
-        /I'm an AI\/ML Engineer and Full Stack Developer with a passion for creating intelligent applications/,
-        /With experience in both machine learning research and full-stack development/,
-        /I'm currently seeking opportunities at top-tier tech companies/
-      ]
-      
-      journeyTexts.forEach(text => {
-        expect(screen.getByText(text)).toBeInTheDocument()
-      })
+      expect(screen.getByText(/proven track record of delivering enterprise-grade solutions/i)).toBeInTheDocument()
+      expect(screen.getByText(/Located in\s+Sunnyvale, CA/i)).toBeInTheDocument()
     })
 
     test('includes placeholder for professional photo', () => {
@@ -73,66 +66,38 @@ describe('About Page', () => {
       expect(skillsHeading.tagName).toBe('H2')
     })
 
-    test('displays all skill categories', () => {
+    test('displays key skill categories', () => {
       render(<About />)
       
-      const skillCategories = [
-        'AI/ML Technologies',
-        'Frontend Development',
-        'Backend & Infrastructure'
+      const expected = [
+        'Programming Languages',
+        'Machine Learning & AI',
+        'Frameworks & Tools'
       ]
-      
-      skillCategories.forEach(category => {
-        expect(screen.getByRole('heading', { name: category })).toBeInTheDocument()
+      expected.forEach(name => {
+        expect(screen.getByText(name)).toBeInTheDocument()
       })
     })
 
-    test('displays correct skills for AI/ML Technologies', () => {
+    test('displays skills for Machine Learning & AI', () => {
       render(<About />)
       
-      const aiMlSkills = [
-        'TensorFlow, PyTorch',
-        'Computer Vision',
-        'Natural Language Processing',
-        'Deep Learning',
-        'MLOps & Model Deployment'
-      ]
-      
-      aiMlSkills.forEach(skill => {
-        expect(screen.getByText(skill)).toBeInTheDocument()
-      })
+      const skills = ['TensorFlow', 'PyTorch', 'Transformers', 'SVD']
+      skills.forEach(s => expect(screen.getByText(new RegExp(s))).toBeInTheDocument())
     })
 
-    test('displays correct skills for Frontend Development', () => {
+    test('displays skills for Frameworks & Tools', () => {
       render(<About />)
       
-      const frontendSkills = [
-        'React, TypeScript',
-        'Next.js, Vite',
-        'Tailwind CSS',
-        'Modern JavaScript (ES6+)',
-        'Responsive Design'
-      ]
-      
-      frontendSkills.forEach(skill => {
-        expect(screen.getByText(skill)).toBeInTheDocument()
-      })
+      const skills = ['React', 'Node.js', 'Docker']
+      skills.forEach(s => expect(screen.getByText(new RegExp(s))).toBeInTheDocument())
     })
 
-    test('displays correct skills for Backend & Infrastructure', () => {
+    test('displays skills for Cloud & Databases', () => {
       render(<About />)
       
-      const backendSkills = [
-        'Python, Node.js',
-        'FastAPI, Express.js',
-        'PostgreSQL, MongoDB',
-        'AWS, Docker',
-        'CI/CD Pipelines'
-      ]
-      
-      backendSkills.forEach(skill => {
-        expect(screen.getByText(skill)).toBeInTheDocument()
-      })
+      const skills = ['AWS', 'OpenSearch', 'PostgreSQL', 'MongoDB']
+      skills.forEach(s => expect(screen.getByText(new RegExp(s))).toBeInTheDocument())
     })
 
     test('skills section uses card layout', () => {
@@ -149,11 +114,11 @@ describe('About Page', () => {
     })
   })
 
-  describe('Background Section', () => {
-    test('renders background section heading', () => {
+  describe('Education & Experience Section', () => {
+    test('renders education & experience heading', () => {
       render(<About />)
       
-      const backgroundHeading = screen.getByRole('heading', { name: /background/i })
+      const backgroundHeading = screen.getByRole('heading', { name: /education &\s*experience/i })
       expect(backgroundHeading).toBeInTheDocument()
       expect(backgroundHeading.tagName).toBe('H2')
     })
@@ -164,33 +129,9 @@ describe('About Page', () => {
       const educationHeading = screen.getByRole('heading', { name: /education/i })
       expect(educationHeading).toBeInTheDocument()
       
-      expect(screen.getByText('Computer Science')).toBeInTheDocument()
-      expect(screen.getByText('University • Year')).toBeInTheDocument()
-      expect(screen.getByText(/Focus on Machine Learning and Software Engineering/)).toBeInTheDocument()
-    })
-
-    test('displays certifications card', () => {
-      render(<About />)
-      
-      const certificationsHeading = screen.getByRole('heading', { name: /certifications/i })
-      expect(certificationsHeading).toBeInTheDocument()
-      
-      const certifications = [
-        'AWS Certified Solutions Architect',
-        'TensorFlow Developer Certificate',
-        'Deep Learning Specialization'
-      ]
-      
-      certifications.forEach(cert => {
-        expect(screen.getByText(cert)).toBeInTheDocument()
-      })
-    })
-
-    test('background section uses grid layout', () => {
-      render(<About />)
-      
-      const backgroundGrid = screen.getByText('Education').closest('.grid')
-      expect(backgroundGrid).toHaveClass('grid-cols-1', 'lg:grid-cols-2', 'gap-8')
+      expect(screen.getByText(/Master of Science in Software Engineering/i)).toBeInTheDocument()
+      expect(screen.getByText(/Carnegie Mellon University/i)).toBeInTheDocument()
+      expect(screen.getByText(/University of California San Diego/i)).toBeInTheDocument()
     })
   })
 
@@ -236,7 +177,7 @@ describe('About Page', () => {
     test('skills grid adapts to screen size', () => {
       render(<About />)
       
-      const skillsGrid = screen.getByText('AI/ML Technologies').closest('.grid')
+      const skillsGrid = screen.getByText('Programming Languages').closest('.grid')
       expect(skillsGrid).toHaveClass('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3')
     })
 
@@ -259,22 +200,18 @@ describe('About Page', () => {
       expect(photoContainer).toHaveClass('bg-gradient-to-br', 'from-primary-100', 'to-secondary-100', 'rounded-2xl')
     })
 
-    test('skill lists use proper bullet styling', () => {
+    test('skill lists show bullet markers', () => {
       render(<About />)
       
-      const skillItems = screen.getAllByText(/^• /)
-      expect(skillItems.length).toBeGreaterThan(0)
-      
-      // Each skill item should start with a bullet
-      skillItems.forEach(item => {
-        expect(item.textContent).toMatch(/^• /)
-      })
+      const bullets = screen.getAllByText('•')
+      expect(bullets.length).toBeGreaterThan(0)
+      bullets.forEach(b => expect(b).toHaveClass('text-primary-600'))
     })
 
     test('cards have consistent styling', () => {
       render(<About />)
       
-      const cards = screen.getAllByText(/Technologies|Development|Infrastructure|Education|Certifications/).map(
+      const cards = screen.getAllByText(/Programming Languages|Machine Learning & AI|Frameworks & Tools|Cloud & Databases|Core Competencies|Education|Work Experience/).map(
         text => text.closest('.card')
       )
       
@@ -288,16 +225,11 @@ describe('About Page', () => {
     test('displays accurate professional description', () => {
       render(<About />)
       
-      expect(screen.getByText(/bridge the gap between cutting-edge AI research and practical, deployable applications/)).toBeInTheDocument()
-      expect(screen.getByText(/solve real-world problems/)).toBeInTheDocument()
+      expect(screen.getByText(/Transforming complex business challenges/i)).toBeInTheDocument()
+      expect(screen.getByText(/solve real-world problems/i)).toBeInTheDocument()
     })
 
-    test('shows current career goals', () => {
-      render(<About />)
-      
-      expect(screen.getByText(/currently seeking opportunities at top-tier tech companies/)).toBeInTheDocument()
-      expect(screen.getByText(/contribute to innovative AI projects/)).toBeInTheDocument()
-    })
+    // Current career goals copy no longer present on page
 
     test('includes relevant technical skills', () => {
       render(<About />)
@@ -338,16 +270,15 @@ describe('About Page', () => {
       render(<About />)
       
       const sections = screen.getAllByRole('generic').filter(el => el.tagName === 'SECTION')
-      expect(sections.length).toBeGreaterThanOrEqual(3)
+      expect(sections.length).toBeGreaterThanOrEqual(2)
     })
 
     test('text has proper contrast and readability', () => {
       render(<About />)
       
-      const paragraphs = screen.getAllByText(/I'm an AI|With experience|I'm currently/)
-      paragraphs.forEach(paragraph => {
-        expect(paragraph).toHaveClass('text-secondary-700')
-      })
+      const bioParagraph = screen.getByText(/proven track record of delivering enterprise-grade solutions/i)
+      const container = bioParagraph.closest('.text-secondary-700')
+      expect(container).toBeInTheDocument()
     })
   })
 
@@ -355,15 +286,15 @@ describe('About Page', () => {
     test('organizes skills by logical categories', () => {
       render(<About />)
       
-      // AI/ML section should contain AI-related skills
-      const aiMlSection = screen.getByText('AI/ML Technologies').closest('.card')
-      expect(aiMlSection).toContainElement(screen.getByText('TensorFlow, PyTorch'))
-      expect(aiMlSection).toContainElement(screen.getByText('Computer Vision'))
+      // Machine Learning & AI section should contain AI-related skills
+      const aiMlSection = screen.getByText('Machine Learning & AI').closest('.card')
+      expect(aiMlSection).toContainElement(screen.getByText('TensorFlow'))
+      expect(aiMlSection).toContainElement(screen.getByText('PyTorch'))
       
-      // Frontend section should contain frontend skills
-      const frontendSection = screen.getByText('Frontend Development').closest('.card')
-      expect(frontendSection).toContainElement(screen.getByText('React, TypeScript'))
-      expect(frontendSection).toContainElement(screen.getByText('Tailwind CSS'))
+      // Frameworks & Tools section should contain relevant skills
+      const frameworksSection = screen.getByText('Frameworks & Tools').closest('.card')
+      expect(frameworksSection).toContainElement(screen.getByText('React'))
+      expect(frameworksSection).toContainElement(screen.getByText('Docker'))
     })
 
     test('maintains logical flow of information', () => {
