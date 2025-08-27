@@ -140,7 +140,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
           >
             <motion.a 
-              href="/projects" 
+              href="/peike-portfolio/projects" 
               className="btn-primary group relative overflow-hidden"
               whileHover={{ 
                 scale: prefersReducedMotion ? 1 : 1.05, 
@@ -158,7 +158,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
             </motion.a>
             
             <motion.a 
-              href="/contact" 
+              href="/peike-portfolio/contact" 
               className="btn-secondary group"
               whileHover={{ 
                 scale: prefersReducedMotion ? 1 : 1.05, 
