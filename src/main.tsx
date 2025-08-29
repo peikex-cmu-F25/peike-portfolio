@@ -40,7 +40,7 @@ measurePerformance();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/peike-portfolio">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
