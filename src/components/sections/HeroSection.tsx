@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { personalInfo } from '../../data/portfolio'
 
 // TypeScript interfaces for component props
@@ -139,14 +140,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
           >
-            <motion.a 
-              href="/peike-portfolio/projects" 
+            <Link 
+              to="/projects" 
               className="btn-primary group relative overflow-hidden"
-              whileHover={{ 
-                scale: prefersReducedMotion ? 1 : 1.05, 
-                boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)" 
-              }}
-              whileTap={{ scale: prefersReducedMotion ? 1 : 0.95 }}
               aria-label="View my portfolio projects"
             >
               <span className="relative z-10 flex items-center justify-center">
@@ -155,16 +151,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                 </svg>
                 View My Work
               </span>
-            </motion.a>
+            </Link>
             
-            <motion.a 
-              href="/peike-portfolio/contact" 
+            <Link 
+              to="/contact" 
               className="btn-secondary group"
-              whileHover={{ 
-                scale: prefersReducedMotion ? 1 : 1.05, 
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" 
-              }}
-              whileTap={{ scale: prefersReducedMotion ? 1 : 0.95 }}
               aria-label="Get in touch with me"
             >
               <span className="flex items-center justify-center">
@@ -173,7 +164,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                 </svg>
                 Get In Touch
               </span>
-            </motion.a>
+            </Link>
           </motion.div>
 
           {/* Quick Stats */}

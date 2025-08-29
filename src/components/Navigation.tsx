@@ -1,39 +1,41 @@
 import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 const Navigation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'Home', href: '/peike-portfolio/' },
-    { name: 'About', href: '/peike-portfolio/about' },
-    { name: 'Services', href: '/peike-portfolio/services' },
-    { name: 'Projects', href: '/peike-portfolio/projects' },
-    { name: 'AI Demos', href: '/peike-portfolio/ai-demos' },
-    { name: 'Architecture', href: '/peike-portfolio/architecture' },
-    { name: 'Business Intelligence', href: '/peike-portfolio/business-intelligence' },
-    { name: 'Blog', href: '/peike-portfolio/blog' },
-    { name: 'Contact', href: '/peike-portfolio/contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Case Studies', href: '/case-studies' },
+    { name: 'Leadership', href: '/leadership' },
+    { name: 'AI Demos', href: '/ai-demos' },
+    { name: 'Architecture', href: '/architecture' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Contact', href: '/contact' },
   ]
 
-  const isActivePath = (path: string) => window.location.pathname === path
+  const location = useLocation()
+  const isActivePath = (path: string) => location.pathname === path
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-secondary-200 z-50">
       <div className="container-width section-padding">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/peike-portfolio/" className="text-xl font-bold text-gradient">
+            <Link to="/" className="text-xl font-bold text-gradient">
               Peike Xu
-            </a>
+            </Link>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActivePath(item.href)
                       ? 'text-primary-600 border-b-2 border-primary-600'
@@ -41,7 +43,7 @@ const Navigation: React.FC = () => {
                   }`}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -72,9 +74,9 @@ const Navigation: React.FC = () => {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-b border-secondary-200">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
                   isActivePath(item.href)
                     ? 'text-primary-600 bg-primary-50'
@@ -83,7 +85,7 @@ const Navigation: React.FC = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

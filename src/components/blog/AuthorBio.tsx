@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 interface Author {
   name: string
@@ -52,24 +53,24 @@ const AuthorBio: React.FC<AuthorBioProps> = ({ author }) => {
 
           {/* Social Links / Contact - Could be extended in the future */}
           <div className="flex items-center gap-4 text-sm">
-            <a
-              href="/peike-portfolio/contact"
+            <Link
+              to="/contact"
               className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               Get in touch
-            </a>
-            <a
-              href="/peike-portfolio/projects"
+            </Link>
+            <Link
+              to="/projects"
               className="flex items-center gap-2 text-secondary-600 hover:text-primary-600 font-medium transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
               View projects
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { personalInfo } from '../data/portfolio'
 
 interface FormData {
@@ -537,30 +538,30 @@ const Contact: React.FC = () => {
             <div className="card">
               <h3 className="text-lg font-semibold text-secondary-900 mb-4">Quick Links</h3>
               <div className="grid grid-cols-2 gap-3">
-                <a href="/peike-portfolio/services" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                <Link to="/services" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a2 2 0 002 2h4a2 2 0 002-2V6zM8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m0 0v2a2 2 0 00-2 2H10a2 2 0 00-2-2V6z" />
                   </svg>
                   Services
-                </a>
-                <a href="/peike-portfolio/case-studies" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                </Link>
+                <Link to="/case-studies" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                   Case Studies
-                </a>
-                <a href="/peike-portfolio/ai-demos" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                </Link>
+                <Link to="/ai-demos" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                   AI Demos
-                </a>
-                <a href="/peike-portfolio/leadership" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                </Link>
+                <Link to="/leadership" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                   </svg>
                   Leadership
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>

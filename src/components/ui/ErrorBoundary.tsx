@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 interface Props {
   children?: ReactNode
@@ -51,9 +52,9 @@ class ErrorBoundary extends Component<Props, State> {
               >
                 Refresh Page
               </button>
-              <a href="/peike-portfolio/" className="btn-secondary">
+              <Link to="/" className="btn-secondary">
                 Go Home
-              </a>
+              </Link>
             </div>
             {import.meta.env.DEV && this.state.error && (
               <details className="mt-8 text-left">

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { personalInfo } from '../data/portfolio'
 
 const Footer: React.FC = () => {
@@ -52,19 +53,19 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="/peike-portfolio/about" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <Link to="/about" className="text-secondary-300 hover:text-white transition-colors duration-200">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/peike-portfolio/projects" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <Link to="/projects" className="text-secondary-300 hover:text-white transition-colors duration-200">
                   Projects
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/peike-portfolio/contact" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <Link to="/contact" className="text-secondary-300 hover:text-white transition-colors duration-200">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
