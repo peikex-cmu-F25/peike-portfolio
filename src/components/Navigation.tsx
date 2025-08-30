@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import GeometricLogo from './ui/GeometricLogo'
 
 const Navigation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   const navigation = [
-    { name: 'Home', href: '/', emoji: '🏠' },
-    { name: 'About', href: '/about', emoji: '👤' },
-    { name: 'Projects', href: '/projects', emoji: '⚡' },
-    { name: 'Case Studies', href: '/case-studies', emoji: '📊' },
-    { name: 'Leadership', href: '/leadership', emoji: '🎯' },
-    { name: 'AI Demos', href: '/ai-demos', emoji: '🤖' },
-    { name: 'Architecture', href: '/architecture', emoji: '🏗️' },
-    { name: 'Blog', href: '/blog', emoji: '✍️' },
-    { name: 'Contact', href: '/contact', emoji: '💬' },
+    { name: 'Work', href: '/projects', symbol: '∏' },
+    { name: 'About', href: '/about', symbol: '∞' },
+    { name: 'Contact', href: '/contact', symbol: '∑' },
   ]
 
   const location = useLocation()
@@ -68,7 +63,7 @@ const Navigation: React.FC = () => {
     <motion.nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-neutral-50/95 backdrop-blur-lg border-b-2 border-primary-500/20 shadow-lg' 
+          ? 'bg-white/90 backdrop-blur-md border-b border-primary-100' 
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
@@ -76,71 +71,80 @@ const Navigation: React.FC = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="container-width section-padding">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo/Brand - More creative */}
+        <div className="flex items-center justify-between h-16">
+          {/* Geometric Logo */}
           <div className="flex items-center">
             <Link to="/" className="group flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-accent-500 transform rotate-45 group-hover:rotate-90 transition-transform duration-300 flex items-center justify-center">
-                <span className="font-display text-lg font-bold text-neutral-50 transform -rotate-45 group-hover:rotate-0 transition-transform duration-300">
-                  P
-                </span>
-              </div>
-              <span className="font-display text-2xl font-bold text-gradient group-hover:scale-105 transition-transform duration-200">
+              <GeometricLogo 
+                size="md" 
+                variant="default" 
+                className="group-hover:scale-110 transition-transform duration-200" 
+              />
+              <span className="font-display text-xl font-semibold text-primary-800 group-hover:text-accent-600 transition-colors duration-200">
                 Peike Xu
               </span>
             </Link>
           </div>
           
-          {/* Desktop Navigation - Creative hover effects */}
-          <div className="hidden lg:block">
-            <div className="flex items-center space-x-2">
+          {/* Desktop Navigation - Minimal */}
+          <div className="hidden md:block">
+            <div className="flex items-center space-x-8">
               {navigation.map((item, index) => (
                 <motion.div
                   key={item.name}
+                  className="relative"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
                 >
                   <Link
                     to={item.href}
-                    className={`group relative px-4 py-3 font-heading text-sm font-medium transition-all duration-300 ${
+                    className={`group relative font-heading text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg ${
                       isActivePath(item.href)
-                        ? 'text-primary-600'
-                        : 'text-neutral-600 hover:text-primary-600'
+                        ? 'text-accent-700 bg-accent-50'
+                        : 'text-primary-600 hover:text-accent-600 hover:bg-accent-50/50'
                     }`}
                   >
-                    {/* Background animation */}
-                    <span className={`absolute inset-0 rounded-none bg-gradient-to-r from-primary-500 to-accent-500 transform transition-all duration-300 ${
-                      isActivePath(item.href) 
-                        ? 'scale-100 opacity-10' 
-                        : 'scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-5'
-                    }`} />
-                    
-                    {/* Emoji icon */}
-                    <span className="relative inline-block mr-2 transform group-hover:scale-125 transition-transform duration-200">
-                      {item.emoji}
+                    <span className="relative z-10 flex items-center space-x-2">
+                      <span className="font-mathematical text-xs opacity-60 group-hover:opacity-100 transition-opacity duration-200">
+                        {item.symbol}
+                      </span>
+                      <span>{item.name}</span>
                     </span>
                     
-                    {/* Text */}
-                    <span className="relative">{item.name}</span>
+                    {/* Geometric hover effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-accent-100/0 via-accent-100/20 to-accent-100/0 rounded-lg opacity-0 group-hover:opacity-100"
+                      initial={false}
+                      whileHover={{
+                        opacity: 1,
+                        scale: 1.05,
+                        background: "linear-gradient(45deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1))"
+                      }}
+                      transition={{ duration: 0.2 }}
+                    />
                     
-                    {/* Bottom border */}
-                    <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 transition-all duration-300 ${
-                      isActivePath(item.href) 
-                        ? 'w-full' 
-                        : 'w-0 group-hover:w-full'
-                    }`} />
+                    {/* Mathematical accent line */}
+                    {isActivePath(item.href) && (
+                      <motion.div
+                        className="absolute bottom-0 left-1/2 w-6 h-0.5 bg-gradient-to-r from-accent-400 to-emerald-400 rounded-full"
+                        layoutId="activeNavItem"
+                        initial={false}
+                        animate={{ x: '-50%' }}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
                   </Link>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Mobile menu button - Creative design */}
-          <div className="lg:hidden">
+          {/* Mobile menu button - Simple */}
+          <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative w-12 h-12 bg-gradient-to-r from-primary-500 to-accent-500 text-neutral-50 flex items-center justify-center transform hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary-500/30"
+              className="p-2 text-primary-600 hover:text-primary-700 focus:outline-none"
             >
               <span className="sr-only">Open main menu</span>
               <motion.div
@@ -174,33 +178,33 @@ const Navigation: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile menu - Enhanced animations */}
+      {/* Mobile menu - Clean */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="lg:hidden overflow-hidden"
+            className="md:hidden overflow-hidden"
             variants={menuVariants}
             initial="closed"
             animate="open"
             exit="closed"
           >
-            <div className="bg-neutral-50/95 backdrop-blur-lg border-t-2 border-primary-500/20 shadow-lg">
-              <div className="px-4 py-6 space-y-2">
+            <div className="bg-white/95 backdrop-blur-md border-b border-primary-100">
+              <div className="px-4 py-4 space-y-1">
                 {navigation.map((item) => (
                   <motion.div key={item.name} variants={menuItemVariants}>
                     <Link
                       to={item.href}
-                      className={`group flex items-center px-4 py-3 font-heading text-base font-medium rounded-none border-l-4 transition-all duration-300 ${
+                      className={`group flex items-center space-x-3 px-4 py-3 font-heading text-sm font-medium transition-all duration-200 rounded-lg mx-2 ${
                         isActivePath(item.href)
-                          ? 'text-primary-600 bg-primary-50 border-primary-500'
-                          : 'text-neutral-600 hover:text-primary-600 hover:bg-primary-50/50 border-transparent hover:border-primary-400'
+                          ? 'text-accent-700 bg-accent-50 border-l-2 border-accent-400'
+                          : 'text-primary-600 hover:text-accent-600 hover:bg-accent-50/50'
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="mr-3 text-xl group-hover:scale-125 transition-transform duration-200">
-                        {item.emoji}
+                      <span className="font-mathematical text-sm opacity-60 group-hover:opacity-100 transition-opacity duration-200">
+                        {item.symbol}
                       </span>
-                      {item.name}
+                      <span>{item.name}</span>
                     </Link>
                   </motion.div>
                 ))}

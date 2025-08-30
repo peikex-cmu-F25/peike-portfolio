@@ -922,13 +922,8 @@ export const openSourceContributions: OpenSourceContribution[] = [
 
 // Navigation configuration
 export const navigationItems = [
-  { name: "Home", href: "/" },
+  { name: "Work", href: "/projects" },
   { name: "About", href: "/about" },
-  { name: "Projects", href: "/projects" },
-  { name: "Case Studies", href: "/case-studies" },
-  { name: "Leadership", href: "/leadership" },
-  { name: "AI Demos", href: "/ai-demos" },
-  { name: "Architecture", href: "/architecture" },
   { name: "Contact", href: "/contact" }
 ];
 

@@ -2,15 +2,13 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { personalInfo } from '../../data/portfolio'
+import MathematicalBackground from '../ui/MathematicalBackground'
+import InteractiveDataVisualization from '../ui/InteractiveDataVisualization'
+import GeometricDividers from '../ui/GeometricDividers'
 
 // TypeScript interfaces for component props
 interface HeroSectionProps {
   className?: string
-}
-
-interface QuickStat {
-  value: string
-  label: string
 }
 
 // Animation variants for better performance and reusability
@@ -20,7 +18,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       delayChildren: 0.2,
-      staggerChildren: 0.2
+      staggerChildren: 0.15
     }
   }
 }
@@ -37,40 +35,41 @@ const itemVariants = {
   }
 }
 
-const avatarVariants = {
-  hidden: { scale: 0.5, opacity: 0 },
+const nameVariants = {
+  hidden: { 
+    opacity: 0,
+    x: -50,
+    rotate: -5
+  },
   visible: {
-    scale: 1,
     opacity: 1,
+    x: 0,
+    rotate: 0,
     transition: {
-      duration: 0.8,
+      duration: 1.2,
       ease: "easeOut",
       type: "spring",
-      stiffness: 260,
+      stiffness: 100,
+      damping: 15
+    }
+  }
+}
+
+const geometricVariants = {
+  hidden: { scale: 0, rotate: -180, opacity: 0 },
+  visible: {
+    scale: 1,
+    rotate: 0,
+    opacity: 1,
+    transition: {
+      duration: 1.5,
+      ease: "easeOut",
+      type: "spring",
+      stiffness: 200,
       damping: 20
     }
   }
 }
-
-const statsVariants = {
-  hidden: { y: 50, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      delay: 1.0,
-      staggerChildren: 0.1
-    }
-  }
-}
-
-// Quick stats data
-const quickStats: QuickStat[] = [
-  { value: "3+", label: "Years Experience" },
-  { value: "10+", label: "Projects Completed" },
-  { value: "600+", label: "Students Mentored" }
-]
 
 const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
   // Handle reduced motion preferences
@@ -84,158 +83,166 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
   }
 
   return (
-    <section className={`section-padding py-32 bg-gradient-to-tr from-neutral-100 via-primary-50/30 to-accent-50/40 relative overflow-hidden min-h-screen flex items-center ${className}`}>
-      {/* Abstract background shapes - less generic */}
-      <div className="absolute inset-0 opacity-10" aria-hidden="true">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-primary-400 to-accent-400 transform rotate-45 animate-float"></div>
-        <div className="absolute bottom-1/4 -right-32 w-80 h-80 bg-gradient-to-l from-secondary-400 to-primary-400 transform -rotate-12 animate-float animation-delay-2000"></div>
-        <div className="absolute top-3/4 left-1/3 w-64 h-64 bg-accent-300/50 rounded-none transform rotate-12 animate-float animation-delay-4000"></div>
-      </div>
-      
-      <div className="container-width relative">
-        <motion.div 
-          className="grid lg:grid-cols-12 gap-12 items-center"
-          {...animationProps}
-        >
-          {/* Left Column - Main Content (Asymmetrical) */}
-          <div className="lg:col-span-7 relative">
-            {/* Small introductory text */}
-            <motion.p 
-              variants={itemVariants}
-              className="text-sm font-mono text-primary-600 mb-4 tracking-wider uppercase font-medium"
-            >
-              // Currently crafting AI solutions
-            </motion.p>
+    <>
+      <section className={`section-padding py-32 relative min-h-screen flex items-center overflow-hidden ${className}`}>
+        {/* Enhanced mathematical background with neural network pattern */}
+        <MathematicalBackground variant="neural" intensity="ultra-subtle" animated={!prefersReducedMotion} />
+        
+        {/* Mathematical secondary pattern */}
+        <div className="absolute top-0 right-0 w-1/2 h-full opacity-30">
+          <MathematicalBackground variant="parametric" intensity="barely-visible" animated={!prefersReducedMotion} />
+        </div>
+        
+        {/* Enhanced text readability overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-white/[0.01] pointer-events-none" />
+        
+        {/* Asymmetrical layout container */}
+        <div className="container-width relative z-20">
+          <div className="grid grid-cols-12 gap-8 items-center min-h-[80vh]">
             
-            {/* Main Heading - Staggered layout */}
-            <div className="relative mb-8">
-              <motion.h1 
-                variants={itemVariants}
-                className="font-display text-6xl md:text-8xl font-bold text-neutral-900 leading-none"
-              >
-                <span className="block">Hey,</span>
-                <span className="block text-gradient ml-8 md:ml-16 relative">
-                  I'm {personalInfo.name.split(' ')[0]}
-                  <span className="absolute -top-2 -right-8 text-handwritten text-2xl text-accent-500 rotate-12">
-                    ✨
+            {/* Left column - Main content (asymmetrical) */}
+            <div className="col-span-12 lg:col-span-7 xl:col-span-6">
+              <motion.div {...animationProps}>
+                
+                {/* Mathematical greeting with geometric accent */}
+                <motion.div 
+                  variants={itemVariants}
+                  className="flex items-center mb-6"
+                >
+                  <div className="font-mono text-sm text-accent-600 tracking-wider mr-4">
+                    λ Hello, I'm
+                  </div>
+                  <div className="w-12 h-px bg-gradient-to-r from-accent-400 to-transparent" />
+                </motion.div>
+                
+                {/* Animated name reveal with geometric styling */}
+                <motion.h1 
+                  variants={nameVariants}
+                  className="relative"
+                >
+                  <span className="font-display text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary-900 via-accent-700 to-emerald-600 bg-clip-text text-transparent leading-tight mb-8 block">
+                    {personalInfo.name}
                   </span>
-                </span>
-              </motion.h1>
-              
-              {/* Decorative line */}
+                  
+                  {/* Geometric accent behind name */}
+                  <motion.div
+                    variants={geometricVariants}
+                    className="absolute -top-4 -left-4 w-16 h-16 border border-accent-200 opacity-30"
+                    style={{ 
+                      clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                      background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1))'
+                    }}
+                  />
+                </motion.h1>
+                
+                {/* Mathematical tagline with enhanced typography */}
+                <motion.p 
+                  variants={itemVariants}
+                  className="font-body text-xl md:text-2xl text-primary-700 leading-relaxed mb-8 max-w-2xl"
+                >
+                  I build{' '}
+                  <span className="font-mono text-accent-600 px-2 py-1 bg-accent-50 rounded border-l-2 border-accent-400">
+                    AI systems
+                  </span>
+                  {' '}that solve real problems
+                </motion.p>
+                
+                {/* Enhanced description with mathematical elements */}
+                <motion.p 
+                  variants={itemVariants}
+                  className="font-body text-primary-600 leading-relaxed mb-12 max-w-xl"
+                >
+                  Currently studying{' '}
+                  <span className="font-mono text-sm bg-emerald-50 text-emerald-700 px-1 rounded">
+                    Software Engineering
+                  </span>
+                  {' '}at Carnegie Mellon while crafting intelligent solutions that make a difference.
+                </motion.p>
+                
+                {/* Enhanced buttons with geometric styling */}
+                <motion.div 
+                  variants={itemVariants}
+                  className="flex flex-col sm:flex-row gap-4 mb-16"
+                >
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Link 
+                      to="/projects" 
+                      className="group relative px-8 py-4 bg-gradient-to-r from-accent-500 to-emerald-500 text-white font-heading font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    >
+                      <span className="relative z-10 flex items-center space-x-2">
+                        <span className="font-mathematical text-sm">∏</span>
+                        <span>View My Work</span>
+                      </span>
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-violet-500 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        whileHover={{ scale: 1.1 }}
+                      />
+                    </Link>
+                  </motion.div>
+                  
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Link 
+                      to="/contact" 
+                      className="group relative px-8 py-4 bg-white/80 backdrop-blur-sm border-2 border-accent-200 text-accent-700 font-heading font-medium rounded-xl shadow-md hover:shadow-lg hover:border-accent-400 transition-all duration-300"
+                    >
+                      <span className="flex items-center space-x-2">
+                        <span className="font-mathematical text-sm">∑</span>
+                        <span>Get In Touch</span>
+                      </span>
+                    </Link>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* Right column - Interactive visualizations (asymmetrical) */}
+            <div className="col-span-12 lg:col-span-5 xl:col-span-6 lg:pl-8">
               <motion.div
                 variants={itemVariants}
-                className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mt-4 ml-8"
-              />
-            </div>
-            
-            {/* Professional Title - Offset */}
-            <motion.div 
-              variants={itemVariants}
-              className="mb-8 ml-4"
-            >
-              <h2 className="font-heading text-2xl md:text-3xl font-semibold text-neutral-700 mb-2">
-                {personalInfo.title}
-              </h2>
-              <p className="font-body text-lg text-neutral-600 leading-relaxed max-w-lg">
-                {personalInfo.tagline}
-              </p>
-            </motion.div>
-            
-            {/* Call-to-Action Buttons - Asymmetrical */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-6 mb-12"
-            >
-              <Link 
-                to="/projects" 
-                className="btn-primary group relative overflow-hidden"
-                aria-label="View my portfolio projects"
+                className="space-y-8"
               >
-                <span className="relative z-10 flex items-center justify-center">
-                  Explore My Work
-                  <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </Link>
-              
-              <Link 
-                to="/contact" 
-                className="btn-secondary group"
-                aria-label="Get in touch with me"
-              >
-                <span className="flex items-center justify-center">
-                  Let's Connect
-                  <svg className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </span>
-              </Link>
-            </motion.div>
-
-            {/* Quick Stats - Horizontal, offset */}
-            <motion.div
-              variants={statsVariants}
-              className="flex gap-12 text-left"
-              role="region"
-              aria-label="Professional statistics"
-            >
-              {quickStats.map((stat) => (
+                {/* Mathematical data visualizations */}
+                <div className="relative">
+                  <InteractiveDataVisualization variant="experience" animated={!prefersReducedMotion} />
+                </div>
+                
+                <div className="relative lg:ml-8">
+                  <InteractiveDataVisualization variant="projects" animated={!prefersReducedMotion} />
+                </div>
+                
+                {/* Geometric accent elements */}
                 <motion.div
-                  key={stat.label}
-                  variants={itemVariants}
-                  className="group cursor-default"
-                  whileHover={{ scale: prefersReducedMotion ? 1 : 1.02 }}
-                >
-                  <div className="font-display text-4xl font-bold text-primary-600 mb-1 group-hover:text-primary-700 transition-colors duration-200">
-                    {stat.value}
-                  </div>
-                  <div className="font-mono text-xs text-neutral-500 group-hover:text-neutral-600 transition-colors duration-200 uppercase tracking-wider">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right Column - Visual Element */}
-          <motion.div 
-            variants={avatarVariants}
-            className="lg:col-span-5 relative"
-          >
-            {/* Large Initial/Avatar - More creative */}
-            <div className="relative">
-              <div className="w-80 h-80 bg-gradient-to-br from-primary-500 via-accent-500 to-secondary-500 transform rotate-3 flex items-center justify-center text-neutral-50 shadow-2xl hover:shadow-3xl transition-all duration-500 group hover:rotate-6">
-                <span className="font-display text-8xl font-bold group-hover:scale-110 transition-transform duration-300">
-                  {personalInfo.name.split(' ').map(n => n[0]).join('')}
-                </span>
-              </div>
-              
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-12 h-12 border-4 border-accent-400 transform rotate-45"></div>
-              <div className="absolute -bottom-4 -left-4 w-8 h-8 bg-secondary-400 rounded-full"></div>
-              
-              {/* Handwritten note */}
-              <div className="absolute -bottom-12 -right-8 font-handwritten text-xl text-primary-600 rotate-6">
-                That's me! 👋
-              </div>
+                  variants={geometricVariants}
+                  className="hidden lg:block absolute top-1/2 right-8 w-20 h-20 border border-violet-300 opacity-20 animate-geometric-rotate"
+                  style={{ 
+                    clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
+                    animationDuration: '8s'
+                  }}
+                />
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
+        </div>
+        
+        {/* Mathematical formula overlay */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.05 }}
+          transition={{ delay: 3, duration: 2 }}
+          className="absolute bottom-8 right-8 font-mathematical text-6xl text-accent-400 pointer-events-none select-none"
+        >
+          ∫∑∏
         </motion.div>
-      </div>
-
-      {/* Scroll indicator - moved to side */}
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2, duration: 1, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute bottom-12 right-12 transform rotate-90"
-        aria-hidden="true"
-      >
-        <div className="font-mono text-xs text-neutral-400 tracking-widest">SCROLL</div>
-      </motion.div>
-    </section>
+      </section>
+      
+      {/* Geometric divider */}
+      <GeometricDividers 
+        variant="mathematical" 
+        height="md" 
+        color="gradient" 
+        animated={!prefersReducedMotion}
+      />
+    </>
   )
 }
 

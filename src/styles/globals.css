@@ -3,16 +3,31 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-accent-300: 125 211 252;
+    --color-accent-400: 56 189 248;
+    --color-accent-500: 14 165 233;
+    --color-accent-600: 2 132 199;
+    --color-emerald-300: 110 231 183;
+    --color-emerald-400: 52 211 153;
+    --color-emerald-500: 16 185 129;
+    --color-emerald-600: 5 150 105;
+    --color-violet-300: 196 181 253;
+    --color-violet-400: 167 139 250;
+    --color-violet-500: 139 92 246;
+    --color-violet-600: 124 58 237;
+  }
+
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-neutral-50 text-neutral-900 antialiased font-body;
+    @apply bg-white text-primary-800 antialiased font-body;
   }
 
   * {
-    @apply border-neutral-200;
+    @apply border-primary-200;
   }
 }
 
@@ -26,19 +41,32 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-4 border-2 border-transparent text-base font-medium font-heading rounded-none text-neutral-50 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-500/30 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply inline-flex items-center justify-center px-8 py-4 text-sm font-medium font-heading text-white bg-gradient-to-r from-accent-500 to-emerald-500 hover:from-accent-600 hover:to-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-4 border-2 border-primary-600 text-base font-medium font-heading rounded-none text-primary-600 bg-transparent hover:bg-primary-600 hover:text-neutral-50 focus:outline-none focus:ring-4 focus:ring-primary-500/30 transform hover:scale-105 transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-4 border-2 border-accent-200 text-sm font-medium font-heading text-accent-700 bg-white/80 backdrop-blur-sm hover:bg-accent-50 hover:border-accent-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 transition-all duration-300 rounded-xl shadow-md hover:shadow-lg;
+  }
+
+  /* Mathematical styling utilities */
+  .mathematical-highlight {
+    @apply font-mono text-accent-600 px-2 py-1 bg-accent-50 rounded border-l-2 border-accent-400;
+  }
+
+  .geometric-accent {
+    @apply bg-gradient-to-br from-accent-100/50 via-emerald-100/30 to-violet-100/50 backdrop-blur-sm border border-white/20 rounded-2xl;
+  }
+
+  .neural-glow {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3), 0 0 40px rgba(139, 92, 246, 0.2);
   }
 
   .card {
-    @apply bg-neutral-50 rounded-none border-l-4 border-primary-500 shadow-lg p-8 transition-all duration-300 hover:shadow-2xl hover:border-l-8 hover:transform hover:-translate-y-2 hover:rotate-1;
+    @apply bg-white border border-primary-100 shadow-sm p-6 transition-all duration-200 hover:shadow-md hover:border-primary-200;
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 via-accent-500 to-secondary-600 bg-clip-text text-transparent font-display;
+    @apply text-primary-700 font-display;
   }
 }
 
@@ -72,6 +100,16 @@
   /* Text effects */
   .text-shadow-soft {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Enhanced readability utilities */
+  .text-contrast-high {
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  }
+  
+  .bg-text-readable {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(0.5px);
   }
   
   .text-shadow-glow {
