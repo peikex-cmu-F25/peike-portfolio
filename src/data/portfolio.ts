@@ -155,34 +155,34 @@ export interface BlogArticle {
 // Personal Information
 export const personalInfo = {
   name: "Peike Xu",
-  title: "AI/ML Engineer & Full Stack Developer",
-  tagline: "Transforming complex business challenges into intelligent, scalable solutions that drive measurable impact",
+  title: "AI/ML Engineer & Creative Problem Solver",
+  tagline: "I build AI systems that actually work in the real world (and sometimes break spectacularly, but that's how we learn!)",
   location: "Sunnyvale, CA",
   email: "peikexu.work@gmail.com",
   phone: "(858) 305-0275",
   linkedin: "https://linkedin.com/in/peikexu",
   github: "https://github.com/peikexu",
-  bio: "Results-driven AI/ML Engineer and Full Stack Developer with a proven track record of delivering enterprise-grade solutions that solve real-world problems. Currently pursuing Master's in Software Engineering at Carnegie Mellon University. Specialized in building intelligent systems that reduce operational costs by 60%, improve user engagement by 25+%, and process enterprise data with 92% accuracy. From patient matching platforms serving 3,000+ users to enterprise RAG systems handling 100+ documents, I create technology that drives business value.",
-  heroHeadline: "Building Tomorrow's Intelligent Systems Today",
-  heroSubheadline: "AI/ML Engineer crafting scalable solutions that transform business operations and deliver measurable impact",
-  ctaText: "Let's Build Something Amazing",
+  bio: "I'm that engineer who gets genuinely excited about turning messy, real-world problems into elegant AI solutions. Currently diving deep into advanced software engineering at Carnegie Mellon while building systems that don't just work on paper, but actually make people's lives better. My approach? Start with a curious question, prototype relentlessly, and iterate until something magical happens. Whether it's teaching machines to read receipts (surprisingly hard!) or helping doctors match patients faster (surprisingly rewarding!), I love the challenge of making AI that feels... well, not artificial.",
+  heroHeadline: "Building AI That Feels Human",
+  heroSubheadline: "Currently crafting intelligent systems that solve real problems with a touch of creative chaos",
+  ctaText: "Let's Create Something Cool Together",
   resumeUrl: "/PeikeXu_resume.pdf",
   
   // About Section Content
   aboutSections: {
-    story: "My journey in technology began with a simple question: How can we make complex systems work better for people? This curiosity led me from the mathematical foundations at UC San Diego to the cutting-edge AI labs, and now to Carnegie Mellon University's renowned Software Engineering program. Along the way, I've discovered that the most impactful technology solutions are those that seamlessly bridge the gap between sophisticated algorithms and real-world business needs.",
+    story: "My coding story started with a broken calculator app in high school that somehow added 2+2 and got 5. Instead of giving up, I spent three sleepless nights figuring out why (spoiler: integer overflow). That moment taught me two things: bugs are puzzles waiting to be solved, and there's magic in understanding why things break. Fast-forward through UC San Diego's math labs where I learned to think algorithmically, to internships where I discovered that beautiful code means nothing if users can't figure it out, to Carnegie Mellon where I'm learning that the best AI systems are the ones that feel effortless to use.",
     
-    philosophy: "I believe in building technology that doesn't just work—it transforms. Whether it's reducing manual processes by 60%, improving system performance by 40%, or enabling new capabilities that weren't possible before, every line of code I write serves a greater purpose. My approach combines deep technical expertise with strategic business thinking, ensuring that innovative solutions also drive measurable value.",
+    philosophy: "I'm convinced that the best technology is invisible technology. When a patient finds the right care match in seconds instead of hours, they don't think about the SVD algorithms running behind the scenes—they just feel relieved. When a developer finds the exact documentation they need instantly, they don't care about vector embeddings—they just get their job done. My philosophy? Build smart systems that make people feel smarter, not systems that show off how smart I am.",
     
-    approach: "My development philosophy centers on three principles: intelligent automation that amplifies human capabilities, scalable architectures that grow with business needs, and user-centric design that makes powerful technology accessible to everyone. From enterprise RAG systems to patient matching platforms, I create solutions that solve real problems while maintaining the highest standards of performance and reliability.",
+    approach: "My process is embarrassingly simple: I break things. A lot. I prototype fast, fail faster, and celebrate every spectacular failure because that's where the real learning happens. Here's my playbook: 1) Talk to actual humans who'll use the thing, 2) Build the smallest version that could possibly work, 3) Watch it fail in interesting ways, 4) Iterate based on real feedback, 5) Scale when (and only when) the fundamentals are rock-solid. No fancy frameworks for the sake of it, no over-engineering, just obsessive focus on solving the right problem the right way.",
     
-    currentFocus: "Currently pursuing my Master's in Software Engineering at Carnegie Mellon University, I'm diving deep into advanced system design patterns and enterprise-scale AI implementation. I'm particularly excited about the intersection of machine learning and software engineering—building AI systems that are not only intelligent but also maintainable, scalable, and production-ready.",
+    currentFocus: "Right now I'm deep in Carnegie Mellon's advanced software engineering program, but the real education happens in the trenches—building RAG systems that actually understand context, training computer vision models on truly messy receipt data, and figuring out why production systems behave differently than localhost (always). I'm particularly fascinated by the gap between 'AI that works in demos' and 'AI that works at 3 AM when everything is on fire.' That's where the interesting engineering happens.",
     
     values: [
-      "Innovation with Purpose: Building technology that creates meaningful impact",
-      "Excellence in Execution: Delivering solutions that exceed expectations",
-      "Continuous Learning: Staying at the forefront of technological advancement",
-      "Collaborative Growth: Mentoring others while continuously improving myself"
+      "Build things that matter: If it doesn't solve a real problem, why are we building it?",
+      "Embrace the mess: Real-world data is noisy, users are unpredictable, and that's what makes it fun",
+      "Share the journey: Document the failures, not just the wins—that's where others learn",
+      "Stay curious: The moment you think you know everything is the moment you stop growing"
     ]
   }
 };
