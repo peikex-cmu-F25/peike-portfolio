@@ -6,6 +6,8 @@ import EnterpriseRAGDemo from '../components/ai-demos/EnterpriseRAGDemo';
 import PatientMatchingDemo from '../components/ai-demos/PatientMatchingDemo';
 import ReceiptProcessingDemo from '../components/ai-demos/ReceiptProcessingDemo';
 import EcommerceRecommendationDemo from '../components/ai-demos/EcommerceRecommendationDemo';
+import { EnhancedProjectCard, MathematicalTooltip } from '../components/ui';
+import MathematicalBackground from '../components/ui/MathematicalBackground';
 
 const Projects: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -48,86 +50,14 @@ const Projects: React.FC = () => {
     }
   };
 
-  const ProjectCard: React.FC<{ project: ProjectData }> = ({ project }) => (
-    <motion.div
-      variants={itemVariants}
-      className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-      onClick={() => setSelectedProject(project)}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
-    >
-      <div className="h-48 bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
-        <div className="text-6xl opacity-20">
-          {project.category === 'AI/ML' ? '🤖' : 
-           project.category === 'Full Stack' ? '💻' :
-           project.category === 'Cloud/DevOps' ? '☁️' : '📱'}
-        </div>
-      </div>
-      
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-3">
-          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-            project.category === 'AI/ML' ? 'bg-purple-100 text-purple-800' :
-            project.category === 'Full Stack' ? 'bg-blue-100 text-blue-800' :
-            project.category === 'Cloud/DevOps' ? 'bg-green-100 text-green-800' :
-            'bg-orange-100 text-orange-800'
-          }`}>
-            {project.category}
-          </span>
-          {project.featured && (
-            <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full font-medium">
-              Featured
-            </span>
-          )}
-        </div>
-        
-        <h3 className="text-xl font-bold text-secondary-900 mb-2">
-          {project.title}
-        </h3>
-        
-        <p className="text-secondary-600 mb-4 line-clamp-2">
-          {project.description}
-        </p>
-        
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.technologies.slice(0, 3).map((tech, index) => (
-            <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-              {tech}
-            </span>
-          ))}
-          {project.technologies.length > 3 && (
-            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-              +{project.technologies.length - 3} more
-            </span>
-          )}
-        </div>
-        
-        <div className="grid grid-cols-3 gap-2 mb-4">
-          {project.metrics.slice(0, 3).map((metric, index) => (
-            <div key={index} className="text-center">
-              <div className="text-lg font-bold text-primary-600">{metric.value}</div>
-              <div className="text-xs text-secondary-500">{metric.label}</div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Demo Button */}
-        {demoComponents[project.id] && (
-          <div className="mt-auto">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveDemo(project.id);
-              }}
-              className="w-full btn-primary text-sm py-2"
-            >
-              🚀 Try Interactive Demo
-            </button>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  );
+  // Determine layout for each project to create visual variety
+  const getProjectLayout = (index: number): 'horizontal' | 'vertical' | 'featured' => {
+    const project = filteredProjects[index];
+    if (project?.featured) return 'featured';
+    if (index % 4 === 1) return 'horizontal';
+    if (index % 4 === 3) return 'vertical';
+    return 'vertical'; // default
+  };
 
   const ProjectModal: React.FC<{ project: ProjectData; onClose: () => void }> = ({ project, onClose }) => (
     <motion.div
@@ -258,58 +188,79 @@ const Projects: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container-width">
-        {/* Header */}
+    <div className="min-h-screen py-20 relative">
+      {/* Mathematical background */}
+      <MathematicalBackground variant="neural" intensity="ultra-subtle" animated={true} />
+      
+      <div className="container-width relative z-10">
+        {/* Header with geometric styling */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-secondary-900 mb-6">
-            My <span className="text-gradient">Projects</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            My <span className="bg-gradient-to-r from-accent-500 to-emerald-500 bg-clip-text text-transparent">Projects</span>
           </h1>
-          <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             A showcase of AI/ML innovations, full-stack applications, and scalable solutions 
             that demonstrate my expertise in building impactful technology products.
           </p>
         </motion.div>
 
-        {/* Filter Tabs */}
+        {/* Enhanced Filter Tabs with geometric styling */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
           className="flex justify-center mb-12"
         >
-          <div className="flex flex-wrap gap-2 bg-gray-100 p-1 rounded-lg">
+          <div className="flex flex-wrap gap-2 bg-white/80 backdrop-blur-sm p-2 rounded-2xl shadow-lg border border-gray-100">
             {categories.map((category) => (
-              <button
+              <motion.button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-md font-medium transition-all duration-200 ${
+                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'bg-white text-primary-600 shadow-sm'
-                    : 'text-secondary-600 hover:text-secondary-900'
+                    ? 'bg-gradient-to-r from-accent-500 to-emerald-500 text-white shadow-lg'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {category}
-              </button>
+                <MathematicalTooltip 
+                  symbol="∈" 
+                  meaning="Element of" 
+                  connection={`Projects in ${category} category`}
+                >
+                  {category}
+                </MathematicalTooltip>
+              </motion.button>
             ))}
           </div>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Enhanced Projects Grid with varied layouts */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto"
         >
           <AnimatePresence>
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+            {filteredProjects.map((project, index) => (
+              <EnhancedProjectCard
+                key={project.id}
+                project={project}
+                layout={getProjectLayout(index)}
+                onClick={() => setSelectedProject(project)}
+                onDemoClick={(e) => {
+                  e.stopPropagation();
+                  setActiveDemo(project.id);
+                }}
+                hasDemo={!!demoComponents[project.id]}
+              />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -320,7 +271,8 @@ const Projects: React.FC = () => {
             animate={{ opacity: 1 }}
             className="text-center py-12"
           >
-            <p className="text-secondary-500 text-lg">
+            <div className="text-6xl mb-4 opacity-30">🔍</div>
+            <p className="text-gray-500 text-lg">
               No projects found in this category. Please select a different filter.
             </p>
           </motion.div>

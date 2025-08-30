@@ -37,10 +37,10 @@ const InteractiveDataVisualization: React.FC<DataVisualizationProps> = ({
         geometric: 'hexagon'
       },
       {
-        value: 87,
+        value: 94,
         maxValue: 100,
         symbol: '∑',
-        label: 'Success Rate',
+        label: 'Model Accuracy',
         unit: '%',
         color: 'emerald',
         geometric: 'octagon'
@@ -60,7 +60,7 @@ const InteractiveDataVisualization: React.FC<DataVisualizationProps> = ({
         value: 25,
         maxValue: 30,
         symbol: '∆',
-        label: 'Technologies',
+        label: 'Technical Stack',
         unit: '',
         color: 'accent',
         geometric: 'hexagon'

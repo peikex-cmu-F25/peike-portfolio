@@ -5,6 +5,8 @@ import { personalInfo } from '../../data/portfolio'
 import MathematicalBackground from '../ui/MathematicalBackground'
 import InteractiveDataVisualization from '../ui/InteractiveDataVisualization'
 import GeometricDividers from '../ui/GeometricDividers'
+import MathematicalTooltip from '../ui/MathematicalTooltip'
+import GeometricCodePattern from '../ui/GeometricCodePattern'
 
 // TypeScript interfaces for component props
 interface HeroSectionProps {
@@ -110,17 +112,31 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                   className="flex items-center mb-6"
                 >
                   <div className="font-mono text-sm text-accent-600 tracking-wider mr-4">
-                    λ Hello, I'm
+                    <MathematicalTooltip 
+                      symbol="λ" 
+                      meaning="Lambda" 
+                      connection="Represents function transformation in AI"
+                    >
+                      λ Hello, I'm
+                    </MathematicalTooltip>
                   </div>
                   <div className="w-12 h-px bg-gradient-to-r from-accent-400 to-transparent" />
+                </motion.div>
+                
+                {/* Left-side geometric code pattern for balance */}
+                <motion.div
+                  variants={itemVariants}
+                  className="absolute -left-8 top-16 w-24 h-32 opacity-30"
+                >
+                  <GeometricCodePattern animated={!prefersReducedMotion} />
                 </motion.div>
                 
                 {/* Animated name reveal with geometric styling */}
                 <motion.h1 
                   variants={nameVariants}
-                  className="relative"
+                  className="relative mb-6"
                 >
-                  <span className="font-display text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary-900 via-accent-700 to-emerald-600 bg-clip-text text-transparent leading-tight mb-8 block">
+                  <span className="font-display text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary-900 via-accent-700 to-emerald-600 bg-clip-text text-transparent leading-tight block">
                     {personalInfo.name}
                   </span>
                   
@@ -138,13 +154,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                 {/* Mathematical tagline with enhanced typography */}
                 <motion.p 
                   variants={itemVariants}
-                  className="font-body text-xl md:text-2xl text-primary-700 leading-relaxed mb-8 max-w-2xl"
+                  className="leading-relaxed mb-6 max-w-2xl"
                 >
-                  I build{' '}
-                  <span className="font-mono text-accent-600 px-2 py-1 bg-accent-50 rounded border-l-2 border-accent-400">
+                  <span className="font-light text-xl md:text-2xl text-primary-600">I build</span>{' '}
+                  <span className="font-mono text-xl md:text-2xl text-accent-600 px-2 py-1 bg-accent-50 rounded border-l-2 border-accent-400 font-medium">
                     AI systems
                   </span>
-                  {' '}that solve real problems
+                  <span className="font-light text-xl md:text-2xl text-primary-600">{' '}that solve real problems</span>
                 </motion.p>
                 
                 {/* Enhanced description with mathematical elements */}
@@ -167,10 +183,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Link 
                       to="/projects" 
-                      className="group relative px-8 py-4 bg-gradient-to-r from-accent-500 to-emerald-500 text-white font-heading font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                      className="group relative min-w-fit px-8 py-4 bg-gradient-to-r from-accent-500 to-emerald-500 text-white font-heading font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden inline-flex items-center justify-center"
                     >
-                      <span className="relative z-10 flex items-center space-x-2">
-                        <span className="font-mathematical text-sm">∏</span>
+                      <span className="relative z-10 flex items-center justify-center space-x-2 whitespace-nowrap">
+                        <MathematicalTooltip 
+                          symbol="∏" 
+                          meaning="Product" 
+                          connection="Represents the product of my work and skills"
+                        >
+                          <span className="font-mathematical text-sm">∏</span>
+                        </MathematicalTooltip>
                         <span>View My Work</span>
                       </span>
                       <motion.div
@@ -183,10 +205,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Link 
                       to="/contact" 
-                      className="group relative px-8 py-4 bg-white/80 backdrop-blur-sm border-2 border-accent-200 text-accent-700 font-heading font-medium rounded-xl shadow-md hover:shadow-lg hover:border-accent-400 transition-all duration-300"
+                      className="group relative min-w-fit px-8 py-4 bg-white/80 backdrop-blur-sm border-2 border-accent-200 text-accent-700 font-heading font-medium rounded-xl shadow-md hover:shadow-lg hover:border-accent-400 transition-all duration-300 inline-flex items-center justify-center"
                     >
-                      <span className="flex items-center space-x-2">
-                        <span className="font-mathematical text-sm">∑</span>
+                      <span className="flex items-center justify-center space-x-2 whitespace-nowrap">
+                        <MathematicalTooltip 
+                          symbol="∑" 
+                          meaning="Summation" 
+                          connection="Sum of opportunities when we connect"
+                        >
+                          <span className="font-mathematical text-sm">∑</span>
+                        </MathematicalTooltip>
                         <span>Get In Touch</span>
                       </span>
                     </Link>
@@ -231,7 +259,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
           transition={{ delay: 3, duration: 2 }}
           className="absolute bottom-8 right-8 font-mathematical text-6xl text-accent-400 pointer-events-none select-none"
         >
-          ∫∑∏
+          <MathematicalTooltip 
+            symbol="∫∑∏" 
+            meaning="Integration, Sum, Product" 
+            connection="The mathematical foundation of AI and data science"
+          >
+            ∫∑∏
+          </MathematicalTooltip>
         </motion.div>
       </section>
       

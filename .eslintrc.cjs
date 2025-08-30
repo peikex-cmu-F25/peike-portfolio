@@ -6,18 +6,36 @@ module.exports = {
     node: true 
   },
   extends: [
-    'eslint:recommended'
+    'eslint:recommended',
+    '@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:react-refresh/only-export-components'
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules'],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true
     }
   },
+  plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
-    'no-unused-vars': 'warn',
-    'no-console': 'warn'
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    '@typescript-eslint/no-unused-vars': 'warn',
+    'no-unused-vars': 'off'
   },
+  overrides: [
+    {
+      files: ['**/*.test.{ts,tsx}', '**/*test.{ts,tsx}', '**/setupTests.ts'],
+      env: {
+        vitest: true
+      },
+      extends: ['plugin:vitest/recommended']
+    }
+  ]
 }
