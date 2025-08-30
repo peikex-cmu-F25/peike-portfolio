@@ -8,6 +8,18 @@ interface MathematicalBackgroundProps {
   animated?: boolean
 }
 
+// Type definitions for pattern data
+type PointData = Array<{ x: number; y: number; size: number; opacity?: number; value?: number }>
+type NetworkData = { nodes: Array<{ id: number; x: number; y: number; layer: number; size: number }>; connections: Array<{ from: { x: number; y: number }; to: { x: number; y: number }; strength: number }> }
+type VoronoiData = Array<{ x: number; y: number; color: string }>
+type CurvesData = Array<{ type: string; points: Array<{ x: number; y: number }> }>
+
+type PatternData = 
+  | { type: 'points'; data: PointData }
+  | { type: 'network'; data: NetworkData }
+  | { type: 'voronoi'; data: VoronoiData }
+  | { type: 'curves'; data: CurvesData }
+
 const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({ 
   className = "", 
   variant = 'golden',
@@ -15,8 +27,8 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
   animated = true
 }) => {
   // Golden ratio spiral points
-  const generateGoldenSpiral = () => {
-    const points = []
+  const generateGoldenSpiral = (): PointData => {
+    const points: PointData = []
     const phi = (1 + Math.sqrt(5)) / 2 // Golden ratio
     const centerX = 50
     const centerY = 50
@@ -35,7 +47,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
   }
 
   // Fibonacci sequence visualization
-  const generateFibonacci = () => {
+  const generateFibonacci = (): PointData => {
     const fib = [1, 1]
     for (let i = 2; i < 15; i++) {
       fib[i] = fib[i - 1] + fib[i - 2]
@@ -50,8 +62,8 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
   }
 
   // Sine wave pattern
-  const generateWave = () => {
-    const points = []
+  const generateWave = (): PointData => {
+    const points: PointData = []
     for (let i = 0; i < 100; i += 2) {
       const x = i
       const y = 50 + Math.sin(i * 0.2) * 20
@@ -61,8 +73,8 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
   }
 
   // Simple mandelbrot-inspired pattern  
-  const generateMandelbrot = () => {
-    const points: Array<{ x: number; y: number; size: number; opacity?: number }> = []
+  const generateMandelbrot = (): PointData => {
+    const points: PointData = []
     for (let x = 0; x < 10; x++) {
       for (let y = 0; y < 10; y++) {
         const cx = (x - 5) * 0.5
@@ -97,9 +109,9 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
   }
 
   // Neural network pattern
-  const generateNeuralNetwork = () => {
-    const nodes = []
-    const connections = []
+  const generateNeuralNetwork = (): NetworkData => {
+    const nodes: Array<{ id: number; x: number; y: number; layer: number; size: number }> = []
+    const connections: Array<{ from: { x: number; y: number }; to: { x: number; y: number }; strength: number }> = []
     
     // Generate nodes in layers
     const layers = [3, 5, 4, 2]
@@ -145,8 +157,8 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
   }
 
   // Voronoi diagram
-  const generateVoronoi = () => {
-    const sites = []
+  const generateVoronoi = (): VoronoiData => {
+    const sites: VoronoiData = []
     const numSites = 8
     
     for (let i = 0; i < numSites; i++) {
@@ -161,11 +173,11 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
   }
 
   // Parametric curves
-  const generateParametricCurves = () => {
-    const curves = []
+  const generateParametricCurves = (): CurvesData => {
+    const curves: CurvesData = []
     
     // Lissajous curve
-    const lissajous = []
+    const lissajous: Array<{ x: number; y: number }> = []
     for (let t = 0; t <= 2 * Math.PI; t += 0.1) {
       const x = 50 + 20 * Math.sin(3 * t + Math.PI / 2)
       const y = 50 + 15 * Math.sin(2 * t)
@@ -174,7 +186,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
     curves.push({ type: 'lissajous', points: lissajous })
     
     // Rose curve
-    const rose = []
+    const rose: Array<{ x: number; y: number }> = []
     for (let t = 0; t <= 8 * Math.PI; t += 0.1) {
       const r = 15 * Math.cos(4 * t)
       const x = 25 + r * Math.cos(t)
@@ -184,7 +196,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
     curves.push({ type: 'rose', points: rose })
     
     // Cardioid
-    const cardioid = []
+    const cardioid: Array<{ x: number; y: number }> = []
     for (let t = 0; t <= 2 * Math.PI; t += 0.1) {
       const r = 8 * (1 - Math.cos(t))
       const x = 75 + r * Math.cos(t)
@@ -196,7 +208,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
     return curves
   }
 
-  const patternData = useMemo(() => {
+  const patternData: PatternData = useMemo(() => {
     switch (variant) {
       case 'fibonacci':
         return { type: 'points', data: generateFibonacci() }
@@ -280,7 +292,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
             {/* Golden spiral path */}
             {variant === 'golden' && (
               <motion.path
-                d={`M 75 25 ${patternData.data.slice(0, 30).map((p: any) => {
+                d={`M 75 25 ${(patternData.data as PointData).slice(0, 30).map((p) => {
                   const shiftedX = 75 + (p.x - 50) * 0.4
                   const shiftedY = 25 + (p.y - 50) * 0.4
                   return `L ${Math.max(0, Math.min(100, shiftedX))} ${Math.max(0, Math.min(100, shiftedY))}`
@@ -297,7 +309,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
             {/* Wave pattern */}
             {variant === 'wave' && (
               <motion.path
-                d={`M ${patternData.data.map((p: any, i: number) => {
+                d={`M ${(patternData.data as PointData).map((p, i: number) => {
                   const adjustedY = 85 + Math.sin(i * 0.3) * 8
                   return `${i === 0 ? 'M' : 'L'} ${p.x} ${adjustedY}`
                 }).join(' ')}`}
@@ -311,10 +323,10 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
             )}
 
             {/* Point elements */}
-            {patternData.data.slice(0, Math.floor(patternData.data.length * 0.4)).map((element: any, index: number) => {
+            {(patternData.data as PointData).slice(0, Math.floor((patternData.data as PointData).length * 0.4)).map((element, index: number) => {
               if (element.x < 40 && element.y > 30 && element.y < 70) return null
               
-              const baseOpacity = ('opacity' in element ? element.opacity : 0.3) * 0.6
+              const baseOpacity = ('opacity' in element && element.opacity !== undefined ? element.opacity : 0.3) * 0.6
               const opacity = getOpacity(baseOpacity)
               const adjustedSize = element.size * 0.7
               
@@ -343,7 +355,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
         {patternData.type === 'network' && (
           <>
             {/* Connections */}
-            {patternData.data.connections.map((connection: any, index: number) => (
+            {(patternData.data as NetworkData).connections.map((connection, index: number) => (
               <motion.line
                 key={`connection-${index}`}
                 x1={connection.from.x}
@@ -360,7 +372,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
             ))}
             
             {/* Nodes */}
-            {patternData.data.nodes.map((node: any, index: number) => (
+            {(patternData.data as NetworkData).nodes.map((node, index: number) => (
               <motion.circle
                 key={`node-${index}`}
                 cx={node.x}
@@ -387,10 +399,10 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
         {/* Parametric Curves */}
         {patternData.type === 'curves' && (
           <>
-            {patternData.data.map((curve: any, curveIndex: number) => (
+            {(patternData.data as CurvesData).map((curve, curveIndex: number) => (
               <motion.path
                 key={`curve-${curveIndex}`}
-                d={`M ${curve.points.map((p: any, i: number) => 
+                d={`M ${curve.points.map((p, i: number) => 
                   `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`
                 ).join(' ')}`}
                 stroke="url(#lineGradient)"
@@ -412,7 +424,7 @@ const MathematicalBackground: React.FC<MathematicalBackgroundProps> = ({
         {/* Voronoi Diagram */}
         {patternData.type === 'voronoi' && (
           <>
-            {patternData.data.map((site: any, index: number) => (
+            {(patternData.data as VoronoiData).map((site, index: number) => (
               <motion.circle
                 key={`voronoi-${index}`}
                 cx={site.x}
