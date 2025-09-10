@@ -7,6 +7,8 @@ import PatientMatchingDemo from '../components/ai-demos/PatientMatchingDemo';
 import ReceiptProcessingDemo from '../components/ai-demos/ReceiptProcessingDemo';
 import EcommerceRecommendationDemo from '../components/ai-demos/EcommerceRecommendationDemo';
 import AsteroidAvoider from '../components/games/AsteroidAvoider';
+import SnakeGame from '../components/games/SnakeGame';
+import GamesTabs from '../components/games/GamesTabs';
 import { EnhancedProjectCard, MathematicalTooltip } from '../components/ui';
 import MathematicalBackground from '../components/ui/MathematicalBackground';
 
@@ -20,6 +22,7 @@ const Projects: React.FC = () => {
     'enterprise-rag': EnterpriseRAGDemo,
     'smart-receipt-platform': ReceiptProcessingDemo,
     'asteroid-avoider': AsteroidAvoider,
+    'snake-game': SnakeGame,
     // Note: Patient matching demo would be connected to the Welfie project
     // E-commerce demo would be connected to the Eth Tech project
   };
@@ -245,31 +248,42 @@ const Projects: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Enhanced Projects Grid with varied layouts */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto"
-        >
-          <AnimatePresence>
-            {filteredProjects.map((project, index) => (
-              <EnhancedProjectCard
-                key={project.id}
-                project={project}
-                layout={getProjectLayout(index)}
-                onClick={() => setSelectedProject(project)}
-                onDemoClick={(e) => {
-                  e.stopPropagation();
-                  setActiveDemo(project.id);
-                }}
-                hasDemo={!!demoComponents[project.id]}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Special handling for Game Development category */}
+        {selectedCategory === 'Game Development' ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <GamesTabs />
+          </motion.div>
+        ) : (
+          /* Enhanced Projects Grid with varied layouts */
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto"
+          >
+            <AnimatePresence>
+              {filteredProjects.map((project, index) => (
+                <EnhancedProjectCard
+                  key={project.id}
+                  project={project}
+                  layout={getProjectLayout(index)}
+                  onClick={() => setSelectedProject(project)}
+                  onDemoClick={(e) => {
+                    e.stopPropagation();
+                    setActiveDemo(project.id);
+                  }}
+                  hasDemo={!!demoComponents[project.id]}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
-        {filteredProjects.length === 0 && (
+        {filteredProjects.length === 0 && selectedCategory !== 'Game Development' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

@@ -167,7 +167,7 @@ export const personalInfo = {
   heroSubheadline: "Currently crafting intelligent systems that solve real problems with a touch of creative chaos",
   ctaText: "Let's Create Something Cool Together",
   resumeUrl: "/PeikeXu_resume.pdf",
-  profileImage: "/pk.jpg",
+  profileImage: "/pk.jpeg",
   
   // About Section Content
   aboutSections: {
@@ -353,6 +353,33 @@ export const projects: ProjectData[] = [
     ],
     image: "/images/projects/emergency-response.jpg",
     featured: true,
+    year: 2024
+  },
+  {
+    id: "snake-game",
+    title: "Modern Snake Game - Classic Reimagined",
+    category: "Game Development",
+    description: "A beautifully crafted modern interpretation of the classic Snake game featuring polished animations, responsive design, and algorithmic excellence",
+    longDescription: "Developed a sophisticated recreation of the timeless Snake game that demonstrates mastery of fundamental game development concepts while incorporating modern web technologies. This project showcases advanced algorithmic thinking through efficient grid-based movement systems, collision detection algorithms, and dynamic game state management. Built with TypeScript and React, the game features smooth animations powered by Framer Motion, responsive canvas rendering, and comprehensive mobile support including intuitive swipe gesture controls. The implementation emphasizes clean code architecture, proper separation of concerns, and performance optimization, making it an ideal demonstration piece for both game development skills and software engineering best practices.",
+    technologies: ["TypeScript", "React", "HTML5 Canvas", "Framer Motion", "Touch Gestures", "Local Storage", "Responsive Design"],
+    metrics: [
+      { label: "Grid Performance", value: "Optimized" },
+      { label: "Touch Response", value: "Instant" },
+      { label: "Code Quality", value: "Portfolio-Grade" },
+      { label: "Cross-Platform", value: "100%" }
+    ],
+    features: [
+      "Grid-based movement system with precise collision detection algorithms",
+      "Smooth snake growth mechanics with visual aging effects for body segments",
+      "Progressive speed increase creating dynamic difficulty scaling",
+      "Comprehensive mobile support with swipe gesture recognition and touch controls",
+      "High score persistence using browser local storage with data validation",
+      "Modern UI design with gradient backgrounds and smooth Framer Motion animations",
+      "Professional game state management handling play, pause, and game over states",
+      "Responsive canvas that adapts seamlessly to different screen sizes and orientations"
+    ],
+    image: "/images/projects/snake-game.jpg",
+    featured: false,
     year: 2024
   },
   {

@@ -107,10 +107,27 @@ const About: React.FC = () => {
           >
             <div className="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8 h-96 flex items-center justify-center">
               <div className="text-center">
-                <div className="w-32 h-32 bg-primary-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-4xl font-bold text-primary-600">PX</span>
+                <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden shadow-lg">
+                  <img 
+                    src={personalInfo.profileImage} 
+                    alt={`${personalInfo.name} profile photo`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback to initials if image fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = `
+                          <div class="w-full h-full bg-primary-200 flex items-center justify-center">
+                            <span class="text-4xl font-bold text-primary-600">PX</span>
+                          </div>
+                        `;
+                      }
+                    }}
+                  />
                 </div>
-                <p className="text-secondary-600">Professional Photo Coming Soon</p>
+                <p className="text-secondary-600">Peike Xu</p>
               </div>
             </div>
           </motion.div>
