@@ -2,281 +2,224 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { personalInfo } from '../../data/portfolio'
-import MathematicalBackground from '../ui/MathematicalBackground'
-import InteractiveDataVisualization from '../ui/InteractiveDataVisualization'
-import GeometricDividers from '../ui/GeometricDividers'
-import MathematicalTooltip from '../ui/MathematicalTooltip'
-import GeometricCodePattern from '../ui/GeometricCodePattern'
+import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react'
 
 // TypeScript interfaces for component props
 interface HeroSectionProps {
   className?: string
 }
 
-// Animation variants for better performance and reusability
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.15
+      delayChildren: 0.3,
+      staggerChildren: 0.2
     }
   }
 }
 
 const itemVariants = {
-  hidden: { y: 30, opacity: 0 },
+  hidden: { y: 40, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
       duration: 0.8,
-      ease: "easeOut"
+      ease: [0.25, 0.25, 0, 1]
     }
   }
 }
 
-const nameVariants = {
-  hidden: { 
-    opacity: 0,
-    x: -50,
-    rotate: -5
-  },
+const titleVariants = {
+  hidden: { y: 60, opacity: 0 },
   visible: {
-    opacity: 1,
-    x: 0,
-    rotate: 0,
-    transition: {
-      duration: 1.2,
-      ease: "easeOut",
-      type: "spring",
-      stiffness: 100,
-      damping: 15
-    }
-  }
-}
-
-const geometricVariants = {
-  hidden: { scale: 0, rotate: -180, opacity: 0 },
-  visible: {
-    scale: 1,
-    rotate: 0,
+    y: 0,
     opacity: 1,
     transition: {
-      duration: 1.5,
-      ease: "easeOut",
-      type: "spring",
-      stiffness: 200,
-      damping: 20
+      duration: 1,
+      ease: [0.25, 0.25, 0, 1]
     }
   }
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
-  // Handle reduced motion preferences
-  const prefersReducedMotion = typeof window !== 'undefined' && 
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  const animationProps = prefersReducedMotion ? {} : {
-    initial: "hidden",
-    animate: "visible",
-    variants: containerVariants
-  }
-
   return (
-    <>
-      <section className={`section-padding py-32 relative min-h-screen flex items-center overflow-hidden ${className}`}>
-        {/* Enhanced mathematical background with neural network pattern */}
-        <MathematicalBackground variant="neural" intensity="ultra-subtle" animated={!prefersReducedMotion} />
-        
-        {/* Mathematical secondary pattern */}
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-30">
-          <MathematicalBackground variant="parametric" intensity="barely-visible" animated={!prefersReducedMotion} />
-        </div>
-        
-        {/* Enhanced text readability overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-white/[0.01] pointer-events-none" />
-        
-        {/* Asymmetrical layout container */}
-        <div className="container-width relative z-20">
-          <div className="grid grid-cols-12 gap-8 items-center min-h-[80vh]">
-            
-            {/* Left column - Main content (asymmetrical) */}
-            <div className="col-span-12 lg:col-span-7 xl:col-span-6">
-              <motion.div {...animationProps}>
-                
-                {/* Mathematical greeting with geometric accent */}
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex items-center mb-6"
-                >
-                  <div className="font-mono text-sm text-accent-600 tracking-wider mr-4">
-                    <MathematicalTooltip 
-                      symbol="λ" 
-                      meaning="Lambda" 
-                      connection="Represents function transformation in AI"
-                    >
-                      λ Hello, I'm
-                    </MathematicalTooltip>
-                  </div>
-                  <div className="w-12 h-px bg-gradient-to-r from-accent-400 to-transparent" />
+    <section className={`relative min-h-screen flex items-center overflow-hidden ${className}`}>
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50/30 to-purple-50/20" />
+      
+      {/* Animated background elements */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-blue-200/30 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      
+      {/* Content container */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative z-10">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center"
+        >
+          
+          <div className="lg:col-span-7">
+            <motion.div variants={itemVariants} className="space-y-8">
+              
+              {/* Greeting */}
+              <motion.div variants={itemVariants} className="flex items-center space-x-4">
+                <div className="w-12 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+                <span className="text-blue-600 font-medium tracking-wide">Hello, I'm</span>
+              </motion.div>
+              
+              {/* Name */}
+              <motion.h1 variants={titleVariants} className="space-y-2">
+                <div className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 bg-clip-text text-transparent leading-none">
+                  Peike Xu
+                </div>
+                <div className="text-2xl md:text-3xl text-slate-600 font-light">
+                  AI Engineer & Full-Stack Developer
+                </div>
+              </motion.h1>
+              
+              {/* Description */}
+              <motion.p variants={itemVariants} className="text-xl text-slate-600 max-w-2xl leading-relaxed">
+                I build intelligent systems that solve real-world problems. Currently studying 
+                <span className="text-blue-600 font-semibold"> Software Engineering at Carnegie Mellon</span>, 
+                crafting AI solutions that make a difference.
+              </motion.p>
+              
+              {/* Call-to-action buttons */}
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    to="/projects"
+                    className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <span>View My Work</span>
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </motion.div>
                 
-                {/* Left-side geometric code pattern for balance */}
-                <motion.div
-                  variants={itemVariants}
-                  className="absolute -left-8 top-16 w-24 h-32 opacity-30"
-                >
-                  <GeometricCodePattern animated={!prefersReducedMotion} />
-                </motion.div>
-                
-                {/* Animated name reveal with geometric styling */}
-                <motion.h1 
-                  variants={nameVariants}
-                  className="relative mb-6"
-                >
-                  <span className="font-display text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary-900 via-accent-700 to-emerald-600 bg-clip-text text-transparent leading-tight block">
-                    {personalInfo.name}
-                  </span>
-                  
-                  {/* Geometric accent behind name */}
-                  <motion.div
-                    variants={geometricVariants}
-                    className="absolute -top-4 -left-4 w-16 h-16 border border-accent-200 opacity-30"
-                    style={{ 
-                      clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-                      background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1))'
-                    }}
-                  />
-                </motion.h1>
-                
-                {/* Mathematical tagline with enhanced typography */}
-                <motion.p 
-                  variants={itemVariants}
-                  className="leading-relaxed mb-6 max-w-2xl"
-                >
-                  <span className="font-light text-xl md:text-2xl text-primary-600">I build</span>{' '}
-                  <span className="font-mono text-xl md:text-2xl text-accent-600 px-2 py-1 bg-accent-50 rounded border-l-2 border-accent-400 font-medium">
-                    AI systems
-                  </span>
-                  <span className="font-light text-xl md:text-2xl text-primary-600">{' '}that solve real problems</span>
-                </motion.p>
-                
-                {/* Enhanced description with mathematical elements */}
-                <motion.p 
-                  variants={itemVariants}
-                  className="font-body text-primary-600 leading-relaxed mb-12 max-w-xl"
-                >
-                  Currently studying{' '}
-                  <span className="font-mono text-sm bg-emerald-50 text-emerald-700 px-1 rounded">
-                    Software Engineering
-                  </span>
-                  {' '}at Carnegie Mellon while crafting intelligent solutions that make a difference.
-                </motion.p>
-                
-                {/* Enhanced buttons with geometric styling */}
-                <motion.div 
-                  variants={itemVariants}
-                  className="flex flex-col sm:flex-row gap-4 mb-16"
-                >
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link 
-                      to="/projects" 
-                      className="group relative min-w-fit px-8 py-4 bg-gradient-to-r from-accent-500 to-emerald-500 text-white font-heading font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden inline-flex items-center justify-center"
-                    >
-                      <span className="relative z-10 flex items-center justify-center space-x-2 whitespace-nowrap">
-                        <MathematicalTooltip 
-                          symbol="∏" 
-                          meaning="Product" 
-                          connection="Represents the product of my work and skills"
-                        >
-                          <span className="font-mathematical text-sm">∏</span>
-                        </MathematicalTooltip>
-                        <span>View My Work</span>
-                      </span>
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-violet-500 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        whileHover={{ scale: 1.1 }}
-                      />
-                    </Link>
-                  </motion.div>
-                  
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link 
-                      to="/contact" 
-                      className="group relative min-w-fit px-8 py-4 bg-white/80 backdrop-blur-sm border-2 border-accent-200 text-accent-700 font-heading font-medium rounded-xl shadow-md hover:shadow-lg hover:border-accent-400 transition-all duration-300 inline-flex items-center justify-center"
-                    >
-                      <span className="flex items-center justify-center space-x-2 whitespace-nowrap">
-                        <MathematicalTooltip 
-                          symbol="∑" 
-                          meaning="Summation" 
-                          connection="Sum of opportunities when we connect"
-                        >
-                          <span className="font-mathematical text-sm">∑</span>
-                        </MathematicalTooltip>
-                        <span>Get In Touch</span>
-                      </span>
-                    </Link>
-                  </motion.div>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center px-8 py-4 bg-white/80 backdrop-blur-sm border-2 border-slate-200 text-slate-700 font-semibold rounded-2xl shadow-md hover:shadow-lg hover:border-slate-300 transition-all duration-300"
+                  >
+                    <Mail className="mr-2 w-5 h-5" />
+                    <span>Get In Touch</span>
+                  </Link>
                 </motion.div>
               </motion.div>
-            </div>
+              
+              {/* Social links */}
+              <motion.div variants={itemVariants} className="flex items-center space-x-6 pt-8">
+                <span className="text-sm text-slate-500 font-medium">Connect with me:</span>
+                <div className="flex space-x-4">
+                  <a
+                    href={personalInfo.github}
+                    className="p-3 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a
+                    href={personalInfo.linkedin}
+                    className="p-3 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
 
-            {/* Right column - Interactive visualizations (asymmetrical) */}
-            <div className="col-span-12 lg:col-span-5 xl:col-span-6 lg:pl-8">
-              <motion.div
-                variants={itemVariants}
-                className="space-y-8"
-              >
-                {/* Mathematical data visualizations */}
-                <div className="relative">
-                  <InteractiveDataVisualization variant="experience" animated={!prefersReducedMotion} />
-                </div>
+          {/* Right column - Visual elements */}
+          <div className="lg:col-span-5">
+            <motion.div variants={itemVariants} className="relative">
+              
+              {/* Modern card-style visual */}
+              <div className="relative">
                 
-                <div className="relative lg:ml-8">
-                  <InteractiveDataVisualization variant="projects" animated={!prefersReducedMotion} />
-                </div>
-                
-                {/* Geometric accent elements */}
+                {/* Main feature card */}
                 <motion.div
-                  variants={geometricVariants}
-                  className="hidden lg:block absolute top-1/2 right-8 w-20 h-20 border border-violet-300 opacity-20 animate-geometric-rotate"
-                  style={{ 
-                    clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
-                    animationDuration: '8s'
+                  variants={itemVariants}
+                  className="bg-white/60 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-xl"
+                >
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xl font-bold text-slate-800">Skills Overview</h3>
+                      <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+                    </div>
+                    
+                    {/* Skill bars */}
+                    <div className="space-y-4">
+                      {[
+                        { skill: 'AI/ML', level: 95, color: 'bg-blue-500' },
+                        { skill: 'Full-Stack', level: 90, color: 'bg-purple-500' },
+                        { skill: 'Data Science', level: 85, color: 'bg-green-500' },
+                        { skill: 'Cloud/DevOps', level: 80, color: 'bg-orange-500' }
+                      ].map((item, index) => (
+                        <motion.div
+                          key={item.skill}
+                          variants={itemVariants}
+                          transition={{ delay: index * 0.1 }}
+                          className="space-y-2"
+                        >
+                          <div className="flex justify-between text-sm">
+                            <span className="font-medium text-slate-700">{item.skill}</span>
+                            <span className="text-slate-500">{item.level}%</span>
+                          </div>
+                          <div className="w-full bg-slate-200 rounded-full h-2">
+                            <motion.div
+                              className={`h-2 ${item.color} rounded-full`}
+                              initial={{ width: 0 }}
+                              animate={{ width: `${item.level}%` }}
+                              transition={{ duration: 1, delay: index * 0.2 }}
+                            />
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+                
+                {/* Floating elements */}
+                <motion.div
+                  variants={itemVariants}
+                  className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl opacity-20 blur-xl"
+                  animate={{
+                    y: [0, -20, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
                   }}
                 />
-              </motion.div>
-            </div>
+                
+                <motion.div
+                  variants={itemVariants}
+                  className="absolute -bottom-8 -left-6 w-32 h-32 bg-gradient-to-r from-green-300 to-blue-300 rounded-full opacity-10 blur-2xl"
+                  animate={{
+                    x: [0, 20, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </div>
+            </motion.div>
           </div>
-        </div>
-        
-        {/* Mathematical formula overlay */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.05 }}
-          transition={{ delay: 3, duration: 2 }}
-          className="absolute bottom-8 right-8 font-mathematical text-6xl text-accent-400 pointer-events-none select-none"
-        >
-          <MathematicalTooltip 
-            symbol="∫∑∏" 
-            meaning="Integration, Sum, Product" 
-            connection="The mathematical foundation of AI and data science"
-          >
-            ∫∑∏
-          </MathematicalTooltip>
+          
         </motion.div>
-      </section>
-      
-      {/* Geometric divider */}
-      <GeometricDividers 
-        variant="mathematical" 
-        height="md" 
-        color="gradient" 
-        animated={!prefersReducedMotion}
-      />
-    </>
+      </div>
+    </section>
   )
 }
 

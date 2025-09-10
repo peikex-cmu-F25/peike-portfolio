@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import GeometricLogo from './ui/GeometricLogo'
 
 const Navigation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   const navigation = [
-    { name: 'Work', href: '/projects', symbol: '∏' },
-    { name: 'About', href: '/about', symbol: '∞' },
-    { name: 'Contact', href: '/contact', symbol: '∑' },
+    { name: 'Work', href: '/projects' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
   ]
 
   const location = useLocation()
@@ -61,77 +60,53 @@ const Navigation: React.FC = () => {
 
   return (
     <motion.nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-white/90 backdrop-blur-md border-b border-primary-100' 
+          ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-lg shadow-slate-900/5' 
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="container-width section-padding">
-        <div className="flex items-center justify-between h-16">
-          {/* Geometric Logo */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="group flex items-center space-x-3">
-              <GeometricLogo 
-                size="md" 
-                variant="default" 
-                className="group-hover:scale-110 transition-transform duration-200" 
-              />
-              <span className="font-display text-xl font-semibold text-primary-800 group-hover:text-accent-600 transition-colors duration-200">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300 flex items-center justify-center">
+                <span className="text-white font-bold text-lg">P</span>
+              </div>
+              <span className="font-bold text-2xl bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
                 Peike Xu
               </span>
             </Link>
           </div>
           
-          {/* Desktop Navigation - Minimal */}
           <div className="hidden md:block">
-            <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-1">
               {navigation.map((item, index) => (
                 <motion.div
                   key={item.name}
-                  className="relative"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
                 >
                   <Link
                     to={item.href}
-                    className={`group relative font-heading text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg ${
+                    className={`relative px-6 py-3 font-medium text-sm transition-all duration-300 rounded-full ${
                       isActivePath(item.href)
-                        ? 'text-accent-700 bg-accent-50'
-                        : 'text-primary-600 hover:text-accent-600 hover:bg-accent-50/50'
+                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100/80'
                     }`}
                   >
-                    <span className="relative z-10 flex items-center space-x-2">
-                      <span className="font-mathematical text-xs opacity-60 group-hover:opacity-100 transition-opacity duration-200">
-                        {item.symbol}
-                      </span>
-                      <span>{item.name}</span>
-                    </span>
-                    
-                    {/* Geometric hover effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-accent-100/0 via-accent-100/20 to-accent-100/0 rounded-lg opacity-0 group-hover:opacity-100"
-                      initial={false}
-                      whileHover={{
-                        opacity: 1,
-                        scale: 1.05,
-                        background: "linear-gradient(45deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1))"
-                      }}
-                      transition={{ duration: 0.2 }}
-                    />
-                    
-                    {/* Mathematical accent line */}
+                    {item.name}
                     {isActivePath(item.href) && (
                       <motion.div
-                        className="absolute bottom-0 left-1/2 w-6 h-0.5 bg-gradient-to-r from-accent-400 to-emerald-400 rounded-full"
-                        layoutId="activeNavItem"
+                        className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+                        layoutId="activeNavBg"
                         initial={false}
-                        animate={{ x: '-50%' }}
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        style={{ zIndex: -1 }}
                       />
                     )}
                   </Link>
@@ -140,37 +115,36 @@ const Navigation: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile menu button - Simple */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-primary-600 hover:text-primary-700 focus:outline-none"
+              className="p-3 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-all duration-200 focus:outline-none"
             >
               <span className="sr-only">Open main menu</span>
               <motion.div
                 animate={isMenuOpen ? "open" : "closed"}
-                className="w-6 h-6 flex flex-col justify-center items-center"
+                className="w-5 h-5 flex flex-col justify-center items-center"
               >
                 <motion.span
                   variants={{
                     closed: { rotate: 0, y: 0 },
-                    open: { rotate: 45, y: 2 }
+                    open: { rotate: 45, y: 1.5 }
                   }}
-                  className="w-5 h-0.5 bg-current block transform origin-center transition-all duration-300"
+                  className="w-full h-0.5 bg-current block transform origin-center transition-all duration-300 rounded-full"
                 />
                 <motion.span
                   variants={{
                     closed: { opacity: 1 },
                     open: { opacity: 0 }
                   }}
-                  className="w-5 h-0.5 bg-current block my-1 transform origin-center transition-all duration-300"
+                  className="w-full h-0.5 bg-current block my-1 transform origin-center transition-all duration-300 rounded-full"
                 />
                 <motion.span
                   variants={{
                     closed: { rotate: 0, y: 0 },
-                    open: { rotate: -45, y: -2 }
+                    open: { rotate: -45, y: -1.5 }
                   }}
-                  className="w-5 h-0.5 bg-current block transform origin-center transition-all duration-300"
+                  className="w-full h-0.5 bg-current block transform origin-center transition-all duration-300 rounded-full"
                 />
               </motion.div>
             </button>
@@ -178,7 +152,6 @@ const Navigation: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile menu - Clean */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -188,23 +161,20 @@ const Navigation: React.FC = () => {
             animate="open"
             exit="closed"
           >
-            <div className="bg-white/95 backdrop-blur-md border-b border-primary-100">
-              <div className="px-4 py-4 space-y-1">
+            <div className="bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-lg">
+              <div className="px-6 py-6 space-y-2">
                 {navigation.map((item) => (
                   <motion.div key={item.name} variants={menuItemVariants}>
                     <Link
                       to={item.href}
-                      className={`group flex items-center space-x-3 px-4 py-3 font-heading text-sm font-medium transition-all duration-200 rounded-lg mx-2 ${
+                      className={`block px-6 py-4 font-medium transition-all duration-300 rounded-2xl ${
                         isActivePath(item.href)
-                          ? 'text-accent-700 bg-accent-50 border-l-2 border-accent-400'
-                          : 'text-primary-600 hover:text-accent-600 hover:bg-accent-50/50'
+                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                          : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100/80'
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="font-mathematical text-sm opacity-60 group-hover:opacity-100 transition-opacity duration-200">
-                        {item.symbol}
-                      </span>
-                      <span>{item.name}</span>
+                      {item.name}
                     </Link>
                   </motion.div>
                 ))}
