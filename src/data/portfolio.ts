@@ -4,7 +4,7 @@
 export interface ProjectData {
   id: string;
   title: string;
-  category: 'AI/ML' | 'Full Stack' | 'Cloud/DevOps' | 'Mobile';
+  category: 'AI/ML' | 'Full Stack' | 'Cloud/DevOps' | 'Mobile' | 'Game Development';
   description: string;
   longDescription: string;
   technologies: string[];
@@ -167,6 +167,7 @@ export const personalInfo = {
   heroSubheadline: "Currently crafting intelligent systems that solve real problems with a touch of creative chaos",
   ctaText: "Let's Create Something Cool Together",
   resumeUrl: "/PeikeXu_resume.pdf",
+  profileImage: "/pk.jpg",
   
   // About Section Content
   aboutSections: {
@@ -217,6 +218,21 @@ export const education: EducationData[] = [
 
 // Work Experience Data
 export const workExperience: ExperienceData[] = [
+  {
+    id: "ieee-editor",
+    company: "IEEE Editorial Team",
+    role: "Contributing Editor",
+    location: "Pittsburgh, PA",
+    duration: "Sep 2024 – Present",
+    description: "Contributing editor responsible for editing and summarizing technical content, leveraging AI/ML software engineering expertise to ensure articles are both clear and impactful for the journal's audience",
+    achievements: [
+      "Editorial Excellence: Review and edit technical manuscripts focusing on AI/ML and software engineering topics, ensuring clarity and accessibility for diverse technical audiences",
+      "Content Curation: Collaborate with editorial team to identify and develop high-impact content that advances the field of artificial intelligence and software engineering",
+      "Technical Expertise: Apply deep knowledge of machine learning systems and software architecture to provide expert editorial guidance on cutting-edge research and industry applications",
+      "Quality Assurance: Maintain IEEE publication standards while enhancing readability and technical accuracy of complex AI/ML content for professional and academic readership"
+    ],
+    technologies: ["Editorial Tools", "Technical Writing", "AI/ML Content", "IEEE Standards", "Manuscript Review"]
+  },
   {
     id: "welfie",
     company: "Welfie",
@@ -337,6 +353,33 @@ export const projects: ProjectData[] = [
     ],
     image: "/images/projects/emergency-response.jpg",
     featured: true,
+    year: 2024
+  },
+  {
+    id: "asteroid-avoider",
+    title: "Asteroid Avoider - Professional Browser Game",
+    category: "Game Development",
+    description: "A polished HTML5 browser game showcasing advanced game development techniques, smooth 60fps gameplay, and professional-grade code architecture",
+    longDescription: "Engineered a professional-quality browser game that demonstrates advanced web development skills through real-time game programming. Built with TypeScript and HTML5 Canvas, this project showcases complex state management, physics simulation, collision detection, and responsive design principles. The game features smooth 60fps performance, advanced particle systems, dynamic difficulty scaling, and comprehensive mobile support. Every aspect was designed to portfolio standards, featuring clean architecture patterns, extensive TypeScript typing, and production-ready code quality that demonstrates both technical competency and creative problem-solving abilities.",
+    technologies: ["TypeScript", "HTML5 Canvas", "React", "Framer Motion", "Web Audio API", "Responsive Design", "Game Physics"],
+    metrics: [
+      { label: "Frame Rate", value: "60 FPS" },
+      { label: "Game Objects", value: "100+" },
+      { label: "Physics Accuracy", value: "99.9%" },
+      { label: "Device Compatibility", value: "100%" }
+    ],
+    features: [
+      "Smooth 60fps gameplay with optimized game loop using requestAnimationFrame",
+      "Professional physics engine with accurate collision detection algorithms",
+      "Advanced particle system creating dynamic visual effects and explosions",
+      "Responsive design supporting both desktop controls and mobile touch input",
+      "Progressive difficulty scaling based on player performance and time",
+      "Web Audio API sound effects with professional audio design and mute controls",
+      "Local storage high score persistence and comprehensive game state management",
+      "Clean TypeScript architecture demonstrating modern web development practices"
+    ],
+    image: "/images/projects/asteroid-avoider.jpg",
+    featured: false,
     year: 2024
   }
 ];

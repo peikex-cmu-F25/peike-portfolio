@@ -6,6 +6,7 @@ import EnterpriseRAGDemo from '../components/ai-demos/EnterpriseRAGDemo';
 import PatientMatchingDemo from '../components/ai-demos/PatientMatchingDemo';
 import ReceiptProcessingDemo from '../components/ai-demos/ReceiptProcessingDemo';
 import EcommerceRecommendationDemo from '../components/ai-demos/EcommerceRecommendationDemo';
+import AsteroidAvoider from '../components/games/AsteroidAvoider';
 import { EnhancedProjectCard, MathematicalTooltip } from '../components/ui';
 import MathematicalBackground from '../components/ui/MathematicalBackground';
 
@@ -18,11 +19,12 @@ const Projects: React.FC = () => {
   const demoComponents: { [key: string]: React.ComponentType<any> } = {
     'enterprise-rag': EnterpriseRAGDemo,
     'smart-receipt-platform': ReceiptProcessingDemo,
+    'asteroid-avoider': AsteroidAvoider,
     // Note: Patient matching demo would be connected to the Welfie project
     // E-commerce demo would be connected to the Eth Tech project
   };
 
-  const categories = ['All', 'AI/ML', 'Full Stack', 'Cloud/DevOps', 'Mobile'];
+  const categories = ['All', 'AI/ML', 'Full Stack', 'Cloud/DevOps', 'Mobile', 'Game Development'];
   
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
@@ -86,7 +88,8 @@ const Projects: React.FC = () => {
             <div className="text-8xl opacity-30">
               {project.category === 'AI/ML' ? '🤖' : 
                project.category === 'Full Stack' ? '💻' :
-               project.category === 'Cloud/DevOps' ? '☁️' : '📱'}
+               project.category === 'Cloud/DevOps' ? '☁️' : 
+               project.category === 'Game Development' ? '🎮' : '📱'}
             </div>
           </div>
         </div>
@@ -97,6 +100,7 @@ const Projects: React.FC = () => {
               project.category === 'AI/ML' ? 'bg-purple-100 text-purple-800' :
               project.category === 'Full Stack' ? 'bg-blue-100 text-blue-800' :
               project.category === 'Cloud/DevOps' ? 'bg-green-100 text-green-800' :
+              project.category === 'Game Development' ? 'bg-pink-100 text-pink-800' :
               'bg-orange-100 text-orange-800'
             }`}>
               {project.category}
