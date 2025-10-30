@@ -42,11 +42,12 @@ describe('About Page', () => {
       expect(screen.getByText(/Located in\s+Sunnyvale, CA/i)).toBeInTheDocument()
     })
 
-    test('includes placeholder for professional photo', () => {
+    test('includes profile image', () => {
       render(<About />)
       
-      expect(screen.getByText('PX')).toBeInTheDocument()
-      expect(screen.getByText('Professional Photo Coming Soon')).toBeInTheDocument()
+      const profileImage = screen.getByAltText('Peike Xu profile photo')
+      expect(profileImage).toBeInTheDocument()
+      expect(profileImage).toHaveAttribute('src', '/pk.jpeg')
     })
 
     test('journey section uses grid layout', () => {
@@ -190,13 +191,16 @@ describe('About Page', () => {
   })
 
   describe('Visual Elements', () => {
-    test('renders professional photo placeholder with correct styling', () => {
+    test('renders profile image with correct styling', () => {
       render(<About />)
       
-      const photoPlaceholder = screen.getByText('PX').closest('.w-32.h-32')
-      expect(photoPlaceholder).toHaveClass('w-32', 'h-32', 'bg-primary-200', 'rounded-full')
+      const profileImage = screen.getByAltText('Peike Xu profile photo')
+      expect(profileImage).toHaveClass('w-full', 'h-full', 'object-cover')
       
-      const photoContainer = photoPlaceholder?.closest('.bg-gradient-to-br')
+      const imageContainer = profileImage.closest('.w-32.h-32')
+      expect(imageContainer).toHaveClass('w-32', 'h-32', 'rounded-full', 'overflow-hidden', 'shadow-lg')
+      
+      const photoContainer = imageContainer?.closest('.bg-gradient-to-br')
       expect(photoContainer).toHaveClass('bg-gradient-to-br', 'from-primary-100', 'to-secondary-100', 'rounded-2xl')
     })
 

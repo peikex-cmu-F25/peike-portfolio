@@ -4,7 +4,7 @@
 export interface ProjectData {
   id: string;
   title: string;
-  category: 'AI/ML' | 'Full Stack' | 'Cloud/DevOps' | 'Mobile';
+  category: 'AI/ML' | 'Full Stack' | 'Cloud/DevOps' | 'Mobile' | 'Game Development';
   description: string;
   longDescription: string;
   technologies: string[];
@@ -160,13 +160,14 @@ export const personalInfo = {
   location: "Sunnyvale, CA",
   email: "peikexu.work@gmail.com",
   phone: "(858) 305-0275",
-  linkedin: "https://linkedin.com/in/peikexu",
-  github: "https://github.com/peikexu",
+  linkedin: "https://linkedin.com/in/p3xu",
+  github: "https://github.com/peikex-cmu-F25/",
   bio: "I'm that engineer who gets genuinely excited about turning messy, real-world problems into elegant AI solutions. Currently diving deep into advanced software engineering at Carnegie Mellon while building systems that don't just work on paper, but actually make people's lives better. My approach? Start with a curious question, prototype relentlessly, and iterate until something magical happens. Whether it's teaching machines to read receipts (surprisingly hard!) or helping doctors match patients faster (surprisingly rewarding!), I love the challenge of making AI that feels... well, not artificial.",
   heroHeadline: "Building AI That Feels Human",
   heroSubheadline: "Currently crafting intelligent systems that solve real problems with a touch of creative chaos",
   ctaText: "Let's Create Something Cool Together",
   resumeUrl: "/PeikeXu_resume.pdf",
+  profileImage: "/pk.jpeg",
   
   // About Section Content
   aboutSections: {
@@ -217,6 +218,21 @@ export const education: EducationData[] = [
 
 // Work Experience Data
 export const workExperience: ExperienceData[] = [
+  {
+    id: "ieee-editor",
+    company: "IEEE Editorial Team",
+    role: "Contributing Editor",
+    location: "Pittsburgh, PA",
+    duration: "Sep 2024 – Present",
+    description: "Contributing editor responsible for editing and summarizing technical content, leveraging AI/ML software engineering expertise to ensure articles are both clear and impactful for the journal's audience",
+    achievements: [
+      "Editorial Excellence: Review and edit technical manuscripts focusing on AI/ML and software engineering topics, ensuring clarity and accessibility for diverse technical audiences",
+      "Content Curation: Collaborate with editorial team to identify and develop high-impact content that advances the field of artificial intelligence and software engineering",
+      "Technical Expertise: Apply deep knowledge of machine learning systems and software architecture to provide expert editorial guidance on cutting-edge research and industry applications",
+      "Quality Assurance: Maintain IEEE publication standards while enhancing readability and technical accuracy of complex AI/ML content for professional and academic readership"
+    ],
+    technologies: ["Editorial Tools", "Technical Writing", "AI/ML Content", "IEEE Standards", "Manuscript Review"]
+  },
   {
     id: "welfie",
     company: "Welfie",
@@ -337,6 +353,60 @@ export const projects: ProjectData[] = [
     ],
     image: "/images/projects/emergency-response.jpg",
     featured: true,
+    year: 2024
+  },
+  {
+    id: "snake-game",
+    title: "Modern Snake Game - Classic Reimagined",
+    category: "Game Development",
+    description: "A beautifully crafted modern interpretation of the classic Snake game featuring polished animations, responsive design, and algorithmic excellence",
+    longDescription: "Developed a sophisticated recreation of the timeless Snake game that demonstrates mastery of fundamental game development concepts while incorporating modern web technologies. This project showcases advanced algorithmic thinking through efficient grid-based movement systems, collision detection algorithms, and dynamic game state management. Built with TypeScript and React, the game features smooth animations powered by Framer Motion, responsive canvas rendering, and comprehensive mobile support including intuitive swipe gesture controls. The implementation emphasizes clean code architecture, proper separation of concerns, and performance optimization, making it an ideal demonstration piece for both game development skills and software engineering best practices.",
+    technologies: ["TypeScript", "React", "HTML5 Canvas", "Framer Motion", "Touch Gestures", "Local Storage", "Responsive Design"],
+    metrics: [
+      { label: "Grid Performance", value: "Optimized" },
+      { label: "Touch Response", value: "Instant" },
+      { label: "Code Quality", value: "Portfolio-Grade" },
+      { label: "Cross-Platform", value: "100%" }
+    ],
+    features: [
+      "Grid-based movement system with precise collision detection algorithms",
+      "Smooth snake growth mechanics with visual aging effects for body segments",
+      "Progressive speed increase creating dynamic difficulty scaling",
+      "Comprehensive mobile support with swipe gesture recognition and touch controls",
+      "High score persistence using browser local storage with data validation",
+      "Modern UI design with gradient backgrounds and smooth Framer Motion animations",
+      "Professional game state management handling play, pause, and game over states",
+      "Responsive canvas that adapts seamlessly to different screen sizes and orientations"
+    ],
+    image: "/images/projects/snake-game.jpg",
+    featured: false,
+    year: 2024
+  },
+  {
+    id: "asteroid-avoider",
+    title: "Asteroid Avoider - Professional Browser Game",
+    category: "Game Development",
+    description: "A polished HTML5 browser game showcasing advanced game development techniques, smooth 60fps gameplay, and professional-grade code architecture",
+    longDescription: "Engineered a professional-quality browser game that demonstrates advanced web development skills through real-time game programming. Built with TypeScript and HTML5 Canvas, this project showcases complex state management, physics simulation, collision detection, and responsive design principles. The game features smooth 60fps performance, advanced particle systems, dynamic difficulty scaling, and comprehensive mobile support. Every aspect was designed to portfolio standards, featuring clean architecture patterns, extensive TypeScript typing, and production-ready code quality that demonstrates both technical competency and creative problem-solving abilities.",
+    technologies: ["TypeScript", "HTML5 Canvas", "React", "Framer Motion", "Web Audio API", "Responsive Design", "Game Physics"],
+    metrics: [
+      { label: "Frame Rate", value: "60 FPS" },
+      { label: "Game Objects", value: "100+" },
+      { label: "Physics Accuracy", value: "99.9%" },
+      { label: "Device Compatibility", value: "100%" }
+    ],
+    features: [
+      "Smooth 60fps gameplay with optimized game loop using requestAnimationFrame",
+      "Professional physics engine with accurate collision detection algorithms",
+      "Advanced particle system creating dynamic visual effects and explosions",
+      "Responsive design supporting both desktop controls and mobile touch input",
+      "Progressive difficulty scaling based on player performance and time",
+      "Web Audio API sound effects with professional audio design and mute controls",
+      "Local storage high score persistence and comprehensive game state management",
+      "Clean TypeScript architecture demonstrating modern web development practices"
+    ],
+    image: "/images/projects/asteroid-avoider.jpg",
+    featured: false,
     year: 2024
   }
 ];
@@ -861,7 +931,7 @@ export const openSourceContributions: OpenSourceContribution[] = [
       contributors: 35,
       downloads: "50K+ monthly"
     },
-    githubUrl: "https://github.com/peikexu/enterprise-rag-toolkit",
+    githubUrl: "https://github.com/peikex-cmu-F25/enterprise-rag-toolkit",
     featured: true
   },
   {

@@ -1,0 +1,5 @@
+export { default as SnakeGame } from './SnakeGame'
+export { default as AsteroidAvoider } from './AsteroidAvoider'
+export { default as GomokuGame } from './GomokuGame'
+export { default as GomokuGameDemo } from './GomokuGameDemo'
+export { default as GamesTabs } from './GamesTabs'
