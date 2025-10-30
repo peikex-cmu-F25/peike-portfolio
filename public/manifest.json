@@ -4,7 +4,7 @@
   "description": "AI/ML Engineer specializing in production-ready machine learning systems and full-stack development",
   "icons": [
     {
-      "src": "/vite.svg",
+      "src": "/logo.svg",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/svg+xml"
     }

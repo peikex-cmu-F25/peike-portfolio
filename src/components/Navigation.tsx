@@ -8,9 +8,9 @@ const Navigation: React.FC = () => {
   const [scrolled, setScrolled] = useState(false)
 
   const navigation = [
-    { name: 'Work', href: '/projects', symbol: '∏' },
-    { name: 'About', href: '/about', symbol: '∞' },
-    { name: 'Contact', href: '/contact', symbol: '∑' },
+    { name: 'Work', href: '/projects', symbol: '◆' },
+    { name: 'About', href: '/about', symbol: '●' },
+    { name: 'Contact', href: '/contact', symbol: '▲' },
   ]
 
   const location = useLocation()
@@ -80,7 +80,7 @@ const Navigation: React.FC = () => {
                 variant="default" 
                 className="group-hover:scale-110 transition-transform duration-200" 
               />
-              <span className="font-display text-xl font-semibold text-primary-800 group-hover:text-accent-600 transition-colors duration-200">
+              <span className="font-display text-xl font-semibold text-primary-800 group-hover:text-violet-600 transition-colors duration-200">
                 Peike Xu
               </span>
             </Link>
@@ -101,33 +101,33 @@ const Navigation: React.FC = () => {
                     to={item.href}
                     className={`group relative font-heading text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg ${
                       isActivePath(item.href)
-                        ? 'text-accent-700 bg-accent-50'
-                        : 'text-primary-600 hover:text-accent-600 hover:bg-accent-50/50'
+                        ? 'text-violet-700 bg-violet-50'
+                        : 'text-primary-600 hover:text-violet-600 hover:bg-violet-50/50'
                     }`}
                   >
                     <span className="relative z-10 flex items-center space-x-2">
-                      <span className="font-mathematical text-xs opacity-60 group-hover:opacity-100 transition-opacity duration-200">
+                      <span className="font-display text-xs opacity-60 group-hover:opacity-100 transition-opacity duration-200">
                         {item.symbol}
                       </span>
                       <span>{item.name}</span>
                     </span>
                     
-                    {/* Geometric hover effect */}
+                    {/* Modern hover effect */}
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-accent-100/0 via-accent-100/20 to-accent-100/0 rounded-lg opacity-0 group-hover:opacity-100"
+                      className="absolute inset-0 bg-gradient-to-r from-violet-100/0 via-violet-100/20 to-violet-100/0 rounded-lg opacity-0 group-hover:opacity-100"
                       initial={false}
                       whileHover={{
                         opacity: 1,
                         scale: 1.05,
-                        background: "linear-gradient(45deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1))"
+                        background: "linear-gradient(45deg, rgba(124, 58, 237, 0.1), rgba(249, 115, 22, 0.1))"
                       }}
                       transition={{ duration: 0.2 }}
                     />
                     
-                    {/* Mathematical accent line */}
+                    {/* Professional accent line */}
                     {isActivePath(item.href) && (
                       <motion.div
-                        className="absolute bottom-0 left-1/2 w-6 h-0.5 bg-gradient-to-r from-accent-400 to-emerald-400 rounded-full"
+                        className="absolute bottom-0 left-1/2 w-6 h-0.5 bg-gradient-to-r from-violet-400 to-coral-400 rounded-full"
                         layoutId="activeNavItem"
                         initial={false}
                         animate={{ x: '-50%' }}
@@ -196,12 +196,12 @@ const Navigation: React.FC = () => {
                       to={item.href}
                       className={`group flex items-center space-x-3 px-4 py-3 font-heading text-sm font-medium transition-all duration-200 rounded-lg mx-2 ${
                         isActivePath(item.href)
-                          ? 'text-accent-700 bg-accent-50 border-l-2 border-accent-400'
-                          : 'text-primary-600 hover:text-accent-600 hover:bg-accent-50/50'
+                          ? 'text-violet-700 bg-violet-50 border-l-2 border-violet-400'
+                          : 'text-primary-600 hover:text-violet-600 hover:bg-violet-50/50'
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="font-mathematical text-sm opacity-60 group-hover:opacity-100 transition-opacity duration-200">
+                      <span className="font-display text-sm opacity-60 group-hover:opacity-100 transition-opacity duration-200">
                         {item.symbol}
                       </span>
                       <span>{item.name}</span>

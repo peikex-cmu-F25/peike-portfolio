@@ -2,11 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { personalInfo } from '../../data/portfolio'
-import MathematicalBackground from '../ui/MathematicalBackground'
-import InteractiveDataVisualization from '../ui/InteractiveDataVisualization'
-import GeometricDividers from '../ui/GeometricDividers'
-import MathematicalTooltip from '../ui/MathematicalTooltip'
-import GeometricCodePattern from '../ui/GeometricCodePattern'
+import professionalPhoto from '../../assets/images/peike-professional-photo.png'
 
 // TypeScript interfaces for component props
 interface HeroSectionProps {
@@ -57,22 +53,6 @@ const nameVariants = {
   }
 }
 
-const geometricVariants = {
-  hidden: { scale: 0, rotate: -180, opacity: 0 },
-  visible: {
-    scale: 1,
-    rotate: 0,
-    opacity: 1,
-    transition: {
-      duration: 1.5,
-      ease: "easeOut",
-      type: "spring",
-      stiffness: 200,
-      damping: 20
-    }
-  }
-}
-
 const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
   // Handle reduced motion preferences
   const prefersReducedMotion = typeof window !== 'undefined' && 
@@ -86,196 +66,145 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
 
   return (
     <>
-      <section className={`section-padding py-32 relative min-h-screen flex items-center overflow-hidden ${className}`}>
-        {/* Enhanced mathematical background with neural network pattern */}
-        <MathematicalBackground variant="neural" intensity="ultra-subtle" animated={!prefersReducedMotion} />
+      <section className={`section-padding py-16 relative min-h-[85vh] flex items-center overflow-hidden ${className}`}>
+        {/* Clean minimal background */}
+        <div className="absolute inset-0 bg-white" />
         
-        {/* Mathematical secondary pattern */}
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-30">
-          <MathematicalBackground variant="parametric" intensity="barely-visible" animated={!prefersReducedMotion} />
-        </div>
+        {/* Subtle gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white to-primary-50/30 pointer-events-none" />
         
-        {/* Enhanced text readability overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-white/[0.01] pointer-events-none" />
-        
-        {/* Asymmetrical layout container */}
+        {/* Main content container */}
         <div className="container-width relative z-20">
-          <div className="grid grid-cols-12 gap-8 items-center min-h-[80vh]">
+          <div className="grid grid-cols-12 gap-8 items-center min-h-[70vh]">
             
-            {/* Left column - Main content (asymmetrical) */}
-            <div className="col-span-12 lg:col-span-7 xl:col-span-6">
+            {/* Left column - Main content */}
+            <div className="col-span-12 lg:col-span-8 xl:col-span-7">
               <motion.div {...animationProps}>
                 
-                {/* Mathematical greeting with geometric accent */}
+                {/* Simple greeting */}
                 <motion.div 
                   variants={itemVariants}
-                  className="flex items-center mb-6"
+                  className="flex items-center mb-4"
                 >
-                  <div className="font-mono text-sm text-accent-600 tracking-wider mr-4">
-                    <MathematicalTooltip 
-                      symbol="λ" 
-                      meaning="Lambda" 
-                      connection="Represents function transformation in AI"
-                    >
-                      λ Hello, I'm
-                    </MathematicalTooltip>
+                  <div className="font-mono text-sm text-primary-600 tracking-wider mr-4">
+                    Hello, I'm
                   </div>
-                  <div className="w-12 h-px bg-gradient-to-r from-accent-400 to-transparent" />
+                  <div className="w-12 h-px bg-gradient-to-r from-primary-400 to-transparent" />
                 </motion.div>
                 
-                {/* Left-side geometric code pattern for balance */}
-                <motion.div
-                  variants={itemVariants}
-                  className="absolute -left-8 top-16 w-24 h-32 opacity-30"
-                >
-                  <GeometricCodePattern animated={!prefersReducedMotion} />
-                </motion.div>
-                
-                {/* Animated name reveal with geometric styling */}
+                {/* Animated name */}
                 <motion.h1 
                   variants={nameVariants}
-                  className="relative mb-6"
+                  className="relative mb-4"
                 >
-                  <span className="font-display text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary-900 via-accent-700 to-emerald-600 bg-clip-text text-transparent leading-tight block">
+                  <span className="font-display text-5xl md:text-7xl font-bold text-gray-900 leading-tight block">
                     {personalInfo.name}
                   </span>
-                  
-                  {/* Geometric accent behind name */}
-                  <motion.div
-                    variants={geometricVariants}
-                    className="absolute -top-4 -left-4 w-16 h-16 border border-accent-200 opacity-30"
-                    style={{ 
-                      clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-                      background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1))'
-                    }}
-                  />
                 </motion.h1>
                 
-                {/* Mathematical tagline with enhanced typography */}
+                {/* Clean tagline */}
                 <motion.p 
                   variants={itemVariants}
-                  className="leading-relaxed mb-6 max-w-2xl"
+                  className="leading-relaxed mb-4 max-w-2xl"
                 >
-                  <span className="font-light text-xl md:text-2xl text-primary-600">I build</span>{' '}
-                  <span className="font-mono text-xl md:text-2xl text-accent-600 px-2 py-1 bg-accent-50 rounded border-l-2 border-accent-400 font-medium">
+                  <span className="font-light text-xl md:text-2xl text-gray-700">I build</span>{' '}
+                  <span className="font-medium text-xl md:text-2xl text-primary-700 px-3 py-1 bg-primary-50 rounded-lg border-l-3 border-primary-400">
                     AI systems
                   </span>
-                  <span className="font-light text-xl md:text-2xl text-primary-600">{' '}that solve real problems</span>
+                  <span className="font-light text-xl md:text-2xl text-gray-700">{' '}that solve real problems</span>
                 </motion.p>
                 
-                {/* Enhanced description with mathematical elements */}
+                {/* Description */}
                 <motion.p 
                   variants={itemVariants}
-                  className="font-body text-primary-600 leading-relaxed mb-12 max-w-xl"
+                  className="font-body text-gray-600 leading-relaxed mb-8 max-w-xl"
                 >
                   Currently studying{' '}
-                  <span className="font-mono text-sm bg-emerald-50 text-emerald-700 px-1 rounded">
+                  <span className="font-medium text-accent-600 px-2 py-1 bg-gray-100 rounded">
                     Software Engineering
                   </span>
                   {' '}at Carnegie Mellon while crafting intelligent solutions that make a difference.
                 </motion.p>
                 
-                {/* Enhanced buttons with geometric styling */}
+                {/* Clean buttons */}
                 <motion.div 
                   variants={itemVariants}
-                  className="flex flex-col sm:flex-row gap-4 mb-16"
+                  className="flex flex-col sm:flex-row gap-4 mb-8"
                 >
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Link 
                       to="/projects" 
-                      className="group relative min-w-fit px-8 py-4 bg-gradient-to-r from-accent-500 to-emerald-500 text-white font-heading font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden inline-flex items-center justify-center"
+                      className="btn-primary"
                     >
-                      <span className="relative z-10 flex items-center justify-center space-x-2 whitespace-nowrap">
-                        <MathematicalTooltip 
-                          symbol="∏" 
-                          meaning="Product" 
-                          connection="Represents the product of my work and skills"
-                        >
-                          <span className="font-mathematical text-sm">∏</span>
-                        </MathematicalTooltip>
-                        <span>View My Work</span>
-                      </span>
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-violet-500 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        whileHover={{ scale: 1.1 }}
-                      />
+                      <span>View My Work</span>
                     </Link>
                   </motion.div>
                   
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Link 
                       to="/contact" 
-                      className="group relative min-w-fit px-8 py-4 bg-white/80 backdrop-blur-sm border-2 border-accent-200 text-accent-700 font-heading font-medium rounded-xl shadow-md hover:shadow-lg hover:border-accent-400 transition-all duration-300 inline-flex items-center justify-center"
+                      className="btn-secondary"
                     >
-                      <span className="flex items-center justify-center space-x-2 whitespace-nowrap">
-                        <MathematicalTooltip 
-                          symbol="∑" 
-                          meaning="Summation" 
-                          connection="Sum of opportunities when we connect"
-                        >
-                          <span className="font-mathematical text-sm">∑</span>
-                        </MathematicalTooltip>
-                        <span>Get In Touch</span>
-                      </span>
+                      <span>Get In Touch</span>
                     </Link>
                   </motion.div>
                 </motion.div>
               </motion.div>
             </div>
 
-            {/* Right column - Interactive visualizations (asymmetrical) */}
-            <div className="col-span-12 lg:col-span-5 xl:col-span-6 lg:pl-8">
+            {/* Right column - Professional photo */}
+            <div className="col-span-12 lg:col-span-4 xl:col-span-5 lg:pl-8 order-first lg:order-last mb-8 lg:mb-0">
               <motion.div
                 variants={itemVariants}
-                className="space-y-8"
+                className="relative"
               >
-                {/* Mathematical data visualizations */}
-                <div className="relative">
-                  <InteractiveDataVisualization variant="experience" animated={!prefersReducedMotion} />
+                {/* Professional photo with fancy styling */}
+                <div className="relative w-full max-w-sm sm:max-w-md mx-auto">
+                  <div className="relative">
+                    {/* Animated background layers */}
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-100 via-blue-50 to-primary-200 transform rotate-3 animate-pulse-subtle"></div>
+                    <div className="absolute inset-1 rounded-2xl bg-gradient-to-tr from-white/95 to-primary-50/80 backdrop-blur-sm transform -rotate-2"></div>
+                    
+                    {/* Glowing border effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary-400 via-blue-500 to-primary-600 rounded-3xl blur-sm opacity-30 animate-pulse"></div>
+                    
+                    {/* Main photo container */}
+                    <div className="relative z-10 p-4 sm:p-5">
+                      <div className="relative group">
+                        <img
+                          src={professionalPhoto}
+                          alt="Peike Xu - Software Engineering student at Carnegie Mellon University"
+                          className="w-full aspect-[4/5] object-cover rounded-2xl shadow-2xl border-4 border-white/90 backdrop-blur-sm group-hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-1"
+                          loading="eager"
+                        />
+                        
+                        {/* Elegant overlay on hover */}
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-primary-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        
+                        {/* Stylish Carnegie Mellon badge */}
+                        <div className="absolute -bottom-3 -right-3 bg-gradient-to-r from-primary-600 to-blue-600 text-white px-3 py-2 rounded-full text-xs font-semibold shadow-xl backdrop-blur-sm border-2 border-white/30 group-hover:scale-110 transition-transform duration-300">
+                          <div className="flex items-center space-x-1">
+                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                            <span>Carnegie Mellon</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Floating decorative elements */}
+                  <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-br from-primary-400 to-blue-500 rounded-full opacity-70 animate-float shadow-lg"></div>
+                  <div className="absolute -bottom-6 -right-6 w-6 h-6 bg-gradient-to-br from-blue-500 to-primary-600 rounded-full opacity-60 animate-float animation-delay-2000 shadow-md"></div>
+                  <div className="absolute top-1/4 -left-2 w-4 h-4 bg-gradient-to-br from-primary-300 to-blue-400 rounded-full opacity-50 animate-pulse-subtle animation-delay-4000"></div>
+                  
+                  {/* Elegant geometric accent */}
+                  <div className="absolute top-8 -right-8 w-12 h-12 border-2 border-primary-300/40 rounded-full animate-geometric-rotate opacity-30"></div>
                 </div>
-                
-                <div className="relative lg:ml-8">
-                  <InteractiveDataVisualization variant="projects" animated={!prefersReducedMotion} />
-                </div>
-                
-                {/* Geometric accent elements */}
-                <motion.div
-                  variants={geometricVariants}
-                  className="hidden lg:block absolute top-1/2 right-8 w-20 h-20 border border-violet-300 opacity-20 animate-geometric-rotate"
-                  style={{ 
-                    clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
-                    animationDuration: '8s'
-                  }}
-                />
               </motion.div>
             </div>
           </div>
         </div>
-        
-        {/* Mathematical formula overlay */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.05 }}
-          transition={{ delay: 3, duration: 2 }}
-          className="absolute bottom-8 right-8 font-mathematical text-6xl text-accent-400 pointer-events-none select-none"
-        >
-          <MathematicalTooltip 
-            symbol="∫∑∏" 
-            meaning="Integration, Sum, Product" 
-            connection="The mathematical foundation of AI and data science"
-          >
-            ∫∑∏
-          </MathematicalTooltip>
-        </motion.div>
       </section>
-      
-      {/* Geometric divider */}
-      <GeometricDividers 
-        variant="mathematical" 
-        height="md" 
-        color="gradient" 
-        animated={!prefersReducedMotion}
-      />
     </>
   )
 }

@@ -6,12 +6,12 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-secondary-900 text-white">
+    <footer className="bg-gradient-to-r from-gray-900 via-violet-900 to-gray-900 text-white">
       <div className="container-width section-padding py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-lg font-semibold mb-4">{personalInfo.name}</h3>
-            <p className="text-secondary-300 mb-4">
+            <h3 className="text-lg font-semibold mb-4 bg-gradient-to-r from-white to-coral-300 bg-clip-text text-transparent">{personalInfo.name}</h3>
+            <p className="text-gray-300 mb-4">
               {personalInfo.tagline}
             </p>
             <div className="flex space-x-4">
@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
                 href={personalInfo.github}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-secondary-300 hover:text-white transition-colors duration-200"
+                className="text-gray-300 hover:text-coral-300 transition-colors duration-200"
               >
                 <span className="sr-only">GitHub</span>
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
                 href={personalInfo.linkedin}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-secondary-300 hover:text-white transition-colors duration-200"
+                className="text-gray-300 hover:text-violet-300 transition-colors duration-200"
               >
                 <span className="sr-only">LinkedIn</span>
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
               </a>
               <a 
                 href={`mailto:${personalInfo.email}`}
-                className="text-secondary-300 hover:text-white transition-colors duration-200"
+                className="text-gray-300 hover:text-mint-300 transition-colors duration-200"
               >
                 <span className="sr-only">Email</span>
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,20 +50,20 @@ const Footer: React.FC = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 text-violet-300">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/about" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <Link to="/about" className="text-gray-300 hover:text-coral-300 transition-colors duration-200">
                   About
                 </Link>
               </li>
               <li>
-                <Link to="/projects" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <Link to="/projects" className="text-gray-300 hover:text-violet-300 transition-colors duration-200">
                   Projects
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                <Link to="/contact" className="text-gray-300 hover:text-mint-300 transition-colors duration-200">
                   Contact
                 </Link>
               </li>
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="border-t border-secondary-700 mt-8 pt-8 text-center text-secondary-300">
+        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
           <p>&copy; {currentYear} {personalInfo.name}. All rights reserved.</p>
         </div>
       </div>

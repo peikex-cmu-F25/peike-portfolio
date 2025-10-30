@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import { motion } from 'framer-motion'
 import { personalInfo, education, workExperience, skillsData } from '../data/portfolio'
+import portraitImage from '../assets/images/peike-portrait.png'
 
 const About: React.FC = () => {
   const containerVariants = {
@@ -105,13 +105,44 @@ const About: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="relative"
           >
-            <div className="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8 h-96 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-32 h-32 bg-primary-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-4xl font-bold text-primary-600">PX</span>
+            {/* Professional Portrait with Fancy Styling */}
+            <div className="relative w-full max-w-md mx-auto">
+              <div className="relative">
+                {/* Elegant background layers */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-100 via-gray-50 to-primary-200 transform rotate-2 animate-pulse-subtle"></div>
+                <div className="absolute inset-1 rounded-2xl bg-gradient-to-tr from-white/95 to-primary-50/80 backdrop-blur-sm transform -rotate-1"></div>
+                
+                {/* Subtle glowing border */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary-400 via-blue-500 to-primary-600 rounded-3xl blur-sm opacity-20 animate-pulse"></div>
+                
+                {/* Main portrait container */}
+                <div className="relative z-10 p-6">
+                  <div className="relative group">
+                    <img
+                      src={portraitImage}
+                      alt="Peike Xu - Professional Portrait"
+                      className="w-full aspect-[3/4] object-cover rounded-2xl shadow-2xl border-4 border-white/90 backdrop-blur-sm group-hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                    
+                    {/* Professional overlay on hover */}
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-primary-900/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Professional badge */}
+                    <div className="absolute -bottom-3 -right-3 bg-gradient-to-r from-primary-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-xl backdrop-blur-sm border-2 border-white/30 group-hover:scale-105 transition-transform duration-300">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        <span>Software Engineer</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-secondary-600">Professional Photo Coming Soon</p>
               </div>
+              
+              {/* Elegant decorative elements */}
+              <div className="absolute -top-4 -left-4 w-6 h-6 bg-gradient-to-br from-primary-400 to-blue-500 rounded-full opacity-60 animate-float shadow-lg"></div>
+              <div className="absolute -bottom-6 -right-6 w-4 h-4 bg-gradient-to-br from-blue-500 to-primary-600 rounded-full opacity-50 animate-float animation-delay-2000"></div>
+              <div className="absolute top-1/4 -left-3 w-3 h-3 bg-gradient-to-br from-primary-300 to-blue-400 rounded-full opacity-40 animate-pulse-subtle animation-delay-4000"></div>
             </div>
           </motion.div>
         </div>
@@ -177,13 +208,12 @@ const About: React.FC = () => {
             variants={itemVariants}
             className="text-3xl font-bold text-secondary-900 mb-8 text-center"
           >
-            Education & <span className="text-gradient">Experience</span>
+            <span className="text-gradient">Education</span>
           </motion.h2>
           
           <div className="space-y-12">
             {/* Education */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-2xl font-semibold text-secondary-900 mb-6">Education</h3>
               <div className="space-y-6">
                 {education.map((edu, index) => (
                   <div key={edu.id} className="card">
@@ -210,57 +240,6 @@ const About: React.FC = () => {
                         </li>
                       ))}
                     </ul>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Work Experience */}
-            <motion.div variants={itemVariants}>
-              <h3 className="text-2xl font-semibold text-secondary-900 mb-6">Work Experience</h3>
-              <div className="space-y-6">
-                {workExperience.map((work, index) => (
-                  <div key={work.id} className="card">
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                      <div className="flex-1">
-                        <h4 className="text-xl font-semibold text-secondary-900">{work.role}</h4>
-                        <p className="text-primary-600 font-medium">{work.company}</p>
-                        <p className="text-secondary-500 text-sm">{work.location}</p>
-                      </div>
-                      <div className="text-right mt-2 md:mt-0">
-                        <span className="inline-block px-3 py-1 bg-secondary-100 text-secondary-800 rounded-full text-sm font-medium">
-                          {work.duration}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <p className="text-secondary-600 mb-4">{work.description}</p>
-                    
-                    <div className="mb-4">
-                      <h5 className="font-medium text-secondary-900 mb-2">Key Achievements:</h5>
-                      <ul className="space-y-2">
-                        {work.achievements.map((achievement, aIndex) => (
-                          <li key={aIndex} className="flex items-start">
-                            <span className="text-primary-600 mr-2 mt-1">•</span>
-                            <span className="text-secondary-700 text-sm">{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h5 className="font-medium text-secondary-900 mb-2">Technologies:</h5>
-                      <div className="flex flex-wrap gap-2">
-                        {work.technologies.map((tech, tIndex) => (
-                          <span 
-                            key={tIndex}
-                            className="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs font-medium"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 ))}
               </div>

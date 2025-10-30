@@ -38,6 +38,11 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 // Initialize performance monitoring
 measurePerformance();
 
+// Prevent flash of unstyled content
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('loaded');
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
