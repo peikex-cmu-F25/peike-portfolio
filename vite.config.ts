@@ -19,6 +19,8 @@ export default defineConfig({
     }),
   ],
   base: '/',
+  // Add support for JPG files
+  assetsInclude: ['**/*.JPG', '**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg'],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

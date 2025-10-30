@@ -10,6 +10,7 @@ const Navigation: React.FC = () => {
   const navigation = [
     { name: 'Work', href: '/projects', symbol: '◆' },
     { name: 'About', href: '/about', symbol: '●' },
+    { name: 'Gallery', href: '/gallery', symbol: '📸' },
     { name: 'Contact', href: '/contact', symbol: '▲' },
   ]
 
