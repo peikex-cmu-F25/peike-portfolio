@@ -219,6 +219,66 @@ export const education: EducationData[] = [
 // Work Experience Data
 export const workExperience: ExperienceData[] = [
   {
+    id: "cmu-research-assistant",
+    company: "Carnegie Mellon University",
+    role: "Graduate Research Assistant",
+    location: "Mountain View, CA",
+    duration: "Sep 2025 – Current",
+    description: "Developing cutting-edge GenAI pipeline to model neurodegenerative disease progression through advanced machine learning and computational biology",
+    achievements: [
+      "Advanced AI Research: Developing a GenAI pipeline to model neurodegenerative disease progression by pretraining cell foundation encoders (scVI/Transformer) on Human Cell Atlas datasets, contributing to breakthrough research in computational biology and medical AI",
+      "Innovative Model Architecture: Building a promptable diffusion model conditioned on clinical metadata to simulate disease trajectories, combining state-of-the-art generative models with domain-specific medical knowledge for predictive healthcare applications",
+      "Large-Scale Data Processing: Working with Human Cell Atlas datasets containing millions of cellular samples, implementing efficient data preprocessing and feature extraction pipelines for foundation model training",
+      "Clinical Impact Research: Collaborating with medical researchers to translate computational findings into clinically relevant insights for neurodegenerative disease understanding and potential therapeutic interventions"
+    ],
+    technologies: ["Python", "PyTorch", "scVI", "Transformers", "Diffusion Models", "Human Cell Atlas", "Clinical Data", "Computational Biology"]
+  },
+  {
+    id: "cmu-teaching-assistant",
+    company: "Carnegie Mellon University",
+    role: "Teaching Assistant - 18-461/661",
+    location: "Mountain View, CA",
+    duration: "Aug 2025 – Current",
+    description: "Supporting machine learning education across multiple international campuses, developing curriculum materials and mentoring students in advanced ML concepts",
+    achievements: [
+      "Global Teaching Impact: Led weekly recitation sections and office hours for Introduction to ML for Engineers, supporting students across Pittsburgh, Silicon Valley, and Rwanda campuses in supervised/unsupervised learning and neural networks",
+      "Curriculum Development: Created comprehensive homework problem sets covering regression, classification, and SVMs to reinforce core ML concepts, ensuring practical understanding of theoretical foundations",
+      "Student Mentorship: Provided personalized guidance to students from diverse academic backgrounds, helping them master complex machine learning algorithms and their real-world applications",
+      "Cross-Campus Coordination: Collaborated with faculty across three international locations to maintain consistent teaching standards and adapt content for different cultural and technical contexts"
+    ],
+    technologies: ["Machine Learning", "Python", "scikit-learn", "Supervised Learning", "Unsupervised Learning", "Neural Networks", "SVM", "Regression"]
+  },
+  {
+    id: "ucsd-math-tutor",
+    company: "University of California San Diego",
+    role: "Math Tutor",
+    location: "La Jolla, CA",
+    duration: "Sep 2024 – Jun 2025",
+    description: "Provided personalized academic support to students in calculus courses, developing effective teaching strategies for complex mathematical concepts",
+    achievements: [
+      "Large-Scale Academic Support: Tutored 100+ students in Calculus courses through daily tutor hours, providing personalized academic support and helping students achieve significant grade improvements",
+      "Adaptive Teaching Methods: Developed individualized tutoring approaches based on students' learning styles and mathematical backgrounds, resulting in improved comprehension and confidence",
+      "Mathematical Clarity: Simplified complex calculus concepts through visual aids, step-by-step problem solving, and real-world applications, making advanced mathematics accessible to diverse learners",
+      "Student Success Tracking: Monitored student progress throughout the semester, adjusting tutoring strategies to ensure continuous improvement and academic success"
+    ],
+    technologies: ["Calculus", "Mathematical Modeling", "Problem Solving", "Educational Technology", "Academic Support"]
+  },
+  {
+    id: "ucsd-cse-tutor",
+    company: "University of California San Diego",
+    role: "CSE Tutor - CSE 150B",
+    location: "La Jolla, CA",
+    duration: "Mar 2025 – Jun 2025",
+    description: "Supported students in advanced artificial intelligence coursework, providing guidance on search algorithms, reasoning systems, and AI implementation",
+    achievements: [
+      "Advanced AI Instruction: Supported students in Introduction to AI: Search and Reasoning, holding office hours to assist with complex assignments including A* search algorithms, game AI, and constraint satisfaction problems",
+      "Practical AI Applications: Guided students through implementing sophisticated AI systems including 2048 AI, Blackjack RL agent, Gomoku with Monte Carlo Tree Search, and Sudoku constraint solver",
+      "Algorithm Explanation: Broke down complex AI algorithms into understandable components, helping students grasp both theoretical foundations and practical implementation details",
+      "Project Mentorship: Provided hands-on support for AI programming assignments, debugging complex algorithms and helping students optimize their implementations for better performance"
+    ],
+    technologies: ["Artificial Intelligence", "A* Search", "Reinforcement Learning", "Monte Carlo Tree Search", "Constraint Satisfaction", "Python", "Game AI", "Search Algorithms"]
+  },
+  {
     id: "ieee-editor",
     company: "IEEE Editorial Team",
     role: "Contributing Editor",
