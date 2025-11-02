@@ -21,15 +21,11 @@ module.exports = {
   },
   plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-    '@typescript-eslint/no-unused-vars': 'warn',
+    'react-refresh/only-export-components': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'prefer-const': 'off',
-    'react-hooks/exhaustive-deps': 'off',
-    'no-unused-vars': 'off'
+    'react-hooks/exhaustive-deps': 'off'
   },
   overrides: [
     {
