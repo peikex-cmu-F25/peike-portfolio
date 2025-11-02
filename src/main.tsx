@@ -48,7 +48,8 @@ function initWebVitals() {
     const lcpObserver = new PerformanceObserver((entryList) => {
       const entry = entryList.getEntries().pop()
       if (entry) {
-        trackWebVital({ name: 'LCP', value: entry.startTime, id: entry.id || 'lcp' })
+        const lcpId = ('id' in entry && typeof entry.id === 'string') ? entry.id : 'lcp'
+        trackWebVital({ name: 'LCP', value: entry.startTime, id: lcpId })
       }
     })
     lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true })
@@ -65,7 +66,7 @@ function initWebVitals() {
     const clsObserver = new PerformanceObserver((entryList) => {
       const entry = entryList.getEntries()[0] as LayoutShiftEntry | undefined
       if (entry && !entry.hadRecentInput) {
-        trackWebVital({ name: 'CLS', value: entry.value, id: entry.id || 'cls' })
+        trackWebVital({ name: 'CLS', value: entry.value, id: 'cls' })
       }
     })
     clsObserver.observe({ type: 'layout-shift', buffered: true })

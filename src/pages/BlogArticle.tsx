@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { MDXProvider } from '@mdx-js/react'
-import { loadBlogPost, getRelatedPosts } from '../data/blogIndex'
+import { loadBlogPost, getRelatedPosts, type LoadedBlogPost } from '../data/blogIndex'
 import { mdxComponents } from '../components/blog/MDXContent'
 import ReadingProgress from '../components/blog/ReadingProgress'
 import TableOfContents from '../components/blog/TableOfContents'
@@ -99,9 +99,7 @@ const BlogArticle: React.FC = () => {
   const [tocItems, setTocItems] = useState<TableOfContentsItem[]>([])
   const [relatedPosts, setRelatedPosts] = useState<ReturnType<typeof getRelatedPosts>>([])
   const [MDXContent, setMDXContent] = useState<MDXComponent | null>(null)
-  const [post, setPost] = useState<Awaited<ReturnType<typeof loadBlogPost>>['post'] | null>(
-    null
-  )
+  const [post, setPost] = useState<LoadedBlogPost['post'] | null>(null)
 
   useEffect(() => {
     let mounted = true
@@ -366,7 +364,7 @@ const BlogArticle: React.FC = () => {
                   Tags
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {post.tags.map(tag => (
+                  {post.tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="px-3 py-1 rounded-full text-xs font-medium bg-secondary-100 text-secondary-600"

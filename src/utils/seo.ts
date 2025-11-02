@@ -196,7 +196,7 @@ export const generateBlogPostSEO = (post: BlogPost): SEOConfig => {
     publishedTime: post.publishedAt,
     modifiedTime: post.updatedAt,
     author: post.author.name,
-    section: post.category,
+    section: post.category.name,
     tags: post.tags
   }
 }
