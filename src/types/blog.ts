@@ -2,25 +2,33 @@ export interface BlogPost {
   id: string
   slug: string
   title: string
+  subtitle?: string
   description: string
-  content: string
+  excerpt: string
   author: {
     name: string
-    bio: string
+    title?: string
+    bio?: string
     avatar?: string
+    link?: string
   }
   publishedAt: string
   updatedAt?: string
   readingTime: string
   tags: string[]
-  category: string
+  category: {
+    slug: string
+    name: string
+    color: string
+    icon?: string
+  }
   featured: boolean
   image?: {
     url: string
     alt: string
     caption?: string
   }
-  seo: {
+  seo?: {
     title?: string
     description?: string
     keywords?: string[]

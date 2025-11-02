@@ -13,7 +13,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
 }) => {
   return (
     <motion.section
-      className={`py-20 bg-gradient-to-br from-secondary-50 to-primary-50 ${className}`}
+      className={`py-20 bg-gradient-to-br from-secondary-50 to-primary-50 dark:from-neutral-900 dark:to-neutral-800 transition-colors duration-300 ${className}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -27,10 +27,10 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-secondary-800 mb-4">
+          <h2 className="text-4xl font-bold text-secondary-800 dark:text-white mb-4">
             Technical Skills & Expertise
           </h2>
-          <p className="text-lg text-secondary-600 max-w-3xl mx-auto">
+          <p className="text-lg text-secondary-600 dark:text-gray-300 max-w-3xl mx-auto">
             Interactive visualizations showcasing my technical proficiency, 
             project experience, and quantified achievements across AI/ML, 
             full-stack development, and cloud technologies.

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { skillsData, workExperience, projects } from '../../data/portfolio'
+import { skillsData } from '../../data/skills'
+import { workExperience } from '../../data/experience'
+import { projects } from '../../data/portfolio'
 import SkillsRadarChart from './SkillsRadarChart'
 import TechnologyTimeline from './TechnologyTimeline'
 import ProjectImpactMetrics from './ProjectImpactMetrics'
@@ -222,7 +224,7 @@ const SkillsDashboard: React.FC<SkillsDashboardProps> = ({
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                 {skillsData.map(category => (
-                  <div key={category.category} className="text-center p-4 bg-white rounded-lg shadow-sm border border-secondary-200">
+                  <div key={category.category} className="text-center p-4 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-secondary-200 dark:border-neutral-700">
                     <div className="text-2xl font-bold text-primary-600">
                       {category.skills.length}
                     </div>
@@ -239,7 +241,7 @@ const SkillsDashboard: React.FC<SkillsDashboardProps> = ({
 
             {/* Radar Chart */}
             <motion.div variants={itemVariants} className="text-center">
-              <h3 className="text-xl font-semibold text-secondary-800 mb-6">
+              <h3 className="text-xl font-semibold text-secondary-800 dark:text-white mb-6">
                 Proficiency Radar
               </h3>
               <SkillsRadarChart skills={skillsData} size={350} interactive={interactive} />
@@ -247,21 +249,21 @@ const SkillsDashboard: React.FC<SkillsDashboardProps> = ({
 
             {/* Quick metrics */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-xl font-semibold text-secondary-800 mb-6 text-center">
+              <h3 className="text-xl font-semibold text-secondary-800 dark:text-white mb-6 text-center">
                 Key Achievements
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200 dark:from-neutral-900 dark:to-neutral-900/60 dark:border-neutral-700">
                   <div className="text-3xl font-bold text-green-600">95%</div>
                   <div className="text-sm text-green-700 font-medium">Code Coverage</div>
                   <div className="text-xs text-green-600 mt-1">Testing & Quality</div>
                 </div>
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-200">
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-200 dark:from-neutral-900 dark:to-neutral-900/60 dark:border-neutral-700">
                   <div className="text-3xl font-bold text-blue-600">3000+</div>
                   <div className="text-sm text-blue-700 font-medium">Users Impacted</div>
                   <div className="text-xs text-blue-600 mt-1">Scale & Reach</div>
                 </div>
-                <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200">
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200 dark:from-neutral-900 dark:to-neutral-900/60 dark:border-neutral-700">
                   <div className="text-3xl font-bold text-purple-600">60%</div>
                   <div className="text-sm text-purple-700 font-medium">Performance Boost</div>
                   <div className="text-xs text-purple-600 mt-1">Optimization</div>
@@ -274,7 +276,7 @@ const SkillsDashboard: React.FC<SkillsDashboardProps> = ({
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 transition-colors duration-300">
       {/* Navigation */}
       <motion.div 
         className="flex flex-wrap justify-center gap-2 mb-8"
@@ -287,8 +289,8 @@ const SkillsDashboard: React.FC<SkillsDashboardProps> = ({
             key={item.id}
             className={`group px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
               currentView === item.id
-                ? 'bg-primary-600 text-white shadow-md'
-                : 'bg-white text-secondary-600 hover:bg-secondary-50 border border-secondary-200'
+                ? 'bg-primary-600 text-white shadow-md dark:bg-primary-500 dark:text-neutral-950'
+                : 'bg-white text-secondary-600 hover:bg-secondary-50 border border-secondary-200 dark:bg-neutral-900 dark:text-gray-300 dark:border-neutral-700 dark:hover:bg-neutral-800'
             }`}
             onClick={() => setCurrentView(item.id as any)}
             whileHover={{ scale: 1.02, y: -2 }}
@@ -312,7 +314,7 @@ const SkillsDashboard: React.FC<SkillsDashboardProps> = ({
 
       {/* Footer info */}
       <motion.div 
-        className="mt-12 text-center text-sm text-secondary-500"
+        className="mt-12 text-center text-sm text-secondary-500 dark:text-gray-400"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.0 }}

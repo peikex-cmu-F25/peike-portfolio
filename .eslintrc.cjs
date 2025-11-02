@@ -7,9 +7,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    '@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:react-refresh/only-export-components'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -33,9 +32,8 @@ module.exports = {
     {
       files: ['**/*.test.{ts,tsx}', '**/*test.{ts,tsx}', '**/setupTests.ts'],
       env: {
-        vitest: true
-      },
-      extends: ['plugin:vitest/recommended']
+        jest: true
+      }
     }
   ]
 }

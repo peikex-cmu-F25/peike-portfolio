@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 const ReadingProgress: React.FC = () => {
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [isVisible, setIsVisible] = useState(false)
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
@@ -20,6 +22,10 @@ const ReadingProgress: React.FC = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  if (prefersReducedMotion) {
+    return null
+  }
 
   return (
     <motion.div

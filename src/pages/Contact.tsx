@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { personalInfo } from '../data/portfolio'
+import { trackEvent, trackResumeDownload } from '../utils/analytics'
 
 interface FormData {
   name: string;
@@ -11,6 +12,20 @@ interface FormData {
   inquiryType: string;
   budget?: string;
   timeline?: string;
+  preferredLanguage: string;
+  timezone: string;
+  securityAnswer: string;
+  newsletter: boolean;
+  honeypot: string;
+}
+
+const generateChallenge = () => {
+  const first = Math.floor(Math.random() * 5) + 3
+  const second = Math.floor(Math.random() * 5) + 2
+  return {
+    prompt: `${first} + ${second}`,
+    answer: String(first + second)
+  }
 }
 
 const Contact: React.FC = () => {
@@ -21,12 +36,31 @@ const Contact: React.FC = () => {
     message: '',
     inquiryType: 'general',
     budget: '',
-    timeline: ''
+    timeline: '',
+    preferredLanguage: '',
+    timezone: '',
+    securityAnswer: '',
+    newsletter: false,
+    honeypot: ''
   })
   
+  const [challenge, setChallenge] = useState(generateChallenge())
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errors, setErrors] = useState<Partial<FormData>>({})
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const refreshChallenge = () => {
+    setChallenge(generateChallenge())
+    setFormData(prev => ({
+      ...prev,
+      securityAnswer: ''
+    }))
+    setErrors(prev => ({
+      ...prev,
+      securityAnswer: undefined
+    }))
+  }
 
   const inquiryTypes = [
     { value: 'general', label: 'General Inquiry' },
@@ -57,6 +91,32 @@ const Contact: React.FC = () => {
     { value: 'flexible', label: 'Flexible' }
   ]
 
+  const languageOptions = useMemo(() => ([
+    { value: 'en', label: 'English' },
+    { value: 'zh', label: '中文 (Chinese)' },
+    { value: 'es', label: 'Español (Spanish)' },
+    { value: 'fr', label: 'Français (French)' },
+    { value: 'de', label: 'Deutsch (German)' },
+    { value: 'ja', label: '日本語 (Japanese)' }
+  ]), [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const resolvedTimezone =
+      Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+    const userLanguage = navigator.language?.split('-')[0]?.toLowerCase() || 'en'
+    const preferredLanguage = languageOptions.some(option => option.value === userLanguage)
+      ? userLanguage
+      : 'en'
+
+    setFormData(prev => ({
+      ...prev,
+      timezone: resolvedTimezone,
+      preferredLanguage: prev.preferredLanguage || preferredLanguage
+    }))
+  }, [languageOptions])
+
   const validateForm = (): boolean => {
     const newErrors: Partial<FormData> = {}
 
@@ -68,8 +128,18 @@ const Contact: React.FC = () => {
     }
     if (!formData.subject.trim()) newErrors.subject = 'Subject is required'
     if (!formData.message.trim()) newErrors.message = 'Message is required'
+    if (!formData.preferredLanguage) newErrors.preferredLanguage = 'Preferred language helps tailor replies'
+    if (!formData.securityAnswer.trim()) {
+      newErrors.securityAnswer = 'Please confirm you are human'
+    } else if (formData.securityAnswer.trim() !== challenge.answer) {
+      newErrors.securityAnswer = 'That answer looks off—try again'
+    }
+    if (formData.honeypot) {
+      newErrors.honeypot = 'Bot submission detected'
+    }
 
     setErrors(newErrors)
+    setErrorMessage(null)
     return Object.keys(newErrors).length === 0
   }
 
@@ -89,41 +159,98 @@ const Contact: React.FC = () => {
     }
   }
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: checked
+    }))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrorMessage(null)
+    setSuccessMessage(null)
     
     if (!validateForm()) {
+      trackEvent('contact_validation_error', {
+        inquiryType: formData.inquiryType,
+        preferredLanguage: formData.preferredLanguage || 'unknown'
+      })
+      setSubmitStatus('error')
+      setErrorMessage('Please double-check the highlighted fields before resubmitting.')
+      return
+    }
+
+    if (formData.honeypot) {
+      // Silently ignore bot submissions
+      trackEvent('contact_bot_blocked')
+      setSubmitStatus('success')
       return
     }
 
     setIsSubmitting(true)
-    
-    // Enhanced form submission with proper data handling
+
+    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined
+    const apiKey = import.meta.env.VITE_CONTACT_API_KEY as string | undefined
+
+    const { securityAnswer, honeypot, ...cleanFormData } = formData
+    const submissionData = {
+      ...cleanFormData,
+      timestamp: new Date().toISOString(),
+      source: 'portfolio-contact-form',
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown',
+      referrer: typeof document !== 'undefined' ? document.referrer : '',
+      locale: typeof navigator !== 'undefined' ? navigator.language : '',
+      viewport:
+        typeof window !== 'undefined'
+          ? { width: window.innerWidth, height: window.innerHeight }
+          : undefined,
+      securityCheck: 'passed'
+    }
+
     try {
-      // Create a comprehensive form submission object
-      const submissionData = {
-        ...formData,
-        timestamp: new Date().toISOString(),
-        source: 'portfolio-contact-form',
-        userAgent: navigator.userAgent,
-        referrer: document.referrer
+      if (endpoint) {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {})
+          },
+          body: JSON.stringify(submissionData)
+        })
+
+        if (!response.ok) {
+          const responseText = await response.text()
+          trackEvent('contact_submit_failed', {
+            reason: response.status,
+            inquiryType: formData.inquiryType
+          })
+          throw new Error(responseText || 'Non-200 response from contact endpoint.')
+        }
+
+        setSuccessMessage('Thanks for reaching out! I’ll follow up within two business days.')
+      } else {
+        const mailtoSubject = encodeURIComponent(`${formData.subject} (Portfolio Contact)`)
+        const mailtoBody = encodeURIComponent(
+          `${formData.message}\n\n---\nInquiry type: ${formData.inquiryType}\nBudget: ${formData.budget || 'N/A'}\nTimeline: ${formData.timeline || 'N/A'}\nPreferred language: ${formData.preferredLanguage}\nTimezone: ${formData.timezone}`
+        )
+        window.location.href = `mailto:${personalInfo.email}?subject=${mailtoSubject}&body=${mailtoBody}`
+        setSuccessMessage(
+          `No API endpoint configured, so I’ve opened your mail client. Feel free to send the message directly to ${personalInfo.email}.`
+        )
       }
 
-      // For demo purposes, simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      // In a real implementation, you would submit to your backend:
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(submissionData),
-      // })
+      trackEvent('contact_submit', {
+        inquiryType: formData.inquiryType,
+        preferredLanguage: formData.preferredLanguage,
+        newsletter: formData.newsletter,
+        hasBudget: Boolean(formData.budget)
+      })
 
-      console.log('Form submission data:', submissionData) // For debugging
-      
       setSubmitStatus('success')
+
+      const { timezone, preferredLanguage } = formData
       setFormData({
         name: '',
         email: '',
@@ -131,14 +258,30 @@ const Contact: React.FC = () => {
         message: '',
         inquiryType: 'general',
         budget: '',
-        timeline: ''
+        timeline: '',
+        preferredLanguage,
+        timezone,
+        securityAnswer: '',
+        newsletter: false,
+        honeypot: ''
       })
+      setChallenge(generateChallenge())
     } catch (error) {
       console.error('Form submission error:', error)
+      trackEvent('contact_submit_failed', {
+        reason: error instanceof Error ? error.message : 'unknown',
+        inquiryType: formData.inquiryType
+      })
       setSubmitStatus('error')
+      setErrorMessage(
+        `Something interrupted the submission. Please email me directly at ${personalInfo.email} and I’ll reply right away.`
+      )
     } finally {
       setIsSubmitting(false)
-      setTimeout(() => setSubmitStatus('idle'), 5000)
+      setTimeout(() => {
+        setSubmitStatus('idle')
+        setSuccessMessage(null)
+      }, 6000)
     }
   }
 
@@ -222,7 +365,57 @@ const Contact: React.FC = () => {
           >
             <h2 className="text-2xl font-bold text-secondary-900 mb-6">Send a Message</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-emerald-700"
+                >
+                  <svg className="mt-1 h-5 w-5 flex-none" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <div className="text-sm leading-6">
+                    {successMessage || 'Thanks for reaching out! I’ll get back to you within two business days.'}
+                  </div>
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && errorMessage && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700"
+                >
+                  <svg className="mt-1 h-5 w-5 flex-none" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 7a1 1 0 100-2 1 1 0 000 2z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <div className="text-sm leading-6">{errorMessage}</div>
+                </motion.div>
+              )}
+
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="website-field">
+                  Leave this field blank
+                </label>
+                <input
+                  id="website-field"
+                  type="text"
+                  name="honeypot"
+                  value={formData.honeypot}
+                  onChange={handleInputChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
               {/* Basic Information */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -279,6 +472,48 @@ const Contact: React.FC = () => {
                     <option key={type.value} value={type.value}>{type.label}</option>
                   ))}
                 </select>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="preferredLanguage" className="block text-sm font-medium text-secondary-700 mb-2">
+                    Preferred Language *
+                  </label>
+                  <select
+                    id="preferredLanguage"
+                    name="preferredLanguage"
+                    value={formData.preferredLanguage}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 ${
+                      errors.preferredLanguage ? 'border-red-300 bg-red-50' : 'border-secondary-300'
+                    }`}
+                    required
+                  >
+                    <option value="">Select a language</option>
+                    {languageOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.preferredLanguage && (
+                    <p className="mt-1 text-sm text-red-600">{errors.preferredLanguage}</p>
+                  )}
+                </div>
+                <div>
+                  <label htmlFor="timezone" className="block text-sm font-medium text-secondary-700 mb-2">
+                    Time Zone (auto-detected)
+                  </label>
+                  <input
+                    id="timezone"
+                    name="timezone"
+                    value={formData.timezone || 'Detecting…'}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-secondary-300 rounded-lg bg-secondary-50 text-secondary-600"
+                    readOnly
+                    aria-readonly="true"
+                  />
+                </div>
               </div>
 
               {/* Conditional Fields for Consulting */}
@@ -356,42 +591,55 @@ const Contact: React.FC = () => {
                 />
                 {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
               </div>
-              
-              {submitStatus === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="p-4 bg-green-50 border border-green-200 rounded-lg"
-                >
-                  <div className="flex">
-                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h3 className="text-sm font-medium text-green-800">Message sent successfully!</h3>
-                      <p className="text-sm text-green-700 mt-1">Thank you for reaching out. I'll get back to you within 24 hours.</p>
-                    </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="securityAnswer" className="block text-sm font-medium text-secondary-700 mb-2">
+                    Quick verification *
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="text"
+                      id="securityAnswer"
+                      name="securityAnswer"
+                      value={formData.securityAnswer}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 ${
+                        errors.securityAnswer ? 'border-red-300 bg-red-50' : 'border-secondary-300'
+                      }`}
+                      placeholder={`What is ${challenge.prompt}?`}
+                      inputMode="numeric"
+                    />
+                    <button
+                      type="button"
+                      onClick={refreshChallenge}
+                      className="inline-flex items-center rounded-lg border border-secondary-200 px-3 py-2 text-sm text-secondary-600 hover:bg-secondary-100"
+                    >
+                      New
+                    </button>
                   </div>
-                </motion.div>
-              )}
-              
-              {submitStatus === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="p-4 bg-red-50 border border-red-200 rounded-lg"
-                >
-                  <div className="flex">
-                    <svg className="w-5 h-5 text-red-400 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                    </svg>
-                    <div>
-                      <h3 className="text-sm font-medium text-red-800">Failed to send message</h3>
-                      <p className="text-sm text-red-700 mt-1">Please try again or use one of the direct contact methods below.</p>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
+                  {errors.securityAnswer && (
+                    <p className="mt-1 text-sm text-red-600">{errors.securityAnswer}</p>
+                  )}
+                </div>
+
+                <div className="flex flex-col justify-center">
+                  <label className="inline-flex items-start gap-3 text-sm text-secondary-700">
+                    <input
+                      type="checkbox"
+                      name="newsletter"
+                      checked={formData.newsletter}
+                      onChange={handleCheckboxChange}
+                      className="mt-1 h-4 w-4 rounded border-secondary-300 text-primary-600 focus:ring-primary-500"
+                    />
+                    <span>
+                      Keep me in the loop about new case studies and tools.
+                      <span className="block text-xs text-secondary-500">
+                        No spam—just the occasional high-signal update.
+                      </span>
+                    </span>
+                  </label>
+                </div>
+              </div>
               
               <motion.button
                 type="submit"
@@ -450,7 +698,7 @@ const Contact: React.FC = () => {
                     className={`flex items-center p-4 rounded-lg border transition-all duration-200 group ${
                       method.primary 
                         ? 'bg-primary-50 border-primary-200 hover:border-primary-300 hover:shadow-md' 
-                        : 'bg-white border-secondary-200 hover:border-primary-300 hover:shadow-md'
+                        : 'bg-white border-secondary-200 hover:border-primary-300 hover:shadow-md dark:bg-neutral-900 dark:border-neutral-700 dark:hover:border-neutral-500'
                     }`}
                   >
                     <div className={`w-12 h-12 rounded-lg flex items-center justify-center mr-4 transition-colors duration-200 ${

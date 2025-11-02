@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LoadingSpinner } from '../components/ui';
+import { trackDemoLaunch } from '../utils/analytics';
 
 // Lazy load AI demo components for better performance
 const EnterpriseRAGDemo = lazy(() => import('../components/ai-demos/EnterpriseRAGDemo'));
@@ -29,6 +30,11 @@ interface DemoInfo {
 
 const AIDemos: React.FC = () => {
   const [activeDemo, setActiveDemo] = useState<DemoInfo | null>(null);
+
+  const openDemo = (demo: DemoInfo) => {
+    setActiveDemo(demo);
+    trackDemoLaunch(demo.id);
+  };
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const demos: DemoInfo[] = [
@@ -165,12 +171,12 @@ const AIDemos: React.FC = () => {
   const DemoCard: React.FC<{ demo: DemoInfo }> = ({ demo }) => (
     <motion.div
       variants={itemVariants}
-      className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
-      onClick={() => setActiveDemo(demo)}
+      className="bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
+      onClick={() => openDemo(demo)}
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="h-32 bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+      <div className="h-32 bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center dark:from-neutral-800 dark:to-neutral-700">
         <div className="text-5xl opacity-80">{demo.icon}</div>
       </div>
       
@@ -203,12 +209,12 @@ const AIDemos: React.FC = () => {
         
         <div className="flex flex-wrap gap-2 mb-4">
           {demo.technologies.slice(0, 3).map((tech, index) => (
-            <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+            <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded dark:bg-neutral-800 dark:text-gray-200">
               {tech}
             </span>
           ))}
           {demo.technologies.length > 3 && (
-            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded dark:bg-neutral-800 dark:text-gray-200">
               +{demo.technologies.length - 3} more
             </span>
           )}

@@ -8,9 +8,12 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300 flex flex-col">
+      <a href="#main-content" className="skip-to-content">
+        Skip to content
+      </a>
       <Navigation />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1 outline-none" tabIndex={-1}>
         {children}
       </main>
       <Footer />

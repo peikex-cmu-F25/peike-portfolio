@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { BlogPost } from '../../types/blog'
 import { formatDate, getBlogPostUrl } from '../../utils/blog'
-import { blogCategories } from '../../data/blog'
 
 interface BlogCardProps {
   post: BlogPost
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
-  const category = blogCategories.find(cat => cat.slug === post.category)
-
   return (
     <motion.article
       className="card group hover:shadow-2xl transition-all duration-300"
@@ -36,13 +33,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
                 </span>
               </div>
             )}
-            {category && (
-              <div className="absolute top-4 right-4">
-                <span className={`${category.color} text-white px-3 py-1 rounded-full text-xs font-medium`}>
-                  {category.icon} {category.name}
-                </span>
-              </div>
-            )}
+            <div className="absolute top-4 right-4">
+              <span className={`${post.category.color} text-white px-3 py-1 rounded-full text-xs font-medium`}>
+                {post.category.icon} {post.category.name}
+              </span>
+            </div>
           </div>
         )}
 
@@ -51,9 +46,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           {/* Category and Date */}
           <div className="flex items-center justify-between text-sm text-secondary-500">
             <div className="flex items-center gap-2">
-              {!post.image && category && (
-                <span className={`${category.color} text-white px-2 py-1 rounded text-xs font-medium`}>
-                  {category.icon} {category.name}
+              {!post.image && (
+                <span className={`${post.category.color} text-white px-2 py-1 rounded text-xs font-medium`}>
+                  {post.category.icon} {post.category.name}
                 </span>
               )}
               <time dateTime={post.publishedAt}>
@@ -101,7 +96,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
             )}
             <div className="flex-1">
               <p className="text-sm font-medium text-secondary-900">{post.author.name}</p>
-              <p className="text-xs text-secondary-500 line-clamp-1">{post.author.bio}</p>
+              {post.author.bio && (
+                <p className="text-xs text-secondary-500 line-clamp-1">{post.author.bio}</p>
+              )}
             </div>
           </div>
         </div>

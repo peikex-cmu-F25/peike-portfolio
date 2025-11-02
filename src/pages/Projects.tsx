@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { workExperience } from '../data/portfolio';
+import { workExperience } from '../data/experience';
 
 const Projects: React.FC = () => {
   return (
@@ -20,10 +20,10 @@ const Projects: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               Professional <span className="bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">Experience</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Real-world experience building production systems and leading development initiatives 
               that drive business impact and technical innovation.
             </p>
@@ -40,11 +40,11 @@ const Projects: React.FC = () => {
               >
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-200">
+                    <h3 className="text-2xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-200 dark:text-white">
                       {work.role}
                     </h3>
                     <p className="text-xl text-primary-600 font-semibold mb-1">{work.company}</p>
-                    <p className="text-gray-500">{work.location}</p>
+                    <p className="text-gray-500 dark:text-gray-400">{work.location}</p>
                   </div>
                   <div className="mt-4 lg:mt-0 lg:text-right">
                     <span className="inline-block px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-semibold">
@@ -53,27 +53,27 @@ const Projects: React.FC = () => {
                   </div>
                 </div>
                 
-                <p className="text-gray-700 text-lg mb-6 leading-relaxed">{work.description}</p>
+                <p className="text-gray-700 dark:text-gray-300 text-lg mb-6 leading-relaxed">{work.description}</p>
                 
                 <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-4 text-lg">Key Achievements:</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-4 text-lg">Key Achievements:</h4>
                   <ul className="space-y-3">
                     {work.achievements.map((achievement, aIndex) => (
                       <li key={aIndex} className="flex items-start">
                         <span className="text-primary-600 mr-3 mt-1.5 text-lg">•</span>
-                        <span className="text-gray-700 leading-relaxed">{achievement}</span>
+                        <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{achievement}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3 text-lg">Technologies & Tools:</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3 text-lg">Technologies & Tools:</h4>
                   <div className="flex flex-wrap gap-3">
                     {work.technologies.map((tech, tIndex) => (
                       <span 
                         key={tIndex}
-                        className="px-3 py-2 bg-gradient-to-r from-primary-50 to-blue-50 text-primary-700 rounded-lg text-sm font-medium border border-primary-100 hover:border-primary-200 hover:shadow-sm transition-all duration-200"
+                        className="px-3 py-2 bg-gradient-to-r from-primary-50 to-blue-50 text-primary-700 rounded-lg text-sm font-medium border border-primary-100 hover:border-primary-200 hover:shadow-sm transition-all duration-200 dark:from-neutral-800 dark:to-neutral-700 dark:text-primary-200 dark:border-neutral-600"
                       >
                         {tech}
                       </span>

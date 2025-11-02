@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { BlogPost } from '../../types/blog'
 import { formatDate, getBlogPostUrl } from '../../utils/blog'
-import { blogCategories } from '../../data/blog'
 
 interface FeaturedPostsProps {
   posts: BlogPost[]
@@ -49,14 +48,11 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ posts }) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   
                   {/* Category Badge */}
-                  {blogCategories.find(cat => cat.slug === mainPost.category) && (
-                    <div className="absolute top-4 left-4">
-                      <span className={`${blogCategories.find(cat => cat.slug === mainPost.category)?.color} text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm`}>
-                        {blogCategories.find(cat => cat.slug === mainPost.category)?.icon} 
-                        {blogCategories.find(cat => cat.slug === mainPost.category)?.name}
-                      </span>
-                    </div>
-                  )}
+                  <div className="absolute top-4 left-4">
+                    <span className={`${mainPost.category.color} text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm`}>
+                      {mainPost.category.icon} {mainPost.category.name}
+                    </span>
+                  </div>
 
                   {/* Featured Badge */}
                   <div className="absolute top-4 right-4">
@@ -87,12 +83,9 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ posts }) => {
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2 text-sm text-secondary-500">
-                      {blogCategories.find(cat => cat.slug === mainPost.category) && (
-                        <span className={`${blogCategories.find(cat => cat.slug === mainPost.category)?.color} text-white px-2 py-1 rounded text-xs font-medium`}>
-                          {blogCategories.find(cat => cat.slug === mainPost.category)?.icon} 
-                          {blogCategories.find(cat => cat.slug === mainPost.category)?.name}
-                        </span>
-                      )}
+                      <span className={`${mainPost.category.color} text-white px-2 py-1 rounded text-xs font-medium`}>
+                        {mainPost.category.icon} {mainPost.category.name}
+                      </span>
                       <time dateTime={mainPost.publishedAt}>
                         {formatDate(mainPost.publishedAt)}
                       </time>
@@ -128,8 +121,6 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ posts }) => {
         {/* Other Featured Posts */}
         <div className="space-y-6">
           {otherPosts.slice(0, 2).map((post, index) => {
-            const category = blogCategories.find(cat => cat.slug === post.category)
-            
             return (
               <motion.article 
                 key={post.id}
@@ -152,11 +143,9 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ posts }) => {
                       </div>
                       <div className="flex-1 space-y-2">
                         <div className="flex items-center gap-2 text-xs text-secondary-500">
-                          {category && (
-                            <span className={`${category.color} text-white px-2 py-1 rounded text-xs font-medium`}>
-                              {category.icon}
-                            </span>
-                          )}
+                          <span className={`${post.category.color} text-white px-2 py-1 rounded text-xs font-medium`}>
+                            {post.category.icon}
+                          </span>
                           <time dateTime={post.publishedAt}>
                             {formatDate(post.publishedAt)}
                           </time>
@@ -174,11 +163,9 @@ const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ posts }) => {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-xs text-secondary-500">
                         <div className="flex items-center gap-2">
-                          {category && (
-                            <span className={`${category.color} text-white px-2 py-1 rounded text-xs font-medium`}>
-                              {category.icon} {category.name}
-                            </span>
-                          )}
+                          <span className={`${post.category.color} text-white px-2 py-1 rounded text-xs font-medium`}>
+                            {post.category.icon} {post.category.name}
+                          </span>
                           <time dateTime={post.publishedAt}>
                             {formatDate(post.publishedAt)}
                           </time>

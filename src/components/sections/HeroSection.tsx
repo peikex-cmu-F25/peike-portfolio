@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { personalInfo } from '../../data/portfolio'
-import professionalPhoto from '../../assets/images/peike-professional-photo.png'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 // TypeScript interfaces for component props
 interface HeroSectionProps {
@@ -54,9 +54,7 @@ const nameVariants = {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
-  // Handle reduced motion preferences
-  const prefersReducedMotion = typeof window !== 'undefined' && 
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   const animationProps = prefersReducedMotion ? {} : {
     initial: "hidden",
@@ -66,12 +64,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
 
   return (
     <>
-      <section className={`section-padding py-16 relative min-h-[85vh] flex items-center overflow-hidden ${className}`}>
+      <section className={`section-padding py-16 relative min-h-[85vh] flex items-center overflow-hidden transition-colors duration-300 ${className}`}>
         {/* Clean minimal background */}
-        <div className="absolute inset-0 bg-white" />
+        <div className="absolute inset-0 bg-white dark:bg-neutral-950" />
         
         {/* Subtle gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white to-primary-50/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white to-primary-50/30 pointer-events-none dark:from-neutral-900/60 dark:via-neutral-950/80 dark:to-primary-900/10" />
         
         {/* Main content container */}
         <div className="container-width relative z-20">
@@ -86,7 +84,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                   variants={itemVariants}
                   className="flex items-center mb-4"
                 >
-                  <div className="font-mono text-sm text-primary-600 tracking-wider mr-4">
+                  <div className="font-mono text-sm text-primary-600 tracking-wider mr-4 dark:text-primary-300">
                     Hello, I'm
                   </div>
                   <div className="w-12 h-px bg-gradient-to-r from-primary-400 to-transparent" />
@@ -97,7 +95,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                   variants={nameVariants}
                   className="relative mb-4"
                 >
-                  <span className="font-display text-5xl md:text-7xl font-bold text-gray-900 leading-tight block">
+                  <span className="font-display text-5xl md:text-7xl font-bold text-gray-900 leading-tight block dark:text-white">
                     {personalInfo.name}
                   </span>
                 </motion.h1>
@@ -107,20 +105,20 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                   variants={itemVariants}
                   className="leading-relaxed mb-4 max-w-2xl"
                 >
-                  <span className="font-light text-xl md:text-2xl text-gray-700">I build</span>{' '}
-                  <span className="font-medium text-xl md:text-2xl text-primary-700 px-3 py-1 bg-primary-50 rounded-lg border-l-3 border-primary-400">
+                  <span className="font-light text-xl md:text-2xl text-gray-700 dark:text-gray-200">I build</span>{' '}
+                  <span className="font-medium text-xl md:text-2xl text-primary-700 px-3 py-1 bg-primary-50 rounded-lg border-l-3 border-primary-400 dark:bg-primary-500/20 dark:text-primary-200 dark:border-primary-500/60">
                     AI systems
                   </span>
-                  <span className="font-light text-xl md:text-2xl text-gray-700">{' '}that solve real problems</span>
+                  <span className="font-light text-xl md:text-2xl text-gray-700 dark:text-gray-200">{' '}that solve real problems</span>
                 </motion.p>
                 
                 {/* Description */}
                 <motion.p 
                   variants={itemVariants}
-                  className="font-body text-gray-600 leading-relaxed mb-8 max-w-xl"
+                  className="font-body text-gray-600 leading-relaxed mb-8 max-w-xl dark:text-gray-300"
                 >
                   Currently studying{' '}
-                  <span className="font-medium text-accent-600 px-2 py-1 bg-gray-100 rounded">
+                  <span className="font-medium text-accent-600 px-2 py-1 bg-gray-100 rounded dark:bg-neutral-800 dark:text-accent-200">
                     Software Engineering
                   </span>
                   {' '}at Carnegie Mellon while crafting intelligent solutions that make a difference.
@@ -172,10 +170,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className = "" }) => {
                     <div className="relative z-10 p-4 sm:p-5">
                       <div className="relative group">
                         <img
-                          src={professionalPhoto}
+                          src="/images/profile/peike-professional-photo.png"
                           alt="Peike Xu - Software Engineering student at Carnegie Mellon University"
-                          className="w-full aspect-[4/5] object-cover rounded-2xl shadow-2xl border-4 border-white/90 backdrop-blur-sm group-hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-1"
-                          loading="eager"
+                          className="w-full aspect-[4/5] object-cover rounded-2xl shadow-2xl border-4 border-white/90 backdrop-blur-sm group-hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-1 dark:border-neutral-900/80"
+                          loading="lazy"
+                          decoding="async"
+                          sizes="(min-width: 1200px) 28vw, (min-width: 768px) 40vw, 80vw"
                         />
                         
                         {/* Elegant overlay on hover */}

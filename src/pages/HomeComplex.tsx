@@ -1,7 +1,9 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { personalInfo, skillsData, caseStudies, technicalLeadership } from '../data/portfolio'
+import { personalInfo, caseStudies, technicalLeadership } from '../data/portfolio'
+import { skillsData } from '../data/skills'
+import { trackResumeDownload } from '../utils/analytics'
 import { HeroSection } from '../components/sections'
 
 const Home: React.FC = () => {
@@ -122,7 +124,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Enterprise Case Studies Preview */}
-      <section className="section-padding py-20 bg-white">
+      <section className="section-padding py-20 bg-white dark:bg-neutral-900 transition-colors duration-300">
         <div className="container-width">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -266,19 +268,19 @@ const Home: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12"
           >
-            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+            <div className="text-center bg-white dark:bg-neutral-900 rounded-lg p-6 shadow-md dark:shadow-none dark:border dark:border-neutral-800">
               <span className="text-2xl font-bold text-purple-600 block">7+</span>
               <span className="text-gray-600 text-sm">Speaking Engagements</span>
             </div>
-            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+            <div className="text-center bg-white dark:bg-neutral-900 rounded-lg p-6 shadow-md dark:shadow-none dark:border dark:border-neutral-800">
               <span className="text-2xl font-bold text-blue-600 block">2.4K+</span>
               <span className="text-gray-600 text-sm">GitHub Stars</span>
             </div>
-            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+            <div className="text-center bg-white dark:bg-neutral-900 rounded-lg p-6 shadow-md dark:shadow-none dark:border dark:border-neutral-800">
               <span className="text-2xl font-bold text-green-600 block">25+</span>
               <span className="text-gray-600 text-sm">Students Mentored</span>
             </div>
-            <div className="text-center bg-white rounded-lg p-6 shadow-md">
+            <div className="text-center bg-white dark:bg-neutral-900 rounded-lg p-6 shadow-md dark:shadow-none dark:border dark:border-neutral-800">
               <span className="text-2xl font-bold text-orange-600 block">500+</span>
               <span className="text-gray-600 text-sm">Practitioners Reached</span>
             </div>

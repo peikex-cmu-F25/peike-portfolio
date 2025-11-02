@@ -8,7 +8,7 @@ interface MDXContentProps {
 }
 
 // Custom components for MDX rendering
-const components = {
+export const mdxComponents = {
   // Code blocks
   pre: ({ children, ...props }: any) => {
     return <div className="relative">{children}</div>
@@ -276,7 +276,7 @@ const MDXContent: React.FC<MDXContentProps> = ({ content }) => {
 
     return elements.map((element, index) => {
       const tagName = element.tagName.toLowerCase()
-      const Component = components[tagName as keyof typeof components] || tagName
+      const Component = (mdxComponents as any)[tagName] || tagName
       
       return (
         <Component key={index} {...getElementProps(element)}>
