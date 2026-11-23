@@ -216,7 +216,7 @@ const Tile = ({ value }: { value: number }) => {
   return (
     <motion.div
       layout
-      className={`flex h-16 w-16 items-center justify-center rounded-xl border border-white/30 font-semibold text-xl shadow-inner dark:border-neutral-700 ${gradient}`}
+      className={`flex h-16 w-16 items-center justify-center rounded-md font-semibold text-xl dark:border-neutral-700 ${gradient}`}
     >
       {tileValue}
     </motion.div>
@@ -346,10 +346,10 @@ const AI2048Game = () => {
     <div className="card space-y-6 dark:shadow-none">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">2048 Expectimax AI</h3>
-          <p className="text-sm text-secondary-600 dark:text-gray-300">
-            This demo replays the expectimax agent used in my AI coursework. Toggle autoplay to let the agent chase
-            higher tiles, or take over manually with your arrow keys.
+          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">2048</h3>
+          <p className="text-sm text-slate-600 dark:text-gray-300">
+            An expectimax agent that searches four moves ahead, rewritten from my AI coursework. Turn on autoplay to
+            watch it play, or play yourself with the arrow keys.
           </p>
         </div>
         <div className="flex gap-2">
@@ -361,7 +361,7 @@ const AI2048Game = () => {
               setBestMove(null)
             }}
           >
-            {autoPlay ? 'Pause Auto-Play' : 'Auto-Play'}
+            {autoPlay ? 'Pause autoplay' : 'Autoplay'}
           </button>
           <button type="button" className="btn-secondary" onClick={handleAIMove} disabled={isBusy || gameOver}>
             Step with AI
@@ -373,24 +373,24 @@ const AI2048Game = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <div className="rounded-xl bg-primary-50 p-4 text-center dark:bg-neutral-900">
-          <p className="text-xs uppercase tracking-wide text-primary-700 dark:text-primary-200">Score</p>
-          <p className="text-2xl font-semibold text-primary-900 dark:text-primary-200">{formatScore(score)}</p>
+        <div className="rounded-lg border border-slate-200 p-4 text-center dark:border-neutral-800">
+          <p className="text-xs text-slate-500 dark:text-gray-400">Score</p>
+          <p className="text-2xl font-semibold text-slate-900 dark:text-white tabular-nums">{formatScore(score)}</p>
         </div>
-        <div className="rounded-xl bg-blue-50 p-4 text-center dark:bg-neutral-900">
-          <p className="text-xs uppercase tracking-wide text-blue-700 dark:text-blue-200">Empty tiles</p>
-          <p className="text-2xl font-semibold text-blue-900 dark:text-blue-200">
+        <div className="rounded-lg border border-slate-200 p-4 text-center dark:border-neutral-800">
+          <p className="text-xs text-slate-500 dark:text-gray-400">Empty tiles</p>
+          <p className="text-2xl font-semibold text-slate-900 dark:text-white tabular-nums">
             {getEmptyCells(board).length.toString()}
           </p>
         </div>
-        <div className="rounded-xl bg-emerald-50 p-4 text-center dark:bg-neutral-900">
-          <p className="text-xs uppercase tracking-wide text-emerald-700 dark:text-emerald-200">Max tile</p>
-          <p className="text-2xl font-semibold text-emerald-900 dark:text-emerald-300">
+        <div className="rounded-lg border border-slate-200 p-4 text-center dark:border-neutral-800">
+          <p className="text-xs text-slate-500 dark:text-gray-400">Max tile</p>
+          <p className="text-2xl font-semibold text-slate-900 dark:text-white tabular-nums">
             {Math.max(...board.flat())}
           </p>
         </div>
-        <div className="rounded-xl bg-slate-50 p-4 text-center dark:bg-neutral-900">
-          <p className="text-xs uppercase tracking-wide text-slate-700 dark:text-slate-200">Status</p>
+        <div className="rounded-lg border border-slate-200 p-4 text-center dark:border-neutral-800">
+          <p className="text-xs text-slate-500 dark:text-gray-400">Status</p>
           <p className="text-2xl font-semibold text-slate-900 dark:text-white">
             {gameOver ? 'Game over' : autoPlay ? 'Auto' : 'Manual'}
           </p>
@@ -399,7 +399,7 @@ const AI2048Game = () => {
 
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-8">
         <div className="flex flex-col items-center gap-4">
-          <div className="grid grid-cols-4 gap-3 rounded-3xl bg-gradient-to-br from-slate-100 to-slate-200 p-6 shadow-xl dark:from-neutral-900 dark:to-neutral-800 dark:shadow-none">
+          <div className="grid grid-cols-4 gap-3 rounded-lg bg-slate-100 p-5 dark:bg-neutral-900">
             <AnimatePresence>
               {board.map((row, rowIndex) =>
                 row.map((value, colIndex) => (
@@ -408,50 +408,49 @@ const AI2048Game = () => {
               )}
             </AnimatePresence>
           </div>
-          <p className="text-xs text-secondary-500 dark:text-gray-400">
-            Use arrow keys or tap “Step with AI” to advance. Autoplay mirrors the evaluation function from the original
-            expectimax agent.
+          <p className="text-xs text-slate-500 dark:text-gray-400">
+            Use the arrow keys, or press “Step with AI” to play the agent’s move.
           </p>
         </div>
 
         <div className="flex-1 space-y-4">
-          <div className="rounded-2xl border border-secondary-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-secondary-600 dark:text-gray-300">
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+            <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-300">
               Suggested move
             </h4>
-            <p className="mt-2 text-2xl font-semibold text-secondary-900 dark:text-white">
+            <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">
               {bestMove ? bestMove.toUpperCase() : 'No safe moves'}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-secondary-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-secondary-600 dark:text-gray-300">
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+            <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-300">
               Heuristic breakdown
             </h4>
-            <ul className="mt-3 space-y-2 text-sm text-secondary-600 dark:text-gray-300">
+            <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-gray-300">
               <li>
-                <span className="font-medium text-secondary-900 dark:text-white">Empty tiles:</span> encourages the AI to
-                keep space for merges.
+                <span className="font-medium text-slate-900 dark:text-white">Empty tiles:</span> more empty cells leave
+                room for merges.
               </li>
               <li>
-                <span className="font-medium text-secondary-900 dark:text-white">Monotonicity & smoothness:</span> pushes
-                tiles into neat gradients to avoid chaos.
+                <span className="font-medium text-slate-900 dark:text-white">Monotonicity & smoothness:</span> prefers rows
+                that decrease steadily and neighbours that are close in value.
               </li>
               <li>
-                <span className="font-medium text-secondary-900 dark:text-white">Max tile bonus:</span> rewards the agent
-                for preserving high-value tiles.
+                <span className="font-medium text-slate-900 dark:text-white">Max tile bonus:</span> a small reward for
+                the largest tile on the board.
               </li>
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-secondary-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-secondary-600 dark:text-gray-300">
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+            <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-300">
               Controls
             </h4>
-            <ul className="mt-3 space-y-1 text-sm text-secondary-600 dark:text-gray-300">
+            <ul className="mt-3 space-y-1 text-sm text-slate-600 dark:text-gray-300">
               <li>• Arrow keys: make a manual move</li>
               <li>• Step with AI: play the expectimax suggestion</li>
-              <li>• Auto-Play: let the agent run continuously</li>
+              <li>• Autoplay: let the agent play continuously</li>
               <li>• Reset: start a fresh run with two tiles</li>
             </ul>
           </div>

@@ -14,7 +14,7 @@ const tabs: Array<{ id: GameTab; label: string; description: string }> = [
   {
     id: 'gomoku',
     label: 'Gomoku',
-    description: 'A heuristic opponent from the same course.'
+    description: 'A simple heuristic opponent, no search.'
   }
 ]
 
@@ -27,8 +27,9 @@ const AIGames = () => {
         <header className="max-w-3xl">
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">Games</h1>
           <p className="mt-4 text-lg leading-relaxed text-slate-700 dark:text-gray-300">
-            Two game-playing agents from my AI coursework at UC San Diego (CSE 150B), rebuilt in TypeScript so they run
-            in the browser. Play against them, or let them play and watch which move they pick. There is also a plain{' '}
+            Two game-playing agents in the browser. The 2048 agent is the expectimax search from my AI coursework at UC
+            San Diego (CSE 150B), rewritten in TypeScript; the Gomoku opponent is a simpler heuristic. Play against them,
+            or let them play and watch which move they pick. There is also a plain{' '}
             <Link
               to="/games/snake"
               className="text-primary-700 underline decoration-primary-300 underline-offset-4 hover:decoration-primary-700 dark:text-primary-300 dark:decoration-primary-700"
@@ -52,7 +53,7 @@ const AIGames = () => {
               }`}
             >
               <div className="text-sm font-semibold">{tab.label}</div>
-              <div className="mt-1 text-xs text-secondary-500 dark:text-gray-400">{tab.description}</div>
+              <div className="mt-1 text-xs text-slate-500 dark:text-gray-400">{tab.description}</div>
             </button>
           ))}
         </nav>
