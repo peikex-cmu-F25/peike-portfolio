@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Play, Pause, RotateCcw, Volume2, VolumeX, Trophy, Target, Zap, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react'
 
 // Game configuration constants
@@ -450,36 +451,32 @@ const SnakeGame: React.FC = () => {
   }, [gameState.snake, gameState.food])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-slate-700/50"
-      >
-        {/* Header */}
-        <div className="text-center mb-6">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-bold text-white mb-2 flex items-center justify-center gap-3"
-          >
-            <Zap className="text-green-400" size={36} />
-            Snake Game
-          </motion.h1>
-          <p className="text-slate-300">Classic snake with modern controls</p>
-        </div>
+    <div className="section-padding py-16 md:py-24">
+      <div className="max-w-6xl mx-auto">
+        <header className="max-w-3xl">
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">Snake</h1>
+          <p className="mt-4 text-lg leading-relaxed text-slate-700 dark:text-gray-300">
+            The classic game, with keyboard and swipe controls. Back to the{' '}
+            <Link
+              to="/games"
+              className="text-primary-700 underline decoration-primary-300 underline-offset-4 hover:decoration-primary-700 dark:text-primary-300 dark:decoration-primary-700"
+            >
+              other games
+            </Link>
+            .
+          </p>
+        </header>
+
+      <div className="card mt-10 inline-block max-w-full">
 
         {/* Game Stats */}
-        <div className="flex justify-between items-center mb-4 px-4">
-          <div className="flex items-center gap-2 text-blue-400">
-            <Target size={20} />
-            <span className="font-semibold">Score: {gameState.score}</span>
-          </div>
-          <div className="flex items-center gap-2 text-yellow-400">
-            <Trophy size={20} />
-            <span className="font-semibold">Best: {gameState.highScore}</span>
-          </div>
+        <div className="flex justify-between items-center mb-4 text-slate-700 dark:text-gray-300">
+          <span>
+            Score <span className="font-semibold text-slate-900 dark:text-white tabular-nums">{gameState.score}</span>
+          </span>
+          <span>
+            Best <span className="font-semibold text-slate-900 dark:text-white tabular-nums">{gameState.highScore}</span>
+          </span>
         </div>
 
         {/* Game Canvas */}
@@ -488,7 +485,7 @@ const SnakeGame: React.FC = () => {
             ref={canvasRef}
             width={GAME_CONFIG.CANVAS_WIDTH}
             height={GAME_CONFIG.CANVAS_HEIGHT}
-            className="border-2 border-slate-600 rounded-lg bg-slate-900 max-w-full h-auto"
+            className="rounded-md bg-slate-900 max-w-full h-auto"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             style={{ touchAction: 'none' }}
@@ -501,7 +498,7 @@ const SnakeGame: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/75 backdrop-blur-sm flex items-center justify-center rounded-lg"
+                className="absolute inset-0 bg-black/75 flex items-center justify-center rounded-md"
               >
                 <div className="text-center text-white">
                   <motion.div
@@ -509,13 +506,10 @@ const SnakeGame: React.FC = () => {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <h2 className="text-3xl font-bold mb-2">Game Over!</h2>
+                    <h2 className="text-2xl font-semibold mb-2">Game over</h2>
                     <p className="text-xl mb-4">Score: {gameState.score}</p>
                     {gameState.score === gameState.highScore && gameState.score > 0 && (
-                      <p className="text-yellow-400 mb-4 flex items-center justify-center gap-2">
-                        <Trophy size={20} />
-                        New High Score!
-                      </p>
+                      <p className="mb-4">New best score</p>
                     )}
                   </motion.div>
                 </div>
@@ -530,11 +524,11 @@ const SnakeGame: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-lg"
+                className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-md"
               >
                 <div className="text-center text-white">
                   <Pause size={48} className="mx-auto mb-4" />
-                  <h2 className="text-2xl font-bold">Paused</h2>
+                  <h2 className="text-2xl font-semibold">Paused</h2>
                 </div>
               </motion.div>
             )}
@@ -542,12 +536,10 @@ const SnakeGame: React.FC = () => {
         </div>
 
         {/* Controls */}
-        <div className="flex flex-wrap justify-center gap-3 mb-6">
+        <div className="flex flex-wrap gap-3 mb-6">
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={gameState.isPlaying ? togglePause : startGame}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-colors"
+            className="btn-primary gap-2"
           >
             {gameState.isPlaying ? (
               gameState.isPaused ? (
@@ -564,72 +556,60 @@ const SnakeGame: React.FC = () => {
             ) : (
               <>
                 <Play size={20} />
-                {gameState.gameOver ? 'Play Again' : 'Start Game'}
+                {gameState.gameOver ? 'Play again' : 'Start'}
               </>
             )}
           </motion.button>
 
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={resetGame}
-            className="flex items-center gap-2 px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-xl font-semibold transition-colors"
+            className="btn-secondary gap-2"
           >
             <RotateCcw size={20} />
             Reset
           </motion.button>
 
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className="flex items-center gap-2 px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-xl font-semibold transition-colors"
+            className="btn-secondary gap-2"
           >
             {soundEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
-            {soundEnabled ? 'Sound On' : 'Sound Off'}
+            {soundEnabled ? 'Sound on' : 'Sound off'}
           </motion.button>
         </div>
 
         {/* Mobile Touch Controls */}
         {isMobile && (
           <div className="mb-4">
-            <p className="text-center text-slate-300 mb-3">Touch Controls</p>
-            <div className="grid grid-cols-3 gap-2 max-w-48 mx-auto">
+            <p className="text-slate-600 dark:text-gray-400 mb-3">Touch controls</p>
+            <div className="grid grid-cols-3 gap-2 max-w-48">
               <div></div>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => changeDirection('UP')}
-                className="p-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg flex items-center justify-center"
+                className="p-3 border border-slate-300 text-slate-700 hover:border-slate-500 rounded-md flex items-center justify-center dark:border-neutral-700 dark:text-gray-200"
               >
                 <ArrowUp size={20} />
               </motion.button>
               <div></div>
               
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => changeDirection('LEFT')}
-                className="p-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg flex items-center justify-center"
+                className="p-3 border border-slate-300 text-slate-700 hover:border-slate-500 rounded-md flex items-center justify-center dark:border-neutral-700 dark:text-gray-200"
               >
                 <ArrowLeft size={20} />
               </motion.button>
               <div></div>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => changeDirection('RIGHT')}
-                className="p-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg flex items-center justify-center"
+                className="p-3 border border-slate-300 text-slate-700 hover:border-slate-500 rounded-md flex items-center justify-center dark:border-neutral-700 dark:text-gray-200"
               >
                 <ArrowRight size={20} />
               </motion.button>
               
               <div></div>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => changeDirection('DOWN')}
-                className="p-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg flex items-center justify-center"
+                className="p-3 border border-slate-300 text-slate-700 hover:border-slate-500 rounded-md flex items-center justify-center dark:border-neutral-700 dark:text-gray-200"
               >
                 <ArrowDown size={20} />
               </motion.button>
@@ -639,14 +619,15 @@ const SnakeGame: React.FC = () => {
         )}
 
         {/* Instructions */}
-        <div className="text-center text-sm text-slate-400">
+        <div className="text-sm text-slate-500 dark:text-gray-400">
           <p className="mb-1">
             {isMobile ? 'Swipe or use touch controls to move' : 'Use arrow keys or WASD to move'}
           </p>
           <p className="mb-1">Collect food to grow and increase your score</p>
-          <p>Press Space to pause • Avoid walls and yourself</p>
+          <p>Press Space to pause. Avoid the walls and your own tail.</p>
         </div>
-      </motion.div>
+      </div>
+      </div>
     </div>
   )
 }
