@@ -161,10 +161,10 @@ const GomokuAIGame = () => {
         next[row][col] = 'b'
         if (checkWinner(next, row, col, 'b')) {
           setWinner('b')
-          setMessage('You win! Five in a row — nice capture.')
+          setMessage('You win with five in a row.')
         } else {
           setCurrentPlayer('w')
-          setMessage('My turn… thinking with heuristics honed from class exercises.')
+          setMessage('The agent is choosing a move.')
         }
         setLastMove({ row, col })
         return next
@@ -181,7 +181,7 @@ const GomokuAIGame = () => {
         const bestMove = findBestMove(prev, 'w')
         if (!bestMove) {
           setWinner('b')
-          setMessage('Looks like I have no moves left — you win!')
+          setMessage('The agent has no moves left. You win.')
           return prev
         }
         const { row, col } = bestMove
@@ -189,10 +189,10 @@ const GomokuAIGame = () => {
         next[row][col] = 'w'
         if (checkWinner(next, row, col, 'w')) {
           setWinner('w')
-          setMessage('AI wins with a heuristic double-threat!')
+          setMessage('The agent connected five.')
         } else {
           setCurrentPlayer('b')
-          setMessage('Your move. Block the patterns before they grow.')
+          setMessage('The agent placed a white stone.')
         }
         setLastMove({ row, col })
         return next
@@ -228,10 +228,10 @@ const GomokuAIGame = () => {
     <div className="card space-y-6 dark:shadow-none">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Gomoku Heuristic Agent</h3>
-          <p className="text-sm text-secondary-600 dark:text-gray-300">
-            Black stones are yours, white stones are mine. This lightweight heuristic mirrors the evaluation patterns I
-            used in my reinforcement + MCTS assignment—prioritising open-ended lines and double threats.
+          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Gomoku</h3>
+          <p className="text-sm text-slate-600 dark:text-gray-300">
+            You play black and the agent plays white. It doesn't search ahead: for each empty cell near the stones, it
+            scores how long a line the move would extend for itself and how long a line of yours it would block.
           </p>
         </div>
         <div className="flex gap-2">
@@ -243,7 +243,7 @@ const GomokuAIGame = () => {
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div className="flex flex-col items-center gap-4">
-          <div className="rounded-3xl border border-secondary-200 bg-gradient-to-br from-slate-100 to-slate-300 p-4 shadow-lg dark:border-neutral-800 dark:from-neutral-900 dark:to-neutral-800 dark:shadow-none">
+          <div className="rounded-lg border border-slate-200 bg-slate-100 p-4 dark:border-neutral-800 dark:bg-neutral-900">
             <div className="grid grid-cols-11 gap-1">
               {board.map((row, r) =>
                 row.map((cell, c) => {
@@ -255,7 +255,7 @@ const GomokuAIGame = () => {
                       <motion.span
                         layout
                         className={`block h-5 w-5 rounded-full ${
-                          cell === 'b' ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-white'
+                          cell === 'b' ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-white border border-slate-400 dark:bg-neutral-500 dark:border-neutral-400'
                         }`}
                       />
                     )
@@ -264,7 +264,7 @@ const GomokuAIGame = () => {
                       key={key}
                       type="button"
                       onClick={() => handlePlayerMove(r, c)}
-                      className={`relative flex h-8 w-8 items-center justify-center rounded-md border border-white/60 bg-gradient-to-br from-amber-100 to-amber-200 transition-all duration-150 dark:border-neutral-700 dark:from-neutral-800 dark:to-neutral-700 ${
+                      className={`relative flex h-8 w-8 items-center justify-center rounded-md border border-amber-200 bg-amber-100 transition-colors duration-150 dark:border-neutral-700 dark:bg-neutral-800 ${
                         cell === '.' && currentPlayer === 'b' && !winner
                           ? 'hover:border-primary-300 hover:shadow'
                           : ''
@@ -281,55 +281,55 @@ const GomokuAIGame = () => {
               )}
             </div>
           </div>
-          <p className="text-xs text-secondary-500 dark:text-gray-400">
-            Tip: build open-ended threes. The AI looks for the same patterns you learned about in lecture—so deny them!
+          <p className="text-xs text-slate-500 dark:text-gray-400">
+            Tip: the agent doesn't search ahead, so a move that creates two threats at once is hard for it to stop.
           </p>
         </div>
 
         <div className="flex-1 space-y-4">
-          <div className="rounded-2xl border border-secondary-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-secondary-600 dark:text-gray-300">
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+            <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-300">
               Turn & status
             </h4>
-            <p className="mt-2 text-2xl font-semibold text-secondary-900 dark:text-white">
+            <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">
               {winner
                 ? winner === 'b'
-                  ? 'You outplayed the agent!'
-                  : 'AI wins — double threat detected.'
+                  ? 'You win'
+                  : 'The agent wins'
                 : currentPlayer === 'b'
                   ? 'Your move'
-                  : 'AI calculating…'}
+                  : 'Agent’s turn'}
             </p>
-            <p className="mt-1 text-sm text-secondary-600 dark:text-gray-300">{message}</p>
+            <p className="mt-1 text-sm text-slate-600 dark:text-gray-300">{message}</p>
           </div>
 
-          <div className="rounded-2xl border border-secondary-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-secondary-600 dark:text-gray-300">
-              Evaluation heuristics
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+            <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-300">
+              How the agent scores a move
             </h4>
-            <ul className="mt-3 space-y-2 text-sm text-secondary-600 dark:text-gray-300">
+            <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-gray-300">
               <li>
-                <span className="font-medium text-secondary-900 dark:text-white">Open-ended sequences:</span> longer lines
-                with two free ends are heavily weighted.
+                <span className="font-medium text-slate-900 dark:text-white">Its own lines:</span> in each of the four
+                directions, longer runs score much more (2, 50, 400, 4,000 points, and a large bonus for five).
               </li>
               <li>
-                <span className="font-medium text-secondary-900 dark:text-white">Blocking threats:</span> moves that deny
-                your lines are valued nearly as high as building its own.
+                <span className="font-medium text-slate-900 dark:text-white">Your lines:</span> blocking one of your runs
+                scores about half as much as extending its own run of the same length.
               </li>
               <li>
-                <span className="font-medium text-secondary-900 dark:text-white">Double-attack potential:</span> patterns
-                that spawn multiple wins next turn get priority.
+                <span className="font-medium text-slate-900 dark:text-white">Search:</span> it only considers empty cells in the
+                area the stones cover, plus two cells on each side, and picks the highest-scoring one. It does not consider your reply.
               </li>
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-secondary-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-secondary-600 dark:text-gray-300">
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+            <h4 className="text-sm font-semibold text-slate-600 dark:text-gray-300">
               How to play
             </h4>
-            <ul className="mt-3 space-y-1 text-sm text-secondary-600 dark:text-gray-300">
-              <li>• Click any highlighted cell to place a black stone.</li>
-              <li>• I respond with a heuristic best move (white).</li>
+            <ul className="mt-3 space-y-1 text-sm text-slate-600 dark:text-gray-300">
+              <li>• Click an empty cell to place a black stone.</li>
+              <li>• The agent answers with white.</li>
               <li>• First to connect five wins. You go first each round.</li>
               <li>• Use “Reset board” to start a fresh match.</li>
             </ul>
