@@ -62,8 +62,8 @@ export default {
         },
       },
       fontFamily: {
-        'display': ['Playfair Display', 'Georgia', 'serif'],
-        'heading': ['Space Grotesk', 'system-ui', 'sans-serif'],
+        'display': ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+        'heading': ['IBM Plex Sans', 'system-ui', 'sans-serif'],
         'body': ['IBM Plex Sans', 'system-ui', 'sans-serif'],
         'mono': ['JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', 'Consolas', 'monospace'],
         'code': ['Fira Code', 'JetBrains Mono', 'SF Mono', 'monospace'],
