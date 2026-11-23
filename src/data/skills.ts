@@ -1,34 +1,29 @@
 import type { SkillCategory } from "./types"
 
+// Keep in sync with the resume's Technical Skills section.
 export const skillsData: SkillCategory[] = [
   {
-    category: "Programming Languages",
-    skills: ["Python", "Java", "C++", "JavaScript", "TypeScript", "SQL", "PHP", "Bash", "HTML/CSS"],
-    proficiency: "Expert",
-    description: "Versatile programming expertise enabling rapid prototyping and production-ready development across multiple paradigms"
-  },
-  {
-    category: "Machine Learning & AI",
-    skills: ["TensorFlow", "PyTorch", "Scikit-learn", "XGBoost", "OpenCV", "LangChain", "Transformers", "SVD"],
-    proficiency: "Expert",
-    description: "Advanced ML/AI toolkit for building intelligent systems that learn, adapt, and deliver measurable business value"
-  },
-  {
-    category: "Frameworks & Tools",
-    skills: ["React", "Node.js", "Spring Boot", "Flask", "Docker", "Jenkins", "Git", "RESTful APIs"],
-    proficiency: "Expert", 
-    description: "Modern development frameworks enabling scalable, maintainable applications with efficient CI/CD workflows"
-  },
-  {
-    category: "Cloud & Databases",
-    skills: ["AWS (S3, Lambda, API Gateway, EC2)", "GCP", "OpenSearch", "PostgreSQL", "MongoDB", "Redis"],
+    category: "Languages",
+    skills: ["Python", "Java", "C++", "TypeScript", "JavaScript", "SQL (PostgreSQL)", "PHP", "Bash", "F#"],
     proficiency: "Advanced",
-    description: "Cloud-native architecture expertise for building resilient, auto-scaling systems with optimized data management"
+    description: "Python and TypeScript day to day; Java, C++, and SQL for coursework and internships"
   },
   {
-    category: "Core Competencies",
-    skills: ["Deep Learning", "MLOps", "Microservices Architecture", "System Design", "A/B Testing"],
+    category: "ML / AI",
+    skills: ["PyTorch", "scikit-learn", "RAG pipelines", "Vector search", "Transformers", "Diffusion models", "pandas", "NumPy", "SciPy"],
     proficiency: "Advanced",
-    description: "Strategic technical capabilities for designing enterprise-grade systems that scale and deliver consistent performance"
+    description: "Retrieval systems for LLM applications and generative models for research"
+  },
+  {
+    category: "Backend & Data",
+    skills: ["FastAPI", "Node.js / Express.js", "Flask", "Spring Boot", "React", "REST APIs", "WebSockets", "Kafka", "MongoDB", "OpenSearch", "Redis"],
+    proficiency: "Advanced",
+    description: "APIs, real-time services, and streaming pipelines"
+  },
+  {
+    category: "Cloud & Infra",
+    skills: ["AWS (Lambda, API Gateway, S3)", "GCP (Dataproc, GCS, GKE)", "Docker", "Kubernetes", "Terraform", "Jenkins", "CI/CD"],
+    proficiency: "Intermediate",
+    description: "Serverless services on AWS and infrastructure-as-code on GCP"
   }
 ];
