@@ -63,12 +63,9 @@ const Contact: React.FC = () => {
   }
 
   const inquiryTypes = [
+    { value: 'employment', label: 'Job Opportunity' },
     { value: 'general', label: 'General Inquiry' },
-    { value: 'consulting', label: 'Consulting Services' },
-    { value: 'employment', label: 'Employment Opportunity' },
-    { value: 'speaking', label: 'Speaking Engagement' },
-    { value: 'collaboration', label: 'Collaboration' },
-    { value: 'mentorship', label: 'Mentorship' }
+    { value: 'collaboration', label: 'Collaboration' }
   ]
 
   const budgetRanges = [
@@ -350,8 +347,8 @@ const Contact: React.FC = () => {
             Let's <span className="text-gradient">Connect</span>
           </h1>
           <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-            I'm always interested in new opportunities, challenging projects, and meaningful collaborations. 
-            Whether you have a question, proposal, or just want to say hello, I'd love to hear from you.
+            I'm looking for full-time software engineering roles starting in 2027 — backend, infrastructure,
+            or AI application engineering. If you're hiring or just want to talk shop, I'd love to hear from you.
           </p>
         </motion.div>
 
@@ -632,7 +629,7 @@ const Contact: React.FC = () => {
                       className="mt-1 h-4 w-4 rounded border-secondary-300 text-primary-600 focus:ring-primary-500"
                     />
                     <span>
-                      Keep me in the loop about new case studies and tools.
+                      Keep me in the loop about new projects.
                       <span className="block text-xs text-secondary-500">
                         No spam—just the occasional high-signal update.
                       </span>
@@ -743,7 +740,7 @@ const Contact: React.FC = () => {
                   <div className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                   <div>
                     <span className="font-medium text-secondary-900">Status: </span>
-                    <span className="text-green-600">Available for new opportunities</span>
+                    <span className="text-green-600">Graduating Dec 2026 · open to full-time roles</span>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -752,7 +749,7 @@ const Contact: React.FC = () => {
                   </svg>
                   <div>
                     <span className="font-medium text-secondary-900">Response time: </span>
-                    <span className="text-secondary-600">Usually within 24 hours</span>
+                    <span className="text-secondary-600">Usually within a day or two</span>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -761,7 +758,7 @@ const Contact: React.FC = () => {
                   </svg>
                   <div>
                     <span className="font-medium text-secondary-900">Best for: </span>
-                    <span className="text-secondary-600">AI/ML projects, consulting, technical leadership</span>
+                    <span className="text-secondary-600">New-grad SWE roles: backend, infrastructure, AI applications</span>
                   </div>
                 </div>
               </div>
@@ -786,29 +783,17 @@ const Contact: React.FC = () => {
             <div className="card">
               <h3 className="text-lg font-semibold text-secondary-900 mb-4">Quick Links</h3>
               <div className="grid grid-cols-2 gap-3">
-                <Link to="/services" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a2 2 0 002 2h4a2 2 0 002-2V6zM8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m0 0v2a2 2 0 00-2 2H10a2 2 0 00-2-2V6z" />
-                  </svg>
-                  Services
+                <Link to="/projects" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                  Experience & Projects
                 </Link>
-                <Link to="/case-studies" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Case Studies
+                <Link to="/about" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                  About
                 </Link>
-                <Link to="/ai-demos" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                  AI Demos
+                <Link to="/games" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                  AI Games
                 </Link>
-                <Link to="/leadership" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                  </svg>
-                  Leadership
+                <Link to="/gallery" className="flex items-center text-sm text-secondary-600 hover:text-primary-600 transition-colors">
+                  Gallery
                 </Link>
               </div>
             </div>
