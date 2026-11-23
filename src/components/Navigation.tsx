@@ -26,8 +26,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: 'Work',
     symbol: '◆',
     items: [
-      { name: 'Projects', href: '/projects', description: 'Selected product and engineering wins' },
-      { name: 'Architecture Hub', href: '/architecture', description: 'System diagrams, flows, and decision records' }
+      { name: 'Experience & Projects', href: '/projects', description: 'Work, research, and projects' }
     ]
   },
   {
@@ -46,7 +45,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { name: 'About Me', href: '/about', description: 'Origin story, philosophy, and values' },
       { name: 'Gallery', href: '/gallery', description: 'Photography and personal projects' },
-      { name: 'Contact', href: '/contact', description: 'Consulting, speaking, and collaboration' }
+      { name: 'Contact', href: '/contact', description: 'Job opportunities and collaboration' }
     ]
   }
 ]
