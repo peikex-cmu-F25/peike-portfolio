@@ -1,254 +1,88 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { personalInfo } from '../data/portfolio'
-import { education, workExperience } from '../data/experience'
+import { education } from '../data/experience'
 import { skillsData } from '../data/skills'
 import { trackResumeDownload } from '../utils/analytics'
 
+const linkClass =
+  'text-primary-700 underline decoration-primary-300 underline-offset-4 hover:decoration-primary-700 dark:text-primary-300 dark:decoration-primary-700 dark:hover:decoration-primary-300'
+
 const About: React.FC = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  }
-
   return (
-    <div className="min-h-screen section-padding py-20">
-      <div className="container-width">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-secondary-900 mb-6">
-            About <span className="text-gradient">Me</span>
-          </h1>
-          <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-            {personalInfo.tagline}
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <h2 className="text-3xl font-bold text-secondary-900 mb-6">
-              My Journey
-            </h2>
-            <div className="space-y-4 text-lg text-secondary-700">
-              <p>
-                {personalInfo.bio}
-              </p>
-              <p>
-                Located in {personalInfo.location}, I'm always excited to work on challenging projects 
-                that push the boundaries of what's possible with AI and modern web technologies.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-4 mt-8">
-              <a 
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-secondary-900 text-white rounded-lg hover:bg-secondary-800 transition-colors duration-200"
-              >
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-              <a 
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200"
-              >
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-                LinkedIn
-              </a>
-              <a 
+    <div className="section-padding py-16 md:py-24">
+      <div className="max-w-4xl mx-auto">
+        <div className="grid gap-10 md:grid-cols-[1fr_15rem] md:gap-14">
+          <div className="max-w-[62ch]">
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">About</h1>
+            <p className="mt-6 text-lg leading-relaxed text-slate-700 dark:text-gray-300">{personalInfo.bio}</p>
+            <p className="mt-5 text-lg leading-relaxed text-slate-700 dark:text-gray-300">
+              Outside of work I take photos and build small browser games, a couple of them from my AI coursework. A
+              few of each are on this site: see the <Link to="/gallery" className={linkClass}>photos</Link> and the{' '}
+              <Link to="/games" className={linkClass}>games</Link>.
+            </p>
+            <p className="mt-5 text-lg leading-relaxed text-slate-700 dark:text-gray-300">
+              <a
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={trackResumeDownload}
-                className="inline-flex items-center px-4 py-2 bg-secondary-100 text-secondary-700 rounded-lg hover:bg-secondary-200 transition-colors duration-200"
+                onClick={() => trackResumeDownload()}
+                className={linkClass}
               >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Resume
+                Resume (PDF)
               </a>
-            </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative"
-          >
-            {/* Professional Portrait with Fancy Styling */}
-            <div className="relative w-full max-w-md mx-auto">
-              <div className="relative">
-                {/* Elegant background layers */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-100 via-gray-50 to-primary-200 transform rotate-2 animate-pulse-subtle"></div>
-                <div className="absolute inset-1 rounded-2xl bg-gradient-to-tr from-white/95 to-primary-50/80 backdrop-blur-sm transform -rotate-1"></div>
-                
-                {/* Subtle glowing border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary-400 via-blue-500 to-primary-600 rounded-3xl blur-sm opacity-20 animate-pulse"></div>
-                
-                {/* Main portrait container */}
-                <div className="relative z-10 p-6">
-                  <div className="relative group">
-                        <img
-                          src="/images/profile/peike-portrait.png"
-                      alt="Peike Xu - Professional Portrait"
-                      className="w-full aspect-[3/4] object-cover rounded-2xl shadow-2xl border-4 border-white/90 backdrop-blur-sm group-hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02]"
-                      loading="lazy"
-                    />
-                    
-                    {/* Professional overlay on hover */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-primary-900/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    
-                    {/* Professional badge */}
-                    <div className="absolute -bottom-3 -right-3 bg-gradient-to-r from-primary-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-xl backdrop-blur-sm border-2 border-white/30 group-hover:scale-105 transition-transform duration-300">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        <span>Software Engineer</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Elegant decorative elements */}
-              <div className="absolute -top-4 -left-4 w-6 h-6 bg-gradient-to-br from-primary-400 to-blue-500 rounded-full opacity-60 animate-float shadow-lg"></div>
-              <div className="absolute -bottom-6 -right-6 w-4 h-4 bg-gradient-to-br from-blue-500 to-primary-600 rounded-full opacity-50 animate-float animation-delay-2000"></div>
-              <div className="absolute top-1/4 -left-3 w-3 h-3 bg-gradient-to-br from-primary-300 to-blue-400 rounded-full opacity-40 animate-pulse-subtle animation-delay-4000"></div>
-            </div>
-          </motion.div>
+              <span className="text-slate-400"> / </span>
+              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                LinkedIn
+              </a>
+              <span className="text-slate-400"> / </span>
+              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                GitHub
+              </a>
+            </p>
+          </div>
+          <img
+            src="/images/profile/peike-professional-photo.png"
+            alt="Peike Xu in front of a Carnegie Mellon Tartans banner"
+            className="w-64 md:w-full h-auto rounded-lg border border-slate-200 dark:border-neutral-700"
+            loading="lazy"
+          />
         </div>
 
-        {/* Technical Skills */}
-        <motion.section
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <motion.h2 
-            variants={itemVariants}
-            className="text-3xl font-bold text-secondary-900 mb-8 text-center"
-          >
-            Technical <span className="text-gradient">Skills</span>
-          </motion.h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {skillsData.map((skillCategory, index) => (
-              <motion.div 
-                key={skillCategory.category}
-                variants={itemVariants}
-                className="card group"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold text-secondary-900 group-hover:text-primary-600 transition-colors duration-200">
-                    {skillCategory.category}
-                  </h3>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    skillCategory.proficiency === 'Expert' ? 'bg-green-100 text-green-800' :
-                    skillCategory.proficiency === 'Advanced' ? 'bg-blue-100 text-blue-800' :
-                    skillCategory.proficiency === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {skillCategory.proficiency}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {skillCategory.skills.map((skill, skillIndex) => (
-                    <span 
-                      key={skillIndex}
-                      className="px-3 py-1 bg-secondary-100 text-secondary-700 rounded-full text-sm hover:bg-primary-100 hover:text-primary-700 transition-colors duration-200 cursor-default"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Education & Experience */}
-        <motion.section
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <motion.h2 
-            variants={itemVariants}
-            className="text-3xl font-bold text-secondary-900 mb-8 text-center"
-          >
-            <span className="text-gradient">Education</span>
-          </motion.h2>
-          
-          <div className="space-y-12">
-            {/* Education */}
-            <motion.div variants={itemVariants}>
-              <div className="space-y-6">
-                {education.map((edu, index) => (
-                  <div key={edu.id} className="card">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                      <div>
-                        <h4 className="text-xl font-semibold text-secondary-900">{edu.degree}</h4>
-                        <p className="text-primary-600 font-medium">{edu.institution}</p>
-                        <p className="text-secondary-500 text-sm">{edu.location}</p>
-                      </div>
-                      <div className="text-right mt-2 md:mt-0">
-                        <span className="inline-block px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm font-medium">
-                          {edu.duration}
-                        </span>
-                        {edu.gpa && (
-                          <p className="text-sm text-secondary-600 mt-1">GPA: {edu.gpa}</p>
-                        )}
-                      </div>
-                    </div>
-                    <ul className="space-y-2">
-                      {edu.highlights.map((highlight, hIndex) => (
-                        <li key={hIndex} className="flex items-start">
-                          <span className="text-primary-600 mr-2 mt-1">•</span>
-                          <span className="text-secondary-700">{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+        <section className="mt-20" aria-labelledby="skills">
+          <h2 id="skills" className="text-lg font-semibold text-slate-900 dark:text-white">Skills</h2>
+          <dl className="mt-2 divide-y divide-slate-200 border-y border-slate-200 dark:divide-neutral-800 dark:border-neutral-800">
+            {skillsData.map(group => (
+              <div key={group.category} className="grid gap-1 py-4 md:grid-cols-[9.5rem_1fr] md:gap-8">
+                <dt className="font-medium text-slate-900 dark:text-white">{group.category}</dt>
+                <dd className="leading-relaxed text-slate-700 dark:text-gray-300">{group.skills.join(', ')}</dd>
               </div>
-            </motion.div>
-          </div>
-        </motion.section>
+            ))}
+          </dl>
+        </section>
+
+        <section className="mt-16" aria-labelledby="education">
+          <h2 id="education" className="text-lg font-semibold text-slate-900 dark:text-white">Education</h2>
+          <ul className="mt-2 divide-y divide-slate-200 border-y border-slate-200 dark:divide-neutral-800 dark:border-neutral-800">
+            {education.map(edu => (
+              <li key={edu.id} className="grid gap-1 py-6 md:grid-cols-[9.5rem_1fr] md:gap-8">
+                <p className="text-sm text-slate-500 dark:text-gray-400 md:pt-0.5 tabular-nums">{edu.duration}</p>
+                <div>
+                  <h3 className="font-semibold text-slate-900 dark:text-white">
+                    {edu.degree}
+                    <span className="font-normal text-slate-600 dark:text-gray-400">, {edu.institution}</span>
+                  </h3>
+                  {edu.gpa && <p className="text-sm text-slate-500 dark:text-gray-400">GPA {edu.gpa}</p>}
+                  <ul className="mt-2 space-y-1 leading-relaxed text-slate-700 dark:text-gray-300">
+                    {edu.highlights.map(h => (
+                      <li key={h}>{h}</li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     </div>
   )
